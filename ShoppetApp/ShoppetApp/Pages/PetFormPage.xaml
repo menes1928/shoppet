@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:ShoppetApp.ViewModels"
+             x:Class="ShoppetApp.Pages.PetFormPage"
+             x:DataType="vm:PetFormViewModel"
+             Shell.NavBarIsVisible="False"
+             BackgroundColor="{StaticResource AppBackground}">
+    <ScrollView>
+        <VerticalStackLayout Spacing="16" Padding="16,24,16,32">
+            <Grid ColumnDefinitions="Auto,*,Auto">
+                <Button Grid.Column="0"
+                        Text="✕"
+                        FontSize="18"
+                        BackgroundColor="Transparent"
+                        TextColor="{StaticResource SecondaryFg}"
+                        WidthRequest="40"
+                        Command="{Binding CloseCommand}" />
+                <Label Grid.Column="1"
+                       Text="{Binding Title}"
+                       FontFamily="NunitoBold"
+                       FontSize="16"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center"
+                       TextColor="{StaticResource SecondaryFg}" />
+                <Button Grid.Column="2"
+                        Text="Save"
+                        FontFamily="NunitoBold"
+                        BackgroundColor="Transparent"
+                        TextColor="{StaticResource Primary}"
+                        Command="{Binding SaveCommand}" />
+            </Grid>
+
+            <Border WidthRequest="100"
+                    HeightRequest="100"
+                    HorizontalOptions="Center"
+                    StrokeThickness="0"
+                    BackgroundColor="{StaticResource Secondary10}">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="50" />
+                </Border.StrokeShape>
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding PickPhotoCommand}" />
+                </Border.GestureRecognizers>
+                <Grid>
+                    <Image Source="{Binding PhotoUrl, Converter={StaticResource UrlToImageSourceConverter}}"
+                           Aspect="AspectFill" />
+                    <Label Text="📷"
+                           FontSize="28"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center"
+                           TextColor="{StaticResource Secondary}" />
+                    <Border WidthRequest="28"
+                            HeightRequest="28"
+                            BackgroundColor="{StaticResource Primary}"
+                            HorizontalOptions="End"
+                            VerticalOptions="End"
+                            Margin="0,0,4,4"
+                            StrokeThickness="0">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="14" />
+                        </Border.StrokeShape>
+                        <Label Text="📷"
+                               FontSize="12"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center"
+                               TextColor="White" />
+                    </Border>
+                </Grid>
+            </Border>
+
+            <VerticalStackLayout Spacing="12">
+                <Label Text="Photo URL" FontFamily="NunitoSemiBold" FontSize="13" />
+                <Border Stroke="{StaticResource Secondary30}" StrokeThickness="1" Padding="12,0">
+                    <Border.StrokeShape><RoundRectangle CornerRadius="20" /></Border.StrokeShape>
+                    <Entry Text="{Binding PhotoUrl}" Placeholder="https://..." HeightRequest="52" />
+                </Border>
+
+                <Label Text="Pet Name *" FontFamily="NunitoSemiBold" FontSize="13" />
+                <Border Stroke="{StaticResource Secondary30}" StrokeThickness="1" Padding="12,0">
+                    <Border.StrokeShape><RoundRectangle CornerRadius="20" /></Border.StrokeShape>
+                    <Entry Text="{Binding Name}" Placeholder="Buddy" HeightRequest="52" />
+                </Border>
+
+                <Label Text="Species" FontFamily="NunitoSemiBold" FontSize="13" />
+                <Border Stroke="{StaticResource Secondary30}" StrokeThickness="1" Padding="12,4">
+                    <Border.StrokeShape><RoundRectangle CornerRadius="20" /></Border.StrokeShape>
+                    <Picker ItemsSource="{Binding SpeciesOptions}"
+                            SelectedItem="{Binding Species}"
+                            TextColor="{StaticResource SecondaryFg}"
+                            TitleColor="{StaticResource SecondaryFg}"
+                            HeightRequest="44" />
+                </Border>
+
+                <Label Text="Age (years)" FontFamily="NunitoSemiBold" FontSize="13" />
+                <Border Stroke="{StaticResource Secondary30}" StrokeThickness="1" Padding="12,0">
+                    <Border.StrokeShape><RoundRectangle CornerRadius="20" /></Border.StrokeShape>
+                    <Entry Text="{Binding AgeYearsText}" Keyboard="Numeric" MaxLength="2" Placeholder="3" HeightRequest="52" />
+                </Border>
+
+                <Label Text="Breed" FontFamily="NunitoSemiBold" FontSize="13" />
+                <Border Stroke="{StaticResource Secondary30}" StrokeThickness="1" Padding="12,0">
+                    <Border.StrokeShape><RoundRectangle CornerRadius="20" /></Border.StrokeShape>
+                    <Entry Text="{Binding Breed}" Placeholder="Golden Retriever" HeightRequest="52" />
+                </Border>
+
+                <Label Text="Weight (kg)" FontFamily="NunitoSemiBold" FontSize="13" />
+                <Border Stroke="{StaticResource Secondary30}" StrokeThickness="1" Padding="12,0">
+                    <Border.StrokeShape><RoundRectangle CornerRadius="20" /></Border.StrokeShape>
+                    <Entry Text="{Binding Weight}" Keyboard="Numeric" MaxLength="2" Placeholder="25" HeightRequest="52" />
+                </Border>
+            </VerticalStackLayout>
+
+            <Button Text="Save Pet Profile"
+                    Command="{Binding SaveCommand}"
+                    HeightRequest="52"
+                    CornerRadius="24"
+                    BackgroundColor="{StaticResource Primary}"
+                    TextColor="{StaticResource PrimaryFg}"
+                    FontFamily="NunitoBold" />
+
+            <Button Text="Delete Pet"
+                    IsVisible="{Binding CanDelete}"
+                    Command="{Binding DeleteCommand}"
+                    BackgroundColor="Transparent"
+                    TextColor="{StaticResource StatusOverdue}"
+                    FontFamily="Nunito"
+                    FontSize="14" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

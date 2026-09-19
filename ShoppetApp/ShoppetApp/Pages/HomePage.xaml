@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:ShoppetApp.Controls"
+             xmlns:models="clr-namespace:ShoppetApp.Models"
+             xmlns:vm="clr-namespace:ShoppetApp.ViewModels"
+             x:Class="ShoppetApp.Pages.HomePage"
+             x:DataType="vm:HomeViewModel"
+             Shell.NavBarIsVisible="False"
+             BackgroundColor="{StaticResource AppBackground}">
+    <Grid>
+        <Grid RowDefinitions="Auto,*">
+            <controls:HeaderView Grid.Row="0" />
+
+            <ScrollView Grid.Row="1">
+                <VerticalStackLayout Spacing="24" Padding="20,8,20,108">
+
+                    <VerticalStackLayout Spacing="4">
+                        <Label Text="{Binding Greeting}"
+                               FontFamily="NunitoSemiBold"
+                               FontSize="13"
+                               TextColor="{StaticResource NavMuted}" />
+                        <Label Text="How are the pets today?"
+                               FontFamily="NunitoExtraBold"
+                               FontSize="26"
+                               TextColor="{StaticResource SecondaryFg}" />
+                    </VerticalStackLayout>
+
+                    <Grid x:Name="CardsContainer"
+                          HeightRequest="196"
+                          BindableLayout.ItemsSource="{Binding Stories}">
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate x:DataType="models:StoryCard">
+                                <Border HeightRequest="196"
+                                        StrokeThickness="0"
+                                        ZIndex="{Binding ZIndex}"
+                                        Rotation="{Binding Rotation}"
+                                        TranslationX="{Binding TranslationX}"
+                                        TranslationY="{Binding TranslationY}"
+                                        Scale="{Binding Scale}"
+                                        Opacity="{Binding Opacity}">
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="28" />
+                                    </Border.StrokeShape>
+                                    <Border.Shadow>
+                                        <Shadow Brush="{StaticResource SecondaryFg}" Offset="0,10" Radius="24" Opacity="0.14" />
+                                    </Border.Shadow>
+                                    <Border.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="OnCardTapped" CommandParameter="{Binding .}" />
+                                    </Border.GestureRecognizers>
+                                    <Grid>
+                                        <Image Source="{Binding Image, Converter={StaticResource UrlToImageSourceConverter}}"
+                                               Aspect="AspectFill" />
+                                        <BoxView>
+                                            <BoxView.Background>
+                                                <LinearGradientBrush StartPoint="0,0.25" EndPoint="0,1">
+                                                    <GradientStop Color="Transparent" Offset="0" />
+                                                    <GradientStop Color="#CC1C322E" Offset="1" />
+                                                </LinearGradientBrush>
+                                            </BoxView.Background>
+                                        </BoxView>
+                                        <VerticalStackLayout VerticalOptions="End" Padding="18" Spacing="6">
+                                            <Label Text="{Binding Title}"
+                                                   FontFamily="NunitoExtraBold"
+                                                   FontSize="20"
+                                                   TextColor="White" />
+                                            <Label Text="{Binding Text}"
+                                                   FontFamily="Nunito"
+                                                   FontSize="13"
+                                                   TextColor="#E6FFFFFF" />
+                                        </VerticalStackLayout>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+                    </Grid>
+
+                    <VerticalStackLayout Spacing="12"
+                                         IsVisible="{Binding ActionRequiredLogs.Count, Converter={StaticResource CountToBoolConverter}}">
+                        <Label Text="Needs attention"
+                               FontFamily="NunitoExtraBold"
+                               FontSize="16"
+                               TextColor="{StaticResource SecondaryFg}" />
+                        <CollectionView ItemsSource="{Binding ActionRequiredLogs}" SelectionMode="None" MaximumHeightRequest="240">
+                            <CollectionView.ItemsLayout>
+                                <LinearItemsLayout Orientation="Vertical" ItemSpacing="8" />
+                            </CollectionView.ItemsLayout>
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate x:DataType="models:HealthLog">
+                                    <Border Padding="12"
+                                            BackgroundColor="{StaticResource CardBg}"
+                                            Stroke="{StaticResource Secondary10}"
+                                            StrokeThickness="1">
+                                        <Border.StrokeShape>
+                                            <RoundRectangle CornerRadius="20" />
+                                        </Border.StrokeShape>
+                                        <Border.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:HomeViewModel}}, Path=OpenPassportCommand}"
+                                                                  CommandParameter="{Binding .}" />
+                                        </Border.GestureRecognizers>
+                                        <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="12">
+                                            <Border Grid.Column="0"
+                                                    WidthRequest="48"
+                                                    HeightRequest="48"
+                                                    StrokeThickness="0">
+                                                <Border.StrokeShape>
+                                                    <RoundRectangle CornerRadius="16" />
+                                                </Border.StrokeShape>
+                                                <Image Source="{Binding PetPhotoUrl, Converter={StaticResource UrlToImageSourceConverter}}"
+                                                       Aspect="AspectFill" />
+                                            </Border>
+                                            <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="4">
+                                                <Label Text="{Binding Name}"
+                                                       FontFamily="NunitoBold"
+                                                       FontSize="14"
+                                                       TextColor="{StaticResource SecondaryFg}" />
+                                                <HorizontalStackLayout Spacing="6">
+                                                    <Border Padding="8,2"
+                                                            StrokeThickness="0"
+                                                            BackgroundColor="{Binding Status, Converter={StaticResource StatusBgConverter}}">
+                                                        <Border.StrokeShape>
+                                                            <RoundRectangle CornerRadius="8" />
+                                                        </Border.StrokeShape>
+                                                        <Label Text="{Binding Status, Converter={StaticResource StatusLabelConverter}}"
+                                                               FontFamily="NunitoBold"
+                                                               FontSize="11"
+                                                               TextColor="{Binding Status, Converter={StaticResource StatusColorConverter}}" />
+                                                    </Border>
+                                                    <Label Text="{Binding PetName}"
+                                                           FontFamily="Nunito"
+                                                           FontSize="12"
+                                                           TextColor="{StaticResource NavMuted}"
+                                                           VerticalOptions="Center" />
+                                                </HorizontalStackLayout>
+                                            </VerticalStackLayout>
+                                            <Button Grid.Column="2"
+                                                    Text="Done"
+                                                    FontSize="12"
+                                                    HeightRequest="36"
+                                                    Padding="14,0"
+                                                    CornerRadius="18"
+                                                    VerticalOptions="Center"
+                                                    BackgroundColor="{StaticResource Primary}"
+                                                    TextColor="White"
+                                                    Command="{Binding Source={RelativeSource AncestorType={x:Type vm:HomeViewModel}}, Path=MarkDoneCommand}"
+                                                    CommandParameter="{Binding .}" />
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </VerticalStackLayout>
+
+                    <VerticalStackLayout Spacing="12">
+                        <Grid ColumnDefinitions="*,Auto">
+                            <Label Text="Your pets"
+                                   FontFamily="NunitoExtraBold"
+                                   FontSize="16"
+                                   TextColor="{StaticResource SecondaryFg}"
+                                   VerticalOptions="Center" />
+                            <HorizontalStackLayout Grid.Column="1" Spacing="12" VerticalOptions="Center">
+                                <Label Text="Add"
+                                       FontFamily="NunitoBold"
+                                       FontSize="13"
+                                       TextColor="{StaticResource Primary}"
+                                       VerticalOptions="Center">
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding AddPetCommand}" />
+                                    </Label.GestureRecognizers>
+                                </Label>
+                                <Label Text="See all"
+                                       FontFamily="NunitoBold"
+                                       FontSize="13"
+                                       TextColor="{StaticResource NavMuted}"
+                                       VerticalOptions="Center">
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding SeeAllPetsCommand}" />
+                                    </Label.GestureRecognizers>
+                                </Label>
+                            </HorizontalStackLayout>
+                        </Grid>
+
+                        <CollectionView ItemsSource="{Binding Pets}"
+                                        SelectionMode="None"
+                                        HeightRequest="176"
+                                        IsVisible="{Binding Pets.Count, Converter={StaticResource CountToBoolConverter}}"
+                                        HorizontalScrollBarVisibility="Never">
+                            <CollectionView.ItemsLayout>
+                                <LinearItemsLayout Orientation="Horizontal" ItemSpacing="12" />
+                            </CollectionView.ItemsLayout>
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate x:DataType="models:Pet">
+                                    <Border WidthRequest="132"
+                                            HeightRequest="168"
+                                            StrokeThickness="0"
+                                            BackgroundColor="{StaticResource CardBg}">
+                                        <Border.StrokeShape>
+                                            <RoundRectangle CornerRadius="24" />
+                                        </Border.StrokeShape>
+                                        <Border.Shadow>
+                                            <Shadow Brush="{StaticResource SecondaryFg}" Offset="0,6" Radius="16" Opacity="0.1" />
+                                        </Border.Shadow>
+                                        <Border.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:HomeViewModel}}, Path=OpenPetCommand}"
+                                                                  CommandParameter="{Binding .}" />
+                                        </Border.GestureRecognizers>
+                                        <Grid RowDefinitions="*,Auto">
+                                            <Border StrokeThickness="0">
+                                                <Border.StrokeShape>
+                                                    <RoundRectangle CornerRadius="24,24,0,0" />
+                                                </Border.StrokeShape>
+                                                <Image Source="{Binding PhotoUrl, Converter={StaticResource UrlToImageSourceConverter}}"
+                                                       Aspect="AspectFill" />
+                                            </Border>
+                                            <VerticalStackLayout Grid.Row="1"
+                                                                 Padding="10,8"
+                                                                 Spacing="0"
+                                                                 BackgroundColor="{StaticResource CardBg}">
+                                                <Label Text="{Binding Name}"
+                                                       FontFamily="NunitoBold"
+                                                       FontSize="13"
+                                                       TextColor="{StaticResource SecondaryFg}"
+                                                       LineBreakMode="TailTruncation" />
+                                                <Label Text="{Binding Breed}"
+                                                       FontFamily="Nunito"
+                                                       FontSize="11"
+                                                       TextColor="{StaticResource NavMuted}"
+                                                       LineBreakMode="TailTruncation" />
+                                            </VerticalStackLayout>
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+
+                        <Border HeightRequest="120"
+                                Stroke="{StaticResource Secondary20}"
+                                StrokeThickness="1.5"
+                                BackgroundColor="{StaticResource Primary10}"
+                                IsVisible="{Binding Pets.Count, Converter={StaticResource CountToBoolConverter}, ConverterParameter=invert}">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="24" />
+                            </Border.StrokeShape>
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding AddPetCommand}" />
+                            </Border.GestureRecognizers>
+                            <VerticalStackLayout Spacing="6" VerticalOptions="Center" HorizontalOptions="Center">
+                                <Label Text="Add your first pet"
+                                       FontFamily="NunitoBold"
+                                       FontSize="15"
+                                       TextColor="{StaticResource Primary}"
+                                       HorizontalOptions="Center" />
+                                <Label Text="Keep health records in one place"
+                                       FontFamily="Nunito"
+                                       FontSize="12"
+                                       TextColor="{StaticResource NavMuted}"
+                                       HorizontalOptions="Center" />
+                            </VerticalStackLayout>
+                        </Border>
+                    </VerticalStackLayout>
+                </VerticalStackLayout>
+            </ScrollView>
+        </Grid>
+
+        <controls:FloatingTabBar SelectedTab="home"
+                                 VerticalOptions="End"
+                                 HorizontalOptions="Fill" />
+    </Grid>
+</ContentPage>

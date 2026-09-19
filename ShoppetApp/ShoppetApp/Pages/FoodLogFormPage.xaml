@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:ShoppetApp.ViewModels"
+             x:Class="ShoppetApp.Pages.FoodLogFormPage"
+             x:DataType="vm:FoodLogFormViewModel"
+             Shell.NavBarIsVisible="False"
+             BackgroundColor="{StaticResource AppBackground}">
+    <ScrollView>
+        <VerticalStackLayout Spacing="16" Padding="16,24,16,32">
+
+            <!-- Header Row -->
+            <Grid ColumnDefinitions="Auto,*,Auto">
+                <Button Grid.Column="0"
+                        Text="✕"
+                        FontSize="18"
+                        BackgroundColor="Transparent"
+                        TextColor="{StaticResource SecondaryFg}"
+                        WidthRequest="40"
+                        Command="{Binding CloseCommand}" />
+                <Label Grid.Column="1"
+                       Text="{Binding Title}"
+                       FontFamily="NunitoBold"
+                       FontSize="16"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center"
+                       TextColor="{StaticResource SecondaryFg}" />
+                <Button Grid.Column="2"
+                        Text="Save"
+                        FontFamily="NunitoBold"
+                        BackgroundColor="Transparent"
+                        TextColor="{StaticResource Primary}"
+                        Command="{Binding SaveCommand}" />
+            </Grid>
+
+            <VerticalStackLayout Spacing="14">
+
+                <!-- Food Name -->
+                <Label Text="Food Name *" FontFamily="NunitoSemiBold" FontSize="13" />
+                <Border Stroke="{StaticResource Secondary30}" StrokeThickness="1" Padding="12,0">
+                    <Border.StrokeShape><RoundRectangle CornerRadius="20" /></Border.StrokeShape>
+                    <Entry Text="{Binding FoodName}"
+                           Placeholder="e.g. Royal Canin Adult"
+                           HeightRequest="52" />
+                </Border>
+
+                <!-- Amount in Grams -->
+                <Label Text="Amount per Serving (grams)" FontFamily="NunitoSemiBold" FontSize="13" />
+                <Border Stroke="{StaticResource Secondary30}" StrokeThickness="1" Padding="12,0">
+                    <Border.StrokeShape><RoundRectangle CornerRadius="20" /></Border.StrokeShape>
+                    <Entry Text="{Binding AmountGramsText}"
+                           Placeholder="e.g. 150"
+                           Keyboard="Numeric"
+                           HeightRequest="52" />
+                </Border>
+
+                <!-- Feeding Interval: Hours + Minutes -->
+                <Label Text="Feeding Interval" FontFamily="NunitoSemiBold" FontSize="13" />
+                <Border BackgroundColor="{StaticResource Primary10}" StrokeThickness="0" Padding="14,10">
+                    <Border.StrokeShape><RoundRectangle CornerRadius="16" /></Border.StrokeShape>
+                    <Grid ColumnDefinitions="*,Auto,*" ColumnSpacing="8">
+                        <!-- Hours -->
+                        <VerticalStackLayout Grid.Column="0" Spacing="4">
+                            <Label Text="Hours"
+                                   FontFamily="Nunito"
+                                   FontSize="11"
+                                   TextColor="{StaticResource Secondary}"
+                                   HorizontalOptions="Center" />
+                            <Border Stroke="{StaticResource Secondary30}" StrokeThickness="1" Padding="8,0"
+                                    BackgroundColor="{StaticResource CardBg}">
+                                <Border.StrokeShape><RoundRectangle CornerRadius="14" /></Border.StrokeShape>
+                                <Entry Text="{Binding IntervalHoursText}"
+                                       Placeholder="0"
+                                       Keyboard="Numeric"
+                                       HorizontalTextAlignment="Center"
+                                       HeightRequest="46" />
+                            </Border>
+                        </VerticalStackLayout>
+
+                        <Label Grid.Column="1"
+                               Text=":"
+                               FontFamily="NunitoExtraBold"
+                               FontSize="22"
+                               TextColor="{StaticResource Primary}"
+                               VerticalOptions="End"
+                               Margin="0,0,0,8" />
+
+                        <!-- Minutes -->
+                        <VerticalStackLayout Grid.Column="2" Spacing="4">
+                            <Label Text="Minutes (0–59)"
+                                   FontFamily="Nunito"
+                                   FontSize="11"
+                                   TextColor="{StaticResource Secondary}"
+                                   HorizontalOptions="Center" />
+                            <Border Stroke="{StaticResource Secondary30}" StrokeThickness="1" Padding="8,0"
+                                    BackgroundColor="{StaticResource CardBg}">
+                                <Border.StrokeShape><RoundRectangle CornerRadius="14" /></Border.StrokeShape>
+                                <Entry Text="{Binding IntervalMinutesText}"
+                                       Placeholder="0"
+                                       Keyboard="Numeric"
+                                       HorizontalTextAlignment="Center"
+                                       HeightRequest="46" />
+                            </Border>
+                        </VerticalStackLayout>
+                    </Grid>
+                </Border>
+                <Label Text="e.g. 8 hours 30 minutes means feeding every 8h 30m"
+                       FontFamily="Nunito"
+                       FontSize="11"
+                       TextColor="{StaticResource Secondary}"
+                       Margin="4,-8,0,0" />
+
+                <!-- Date of First Feeding -->
+                <Label Text="Start Date" FontFamily="NunitoSemiBold" FontSize="13" />
+                <Border Stroke="{StaticResource Secondary30}" StrokeThickness="1" Padding="12,4">
+                    <Border.StrokeShape><RoundRectangle CornerRadius="20" /></Border.StrokeShape>
+                    <DatePicker Date="{Binding FedDate}"
+                                Format="MMMM d, yyyy"
+                                TextColor="{StaticResource SecondaryFg}"
+                                HeightRequest="44" />
+                </Border>
+
+                <!-- Start Time -->
+                <Label Text="Start Time" FontFamily="NunitoSemiBold" FontSize="13" />
+                <Border Stroke="{StaticResource Secondary30}" StrokeThickness="1" Padding="12,4">
+                    <Border.StrokeShape><RoundRectangle CornerRadius="20" /></Border.StrokeShape>
+                    <TimePicker Time="{Binding StartTime}"
+                                Format="h:mm tt"
+                                TextColor="{StaticResource SecondaryFg}"
+                                HeightRequest="44" />
+                </Border>
+                <Label Text="The schedule interval starts counting from this date and time."
+                       FontFamily="Nunito"
+                       FontSize="11"
+                       TextColor="{StaticResource Secondary}"
+                       Margin="4,-8,0,0" />
+
+                <!-- Notes -->
+                <Label Text="Notes (optional)" FontFamily="NunitoSemiBold" FontSize="13" />
+                <Border Stroke="{StaticResource Secondary30}" StrokeThickness="1" Padding="12,8">
+                    <Border.StrokeShape><RoundRectangle CornerRadius="20" /></Border.StrokeShape>
+                    <Editor Text="{Binding Notes}"
+                            Placeholder="Any additional notes..."
+                            AutoSize="TextChanges"
+                            MinimumHeightRequest="80" />
+                </Border>
+            </VerticalStackLayout>
+
+            <!-- Save Button -->
+            <Button Text="Save Food Log"
+                    Command="{Binding SaveCommand}"
+                    HeightRequest="52"
+                    CornerRadius="24"
+                    BackgroundColor="{StaticResource Primary}"
+                    TextColor="{StaticResource PrimaryFg}"
+                    FontFamily="NunitoBold" />
+
+            <!-- Delete Button (edit mode only) -->
+            <Button Text="Delete Food Log"
+                    IsVisible="{Binding CanDelete}"
+                    Command="{Binding DeleteCommand}"
+                    BackgroundColor="Transparent"
+                    TextColor="{StaticResource StatusOverdue}"
+                    FontFamily="Nunito"
+                    FontSize="14" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

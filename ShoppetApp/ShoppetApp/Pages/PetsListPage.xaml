@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:ShoppetApp.Controls"
+             xmlns:models="clr-namespace:ShoppetApp.Models"
+             xmlns:vm="clr-namespace:ShoppetApp.ViewModels"
+             x:Class="ShoppetApp.Pages.PetsListPage"
+             x:DataType="vm:PetsListViewModel"
+             Shell.NavBarIsVisible="False"
+             BackgroundColor="{StaticResource AppBackground}">
+    <Grid>
+        <Grid RowDefinitions="Auto,Auto,*">
+            <controls:HeaderView Grid.Row="0" />
+
+            <Grid Grid.Row="1" ColumnDefinitions="*,Auto" Padding="20,8,20,8">
+                <Label Text="My Pets"
+                       FontFamily="NunitoExtraBold"
+                       FontSize="24"
+                       TextColor="{StaticResource SecondaryFg}"
+                       VerticalOptions="Center" />
+                <Button Grid.Column="1"
+                        Text="Add"
+                        FontSize="13"
+                        HeightRequest="40"
+                        Padding="18,0"
+                        CornerRadius="20"
+                        BackgroundColor="{StaticResource Primary}"
+                        TextColor="White"
+                        Command="{Binding AddPetCommand}" />
+            </Grid>
+
+            <Grid Grid.Row="2" Margin="0,0,0,100">
+            <CollectionView ItemsSource="{Binding Pets}"
+                            SelectionMode="None"
+                            Margin="12,0">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Vertical" ItemSpacing="8" />
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:Pet">
+                        <Border Margin="4,0"
+                                Padding="12"
+                                BackgroundColor="{StaticResource CardBg}"
+                                StrokeThickness="0">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="24" />
+                            </Border.StrokeShape>
+                            <Border.Shadow>
+                                <Shadow Brush="{StaticResource Black60}" Offset="0,2" Radius="10" Opacity="0.12" />
+                            </Border.Shadow>
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:PetsListViewModel}}, Path=OpenPetCommand}"
+                                                      CommandParameter="{Binding .}" />
+                            </Border.GestureRecognizers>
+                            <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="12">
+                                <Border Grid.Column="0"
+                                        WidthRequest="64"
+                                        HeightRequest="64"
+                                        Stroke="{StaticResource Secondary}"
+                                        StrokeThickness="2">
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="32" />
+                                    </Border.StrokeShape>
+                                    <Image Source="{Binding PhotoUrl, Converter={StaticResource UrlToImageSourceConverter}}"
+                                           Aspect="AspectFill" />
+                                </Border>
+                                <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="4">
+                                    <Label Text="{Binding Name}"
+                                           FontFamily="NunitoBold"
+                                           FontSize="16"
+                                           TextColor="{StaticResource SecondaryFg}" />
+                                    <Label FontFamily="Nunito"
+                                           FontSize="13"
+                                           TextColor="{StaticResource Secondary}">
+                                        <Label.Text>
+                                            <MultiBinding StringFormat="{}{0} • {1} yrs">
+                                                <Binding Path="Species" />
+                                                <Binding Path="AgeYears" />
+                                            </MultiBinding>
+                                        </Label.Text>
+                                    </Label>
+                                </VerticalStackLayout>
+                                <HorizontalStackLayout Grid.Column="2" Spacing="4" VerticalOptions="Center">
+                                    <Button Text="✎"
+                                            FontSize="14"
+                                            WidthRequest="36"
+                                            HeightRequest="36"
+                                            CornerRadius="18"
+                                            Padding="0"
+                                            BackgroundColor="{StaticResource Primary10}"
+                                            TextColor="{StaticResource Primary}"
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type vm:PetsListViewModel}}, Path=EditPetCommand}"
+                                            CommandParameter="{Binding .}" />
+                                    <Button Text="🗑"
+                                            FontSize="14"
+                                            WidthRequest="36"
+                                            HeightRequest="36"
+                                            CornerRadius="18"
+                                            Padding="0"
+                                            BackgroundColor="{StaticResource StatusOverdueBg}"
+                                            TextColor="{StaticResource StatusOverdue}"
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type vm:PetsListViewModel}}, Path=DeletePetCommand}"
+                                            CommandParameter="{Binding .}" />
+                                    <Label Text="›"
+                                           FontSize="22"
+                                           TextColor="{StaticResource Secondary}"
+                                           VerticalOptions="Center" />
+                                </HorizontalStackLayout>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <VerticalStackLayout IsVisible="{Binding Pets.Count, Converter={StaticResource CountToBoolConverter}, ConverterParameter=invert}"
+                                 VerticalOptions="Center"
+                                 HorizontalOptions="Center"
+                                 Spacing="8">
+                <Label Text="No pets yet"
+                       FontFamily="NunitoExtraBold"
+                       FontSize="18"
+                       TextColor="{StaticResource SecondaryFg}"
+                       HorizontalOptions="Center" />
+                <Label Text="Add one to start tracking care."
+                       FontFamily="Nunito"
+                       FontSize="14"
+                       TextColor="{StaticResource NavMuted}"
+                       HorizontalOptions="Center" />
+            </VerticalStackLayout>
+        </Grid>
+        </Grid>
+
+        <controls:FloatingTabBar SelectedTab="pets"
+                                 VerticalOptions="End" />
+    </Grid>
+</ContentPage>

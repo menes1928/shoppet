@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:ShoppetApp.ViewModels"
+             x:Class="ShoppetApp.Pages.AuthPage"
+             x:DataType="vm:AuthViewModel"
+             Shell.NavBarIsVisible="False"
+             NavigationPage.HasBackButton="False"
+             BackgroundColor="{StaticResource AppBackground}">
+    <ScrollView>
+        <VerticalStackLayout Spacing="0">
+            <Grid HeightRequest="220">
+                <Image Source="https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=800"
+                       Aspect="AspectFill" />
+                <BoxView VerticalOptions="End" HeightRequest="80">
+                    <BoxView.Background>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                            <GradientStop Color="Transparent" Offset="0" />
+                            <GradientStop Color="{StaticResource Black60}" Offset="1" />
+                        </LinearGradientBrush>
+                    </BoxView.Background>
+                </BoxView>
+            </Grid>
+
+            <Border BackgroundColor="{StaticResource CardBg}"
+                    StrokeThickness="0"
+                    Padding="20"
+                    Margin="24,-24,24,0">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="24" />
+                </Border.StrokeShape>
+                <Border.Shadow>
+                    <Shadow Brush="{StaticResource Black60}" Offset="0,4" Radius="12" Opacity="0.15" />
+                </Border.Shadow>
+                <VerticalStackLayout Spacing="12" HorizontalOptions="Center">
+                    <Image Source="shoppetlogo_1.png"
+                           WidthRequest="64"
+                           HeightRequest="64"
+                           HorizontalOptions="Center" />
+                    <Label Text="{Binding WelcomeTitle}"
+                           FontFamily="NunitoExtraBold"
+                           FontSize="22"
+                           TextColor="{StaticResource SecondaryFg}"
+                           HorizontalOptions="Center" />
+                </VerticalStackLayout>
+            </Border>
+
+            <Border BackgroundColor="{StaticResource CardBg}"
+                    StrokeThickness="0"
+                    Padding="20"
+                    Margin="24,16,24,0">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="24" />
+                </Border.StrokeShape>
+                <Border.Shadow>
+                    <Shadow Brush="{StaticResource Black60}" Offset="0,4" Radius="12" Opacity="0.12" />
+                </Border.Shadow>
+                <VerticalStackLayout Spacing="12">
+                    <VerticalStackLayout x:Name="FullNameRow"
+                                         IsVisible="{Binding IsLogin, Converter={StaticResource InverseBoolConverter}}"
+                                         Opacity="0"
+                                         Spacing="6">
+                        <Label Text="Full Name" FontFamily="NunitoSemiBold" FontSize="13" />
+                        <Border Stroke="{StaticResource Secondary30}" StrokeThickness="1" Padding="12,0">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="20" />
+                            </Border.StrokeShape>
+                            <Grid ColumnDefinitions="Auto,*" HeightRequest="52">
+                                <Label Text="👤" FontSize="18" Grid.Column="0" VerticalOptions="Center" Margin="0,0,8,0" />
+                                <Entry Grid.Column="1"
+                                       Text="{Binding FullName}"
+                                       Placeholder="Alex Johnson"
+                                       VerticalOptions="Center" />
+                            </Grid>
+                        </Border>
+                        <Label Text="{Binding FullNameError}" IsVisible="{Binding HasFullNameError}" TextColor="Red" FontSize="12" Margin="4,0,0,0" />
+                    </VerticalStackLayout>
+
+                    <VerticalStackLayout Spacing="6">
+                        <Label Text="Email" FontFamily="NunitoSemiBold" FontSize="13" />
+                        <Border Stroke="{StaticResource Secondary30}" StrokeThickness="1" Padding="12,0">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="20" />
+                            </Border.StrokeShape>
+                            <Grid ColumnDefinitions="Auto,*" HeightRequest="52">
+                                <Label Text="📧" FontSize="18" Grid.Column="0" VerticalOptions="Center" Margin="0,0,8,0" />
+                                <Entry Grid.Column="1"
+                                       Text="{Binding Email}"
+                                       Keyboard="Email"
+                                       Placeholder="you@example.com"
+                                       VerticalOptions="Center" />
+                            </Grid>
+                        </Border>
+                        <Label Text="{Binding EmailError}" IsVisible="{Binding HasEmailError}" TextColor="Red" FontSize="12" Margin="4,0,0,0" />
+                    </VerticalStackLayout>
+
+                    <VerticalStackLayout Spacing="6">
+                        <Label Text="Password" FontFamily="NunitoSemiBold" FontSize="13" />
+                        <Border Stroke="{StaticResource Secondary30}" StrokeThickness="1" Padding="12,0">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="20" />
+                            </Border.StrokeShape>
+                            <Grid ColumnDefinitions="Auto,*,Auto" HeightRequest="52">
+                                <Label Text="🔒" FontSize="18" Grid.Column="0" VerticalOptions="Center" Margin="0,0,8,0" />
+                                <Entry Grid.Column="1"
+                                       Text="{Binding Password}"
+                                       IsPassword="{Binding IsPasswordVisible, Converter={StaticResource InverseBoolConverter}}"
+                                       Placeholder="••••••••"
+                                       VerticalOptions="Center" />
+                                <Grid Grid.Column="2" WidthRequest="40" BackgroundColor="Transparent">
+                                    <Grid.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding TogglePasswordCommand}" />
+                                    </Grid.GestureRecognizers>
+                                    <Label Text="🙈" FontSize="18" HorizontalOptions="Center" VerticalOptions="Center" IsVisible="{Binding IsPasswordVisible}" />
+                                    <Label Text="👁️" FontSize="18" HorizontalOptions="Center" VerticalOptions="Center" IsVisible="{Binding IsPasswordVisible, Converter={StaticResource InverseBoolConverter}}" />
+                                </Grid>
+                            </Grid>
+                        </Border>
+                        <Label Text="{Binding PasswordError}" IsVisible="{Binding HasPasswordError}" TextColor="Red" FontSize="12" Margin="4,0,0,0" />
+                    </VerticalStackLayout>
+
+                    <VerticalStackLayout x:Name="ConfirmPasswordRow"
+                                         IsVisible="{Binding IsLogin, Converter={StaticResource InverseBoolConverter}}"
+                                         Opacity="0"
+                                         Spacing="6">
+                        <Label Text="Confirm Password" FontFamily="NunitoSemiBold" FontSize="13" />
+                        <Border Stroke="{StaticResource Secondary30}" StrokeThickness="1" Padding="12,0">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="20" />
+                            </Border.StrokeShape>
+                            <Grid ColumnDefinitions="Auto,*,Auto" HeightRequest="52">
+                                <Label Text="🔒" FontSize="18" Grid.Column="0" VerticalOptions="Center" Margin="0,0,8,0" />
+                                <Entry Grid.Column="1"
+                                       Text="{Binding ConfirmPassword}"
+                                       IsPassword="{Binding IsConfirmPasswordVisible, Converter={StaticResource InverseBoolConverter}}"
+                                       Placeholder="••••••••"
+                                       VerticalOptions="Center" />
+                                <Grid Grid.Column="2" WidthRequest="40" BackgroundColor="Transparent">
+                                    <Grid.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding ToggleConfirmPasswordCommand}" />
+                                    </Grid.GestureRecognizers>
+                                    <Label Text="🙈" FontSize="18" HorizontalOptions="Center" VerticalOptions="Center" IsVisible="{Binding IsConfirmPasswordVisible}" />
+                                    <Label Text="👁️" FontSize="18" HorizontalOptions="Center" VerticalOptions="Center" IsVisible="{Binding IsConfirmPasswordVisible, Converter={StaticResource InverseBoolConverter}}" />
+                                </Grid>
+                            </Grid>
+                        </Border>
+                        <Label Text="{Binding ConfirmPasswordError}" IsVisible="{Binding HasConfirmPasswordError}" TextColor="Red" FontSize="12" Margin="4,0,0,0" />
+                    </VerticalStackLayout>
+
+                    <Label Text="Forgot Password?"
+                           IsVisible="{Binding IsLogin}"
+                           FontFamily="Nunito"
+                           FontSize="13"
+                           TextColor="{StaticResource Primary}"
+                           HorizontalOptions="End">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer />
+                        </Label.GestureRecognizers>
+                    </Label>
+                </VerticalStackLayout>
+            </Border>
+
+            <Label Text="{Binding GeneralError}" 
+                   IsVisible="{Binding HasGeneralError}" 
+                   TextColor="Red" 
+                   HorizontalOptions="Center" 
+                   Margin="24,10,24,0" 
+                   HorizontalTextAlignment="Center" />
+
+            <Button Text="{Binding SubmitText}"
+                    Command="{Binding SubmitCommand}"
+                    HeightRequest="52"
+                    CornerRadius="24"
+                    Margin="24,20,24,0"
+                    BackgroundColor="{StaticResource Primary}"
+                    TextColor="{StaticResource PrimaryFg}"
+                    FontFamily="NunitoBold" />
+
+            <Label Text="{Binding ToggleText}"
+                   FontFamily="Nunito"
+                   FontSize="14"
+                   TextColor="{StaticResource Primary}"
+                   HorizontalOptions="Center"
+                   Margin="0,16,0,32">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ToggleModeCommand}" />
+                </Label.GestureRecognizers>
+            </Label>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

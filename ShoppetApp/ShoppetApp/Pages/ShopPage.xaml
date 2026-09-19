@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:ShoppetApp.Controls"
+             x:Class="ShoppetApp.Pages.ShopPage"
+             Title="Pet Shops &amp; Supply Hub 🛍️"
+             BackgroundColor="#FAF8F5"
+             Shell.NavBarIsVisible="False">
+
+    <Grid>
+        <Grid RowDefinitions="*">
+            <ScrollView>
+                <VerticalStackLayout Padding="20" Spacing="15" Margin="0,0,0,80">
+
+                    <!-- Header Banner -->
+                    <Frame BackgroundColor="#5C766D" CornerRadius="16" Padding="20" HasShadow="False">
+                        <VerticalStackLayout Spacing="5">
+                            <Label Text="🛍️ Local Pet Supply Directory" TextColor="#F7DD7D" FontSize="12" FontAttributes="Bold"/>
+                            <Label Text="Local Pet Shops &amp; Hybrid Hubs" TextColor="White" FontSize="20" FontAttributes="Bold"/>
+                            <Label Text="Discover pet shops, hybrid veterinary clinics, and authorized stockists across Lipa and Tanauan." TextColor="#E2ECE7" FontSize="13"/>
+                        </VerticalStackLayout>
+                    </Frame>
+
+                    <!-- Search Box -->
+                    <Frame BackgroundColor="White" CornerRadius="16" Padding="12" HasShadow="False" BorderColor="#E5E9E6">
+                        <Entry Placeholder="Search shop name, brand, or location..." 
+                               x:Name="SearchEntry" 
+                               TextChanged="OnSearchTextChanged"
+                               BackgroundColor="#FAF8F5" 
+                               TextColor="#1E2824"
+                               PlaceholderColor="#7C8782"
+                               HeightRequest="40"/>
+                    </Frame>
+
+                    <!-- Category Filter Pills -->
+                    <ScrollView Orientation="Horizontal" HorizontalScrollBarVisibility="Never">
+                        <HorizontalStackLayout Spacing="8">
+                            <Button Text="All Hubs" BackgroundColor="#5C766D" TextColor="White" CornerRadius="20" HeightRequest="36" FontSize="12" Clicked="OnFilterAllClicked"/>
+                            <Button Text="🛒 Pet Shops" BackgroundColor="White" TextColor="#1E2824" BorderColor="#E5E9E6" BorderWidth="1" CornerRadius="20" HeightRequest="36" FontSize="12" Clicked="OnFilterShopsClicked"/>
+                            <Button Text="🩺🛒 Hybrid Centers" BackgroundColor="White" TextColor="#1E2824" BorderColor="#E5E9E6" BorderWidth="1" CornerRadius="20" HeightRequest="36" FontSize="12" Clicked="OnFilterHybridsClicked"/>
+                        </HorizontalStackLayout>
+                    </ScrollView>
+
+                    <Label Text="Accredited Partner Stores" FontAttributes="Bold" TextColor="#1E2824" FontSize="16" Margin="0,10,0,0"/>
+
+                    <!-- Shops Collection View -->
+                    <CollectionView x:Name="ShopsListView">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Frame BackgroundColor="White" CornerRadius="16" Padding="15" Margin="0,0,0,10" HasShadow="False" BorderColor="#E5E9E6">
+                                    <VerticalStackLayout Spacing="8">
+
+                                        <HorizontalStackLayout Spacing="8" VerticalOptions="Center">
+                                            <Label Text="{Binding StoreBadge}" TextColor="#8C6D00" FontSize="11" FontAttributes="Bold"/>
+                                            <Label Text="{Binding StoreName}" FontAttributes="Bold" TextColor="#1E2824" FontSize="16"/>
+                                        </HorizontalStackLayout>
+
+                                        <Label Text="{Binding Location, StringFormat='📍 {0}'}" TextColor="#7C8782" FontSize="13"/>
+                                        <Label Text="{Binding Hours, StringFormat='🕒 {0}'}" TextColor="#58655F" FontSize="12"/>
+
+                                        <Frame BackgroundColor="#FAF8F5" CornerRadius="8" Padding="10" HasShadow="False">
+                                            <VerticalStackLayout Spacing="3">
+                                                <Label Text="Authorized Brands Carried:" FontAttributes="Bold" TextColor="#1E2824" FontSize="11"/>
+                                                <Label Text="{Binding Brands}" TextColor="#58655F" FontSize="12"/>
+                                            </VerticalStackLayout>
+                                        </Frame>
+
+                                        <Button Text="💬 Message Store Page" 
+                                                BackgroundColor="#F7DD7D" 
+                                                TextColor="#16241F" 
+                                                FontAttributes="Bold" 
+                                                CornerRadius="12" 
+                                                Clicked="OnMessageStoreClicked"
+                                                CommandParameter="{Binding MessengerLink}"
+                                                Margin="0,5,0,0"/>
+                                    </VerticalStackLayout>
+                                </Frame>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+
+                </VerticalStackLayout>
+            </ScrollView>
+        </Grid>
+
+        <!-- Floating Tab Bar Fixed at Bottom -->
+        <controls:FloatingTabBar SelectedTab="shop"
+                                 VerticalOptions="End" />
+    </Grid>
+</ContentPage>

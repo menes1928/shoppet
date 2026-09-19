@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ShoppetApp.Controls.FloatingTabBar"
+             x:Name="Root">
+    <Border BackgroundColor="{StaticResource CardBg}"
+            Stroke="{StaticResource Secondary10}"
+            StrokeThickness="1"
+            Margin="16,0,16,16"
+            Padding="6"
+            HorizontalOptions="Fill"
+            VerticalOptions="End">
+        <Border.StrokeShape>
+            <RoundRectangle CornerRadius="28" />
+        </Border.StrokeShape>
+        <Border.Shadow>
+            <Shadow Brush="{StaticResource SecondaryFg}" Offset="0,8" Radius="24" Opacity="0.12" />
+        </Border.Shadow>
+        <Grid ColumnDefinitions="*,*,*,*,*" HeightRequest="58" ColumnSpacing="4">
+
+            <!-- Home Tab -->
+            <Border x:Name="HomeContainer"
+                    Grid.Column="0"
+                    StrokeThickness="0"
+                    BackgroundColor="Transparent"
+                    Padding="4,6">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="22" />
+                </Border.StrokeShape>
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnHomeClicked" />
+                </Border.GestureRecognizers>
+                <VerticalStackLayout Spacing="2" VerticalOptions="Center" HorizontalOptions="Center">
+                    <Path x:Name="HomeIcon" Aspect="Uniform" HeightRequest="22" WidthRequest="22" HorizontalOptions="Center" Fill="{StaticResource Secondary}" Data="M10 20L10 14L14 14L14 20L19 20L19 12L22 12L12 3L2 12L5 12L5 20Z" />
+                    <Label x:Name="HomeLabel" Text="Home" FontFamily="NunitoBold" FontSize="11" HorizontalTextAlignment="Center" />
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- Shop Tab -->
+            <Border x:Name="ShopContainer"
+                    Grid.Column="1"
+                    StrokeThickness="0"
+                    BackgroundColor="Transparent"
+                    Padding="4,6">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="22" />
+                </Border.StrokeShape>
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnShopClicked" />
+                </Border.GestureRecognizers>
+                <VerticalStackLayout Spacing="2" VerticalOptions="Center" HorizontalOptions="Center">
+                    <Path x:Name="ShopIcon" Aspect="Uniform" HeightRequest="22" WidthRequest="22" HorizontalOptions="Center" Fill="{StaticResource Secondary}" Data="M16 6V4C16 1.79 14.21 0 12 0C9.79 0 8 1.79 8 4V6H2V20C2 21.1 2.9 22 4 22H20C21.1 22 22 21.1 22 20V6H16ZM10 4C10 2.9 10.9 2 12 2C13.1 2 14 2.9 14 4V6H10V4ZM20 20H4V8H20V20Z" />
+                    <Label x:Name="ShopLabel" Text="Shop" FontFamily="NunitoBold" FontSize="11" HorizontalTextAlignment="Center" />
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- Pets Tab -->
+            <Border x:Name="PetsContainer"
+                    Grid.Column="2"
+                    StrokeThickness="0"
+                    BackgroundColor="Transparent"
+                    Padding="4,6">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="22" />
+                </Border.StrokeShape>
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnPetsClicked" />
+                </Border.GestureRecognizers>
+                <VerticalStackLayout Spacing="2" VerticalOptions="Center" HorizontalOptions="Center">
+                    <Path x:Name="PetsIcon" Aspect="Uniform" HeightRequest="22" WidthRequest="22" HorizontalOptions="Center" Fill="{StaticResource Secondary}" Data="M4.5 9.5C5.88 9.5 7 10.62 7 12C7 13.38 5.88 14.5 4.5 14.5C3.12 14.5 2 13.38 2 12C2 10.62 3.12 9.5 4.5 9.5ZM9 5.5C10.38 5.5 11.5 6.62 11.5 8C11.5 9.38 10.38 10.5 9 10.5C7.62 10.5 6.5 9.38 6.5 8C6.5 6.62 7.62 5.5 9 5.5ZM15 5.5C16.38 5.5 17.5 6.62 17.5 8C17.5 9.38 16.38 10.5 15 10.5C13.62 10.5 12.5 9.38 12.5 8C12.5 6.62 13.62 5.5 15 5.5ZM19.5 9.5C20.88 9.5 22 10.62 22 12C22 13.38 20.88 14.5 19.5 14.5C18.12 14.5 17 13.38 17 12C17 10.62 18.12 9.5 19.5 9.5ZM17.34 14.86C16.28 13.66 14.17 13 12 13C9.83 13 7.72 13.66 6.66 14.86C5.66 16 5 17.5 5 19L19 19C19 17.5 18.34 16 17.34 14.86Z" />
+                    <Label x:Name="PetsLabel" Text="Pets" FontFamily="NunitoBold" FontSize="11" HorizontalTextAlignment="Center" />
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- Community Tab (NEW - Grid Column 3) -->
+            <Border x:Name="CommunityContainer"
+                    Grid.Column="3"
+                    StrokeThickness="0"
+                    BackgroundColor="Transparent"
+                    Padding="4,6">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="22" />
+                </Border.StrokeShape>
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnCommunityClicked" />
+                </Border.GestureRecognizers>
+                <VerticalStackLayout Spacing="2" VerticalOptions="Center" HorizontalOptions="Center">
+                    <Path x:Name="CommunityIcon" Aspect="Uniform" HeightRequest="22" WidthRequest="22" HorizontalOptions="Center" Fill="{StaticResource Secondary}" Data="M12 3C6.5 3 2 6.58 2 11C2 13.25 3.19 15.31 5.13 16.81C4.9 18.06 4.19 20.13 2 21C4.33 21 7.67 19.88 9.38 18.75C10.22 18.91 11.1 19 12 19C17.5 19 22 15.42 22 11C22 6.58 17.5 3 12 3Z" />
+                    <Label x:Name="CommunityLabel" Text="Community" FontFamily="NunitoBold" FontSize="11" HorizontalTextAlignment="Center" />
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- Profile/You Tab (Grid Column 4) -->
+            <Border x:Name="ProfileContainer"
+                    Grid.Column="4"
+                    StrokeThickness="0"
+                    BackgroundColor="Transparent"
+                    Padding="4,6">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="22" />
+                </Border.StrokeShape>
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnProfileClicked" />
+                </Border.GestureRecognizers>
+                <VerticalStackLayout Spacing="2" VerticalOptions="Center" HorizontalOptions="Center">
+                    <Path x:Name="ProfileIcon" Aspect="Uniform" HeightRequest="22" WidthRequest="22" HorizontalOptions="Center" Fill="{StaticResource Secondary}" Data="M12 12C14.21 12 16 10.21 16 8C16 5.79 14.21 4 12 4C9.79 4 8 5.79 8 8C8 10.21 9.79 12 12 12ZM12 14C9.33 14 4 15.34 4 18V20H20V18C20 15.34 14.67 14 12 14Z" />
+                    <Label x:Name="ProfileLabel" Text="You" FontFamily="NunitoBold" FontSize="11" HorizontalTextAlignment="Center" />
+                </VerticalStackLayout>
+            </Border>
+        </Grid>
+    </Border>
+</ContentView>

@@ -1,0 +1,184 @@
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
+using ShoppetApp.Messages;
+using ShoppetApp.Models;
+using ShoppetApp.Services;
+
+namespace ShoppetApp.ViewModels;
+
+public partial class HealthLogFormViewModel : ObservableObject, IQueryAttributable
+{
+    private readonly DatabaseService _db;
+
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(IsVaccine))]
+    [NotifyPropertyChangedFor(nameof(IsMedication))]
+    [NotifyPropertyChangedFor(nameof(IsCheckup))]
+    private string _logType = "vaccine";
+
+    [ObservableProperty] private int _petId;
+    [ObservableProperty] private int _logId;
+    [ObservableProperty] private string _name = string.Empty;
+    [ObservableProperty] private DateTime _dueDate = DateTime.Today.AddDays(1);
+    [ObservableProperty] private TimeSpan _dueTime = DateTime.Now.TimeOfDay;
+    [ObservableProperty] private bool _completed;
+    [ObservableProperty] private DateTime _dateAdministered = DateTime.Today;
+    [ObservableProperty] private string _validityIntervalText = "1";
+    [ObservableProperty] private string _validityUnit = "Months";
+    [ObservableProperty] private string _medicationIntervalHoursText = "8";
+    [ObservableProperty] private string _dosageTotalText = "14";
+    [ObservableProperty] private DateTime _checkupDate = DateTime.Today;
+    [ObservableProperty] private DateTime _timeStartedDate = DateTime.Today;
+    [ObservableProperty] private TimeSpan _timeStartedTime = DateTime.Now.TimeOfDay;
+    [ObservableProperty] private bool _isEditMode;
+
+    public List<string> DocumentPathsList { get; } = new();
+
+    public IList<string> TypeOptions { get; } = ["vaccine", "medication", "vital"];
+    public IList<string> ValidityUnitOptions { get; } = ["Days", "Weeks", "Months", "Years"];
+
+    public string Title => LogId > 0 ? "Edit Health Record" : "Add Health Record";
+    public bool CanDelete => LogId > 0;
+
+    public bool IsVaccine => LogType?.Equals("vaccine", StringComparison.OrdinalIgnoreCase) ?? false;
+    public bool IsMedication => LogType?.Equals("medication", StringComparison.OrdinalIgnoreCase) ?? false;
+    public bool IsCheckup => LogType?.Equals("vital", StringComparison.OrdinalIgnoreCase) ?? false;
+
+    public HealthLogFormViewModel(DatabaseService db) => _db = db;
+
+    public void ApplyQueryAttributes(IDictionary<string, object> query)
+    {
+        if (query.TryGetValue("petId", out var pVal))
+            PetId = Convert.ToInt32(pVal);
+        if (query.TryGetValue("logId", out var lVal))
+            LogId = Convert.ToInt32(lVal);
+    }
+
+    public async Task LoadAsync()
+    {
+        if (LogId <= 0) return;
+
+        var log = await _db.GetHealthLogAsync(LogId);
+        if (log is null) return;
+
+        LogType = log.Type;
+        Name = log.Name;
+        Completed = log.Completed;
+        ValidityIntervalText = log.ValidityInterval.ToString();
+        ValidityUnit = string.IsNullOrEmpty(log.ValidityUnit) ? "Months" : log.ValidityUnit;
+        MedicationIntervalHoursText = log.MedicationIntervalHours.ToString();
+        DosageTotalText = log.DosageTotal.ToString();
+
+        if (DateTime.TryParse(log.DueDate, out var parsedDue))
+        {
+            DueDate = parsedDue.Date;
+            DueTime = parsedDue.TimeOfDay;
+        }
+        if (DateTime.TryParse(log.DateAdministered, out var parsedAdmin))
+        {
+            DateAdministered = parsedAdmin.Date;
+        }
+        if (DateTime.TryParse(log.CheckupDate, out var parsedCheck))
+        {
+            CheckupDate = parsedCheck.Date;
+        }
+        if (DateTime.TryParse(log.TimeStarted, out var parsedStart))
+        {
+            TimeStartedDate = parsedStart.Date;
+            TimeStartedTime = parsedStart.TimeOfDay;
+        }
+
+        OnPropertyChanged(nameof(Title));
+        OnPropertyChanged(nameof(CanDelete));
+    }
+
+    [RelayCommand]
+    private async Task CloseAsync() => await Shell.Current.GoToAsync("..");
+
+    [RelayCommand]
+    private async Task PickDocumentAsync()
+    {
+        try
+        {
+            var result = await FilePicker.Default.PickAsync();
+            if (result != null)
+            {
+                DocumentPathsList.Add(result.FullPath);
+            }
+        }
+        catch (Exception ex)
+        {
+            await Shell.Current.DisplayAlert("Error", $"Could not attach document: {ex.Message}", "OK");
+        }
+    }
+
+    [RelayCommand]
+    private void RemoveDocument(string path)
+    {
+        if (DocumentPathsList.Contains(path))
+            DocumentPathsList.Remove(path);
+    }
+
+    [RelayCommand]
+    private async Task SaveAsync()
+    {
+        if (string.IsNullOrWhiteSpace(Name))
+        {
+            await Shell.Current.DisplayAlert("Validation", "Record name is required.", "OK");
+            return;
+        }
+
+        int.TryParse(ValidityIntervalText, out var validityInterval);
+        double.TryParse(MedicationIntervalHoursText, out var medInterval);
+        int.TryParse(DosageTotalText, out var dosageTotal);
+
+        var finalDueDate = DueDate.Date.Add(DueTime);
+        var finalTimeStarted = TimeStartedDate.Date.Add(TimeStartedTime);
+
+        var log = new HealthLog
+        {
+            Id = LogId,
+            PetId = PetId,
+            Type = LogType,
+            Name = Name.Trim(),
+            DueDate = finalDueDate.ToString("yyyy/MM/dd, HH:mm"),
+            Completed = Completed,
+            DateAdministered = DateAdministered.ToString("yyyy/MM/dd, 00:00"),
+            ValidityInterval = validityInterval,
+            ValidityUnit = ValidityUnit,
+            MedicationIntervalHours = medInterval,
+            TimeStarted = finalTimeStarted.ToString("yyyy/MM/dd, HH:mm"),
+            DosageTotal = dosageTotal,
+            DosageRemaining = dosageTotal,
+            CheckupDate = CheckupDate.ToString("yyyy/MM/dd, 00:00"),
+            DocumentPaths = string.Join(";", DocumentPathsList)
+        };
+
+        int result = await _db.SaveHealthLogAsync(log);
+        if (result > 0)
+        {
+            WeakReferenceMessenger.Default.Send(DataChangedMessage.Instance);
+            await Shell.Current.GoToAsync("..");
+        }
+        else
+        {
+            await Shell.Current.DisplayAlert("Error", "Failed to save health record to server.", "OK");
+        }
+    }
+
+    [RelayCommand]
+    private async Task DeleteAsync()
+    {
+        if (LogId <= 0) return;
+        var log = await _db.GetHealthLogAsync(LogId);
+        if (log is null) return;
+
+        bool confirm = await Shell.Current.DisplayAlert("Delete", $"Remove {log.Name}?", "Delete", "Cancel");
+        if (!confirm) return;
+
+        await _db.DeleteHealthLogAsync(log);
+        WeakReferenceMessenger.Default.Send(DataChangedMessage.Instance);
+        await Shell.Current.GoToAsync("..");
+    }
+}

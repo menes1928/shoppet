@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ShoppetApp.Pages.OnboardingPage"
+             Shell.NavBarIsVisible="False"
+             NavigationPage.HasBackButton="False"
+             BackgroundColor="{StaticResource AppBackground}">
+    <Grid RowDefinitions="*,Auto,Auto" Padding="0,0,0,32">
+        <Grid Grid.Row="0">
+            <Image x:Name="SlideImage"
+                   Aspect="AspectFill"
+                   VerticalOptions="Fill"
+                   HorizontalOptions="Fill" />
+            <BoxView VerticalOptions="End"
+                     HeightRequest="120"
+                     HorizontalOptions="Fill">
+                <BoxView.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                        <GradientStop Color="Transparent" Offset="0" />
+                        <GradientStop Color="{StaticResource AppBackground}" Offset="1" />
+                    </LinearGradientBrush>
+                </BoxView.Background>
+            </BoxView>
+        </Grid>
+
+        <VerticalStackLayout Grid.Row="1"
+                             x:Name="TextContent"
+                             Spacing="8"
+                             Margin="24,-40,24,0"
+                             Opacity="1">
+            <Label x:Name="TitleLabel"
+                   FontFamily="NunitoExtraBold"
+                   FontSize="24"
+                   TextColor="{StaticResource SecondaryFg}" />
+            <Label x:Name="SubtitleLabel"
+                   FontFamily="Nunito"
+                   FontSize="15"
+                   TextColor="{StaticResource SecondaryFg}"
+                   Opacity="0.7" />
+        </VerticalStackLayout>
+
+        <VerticalStackLayout Grid.Row="2" Spacing="24" Padding="24,24,24,0">
+            <HorizontalStackLayout x:Name="DotRow"
+                                   Spacing="8"
+                                   HorizontalOptions="Center">
+                <BoxView x:Name="Dot0" HeightRequest="8" CornerRadius="4" Color="{StaticResource Primary}" WidthRequest="32" />
+                <BoxView x:Name="Dot1" HeightRequest="8" CornerRadius="4" Color="{StaticResource Secondary30}" WidthRequest="8" />
+                <BoxView x:Name="Dot2" HeightRequest="8" CornerRadius="4" Color="{StaticResource Secondary30}" WidthRequest="8" />
+            </HorizontalStackLayout>
+            <Button x:Name="NextButton"
+                    Text="Next"
+                    HeightRequest="52"
+                    CornerRadius="24"
+                    BackgroundColor="{StaticResource Primary}"
+                    TextColor="{StaticResource PrimaryFg}"
+                    FontFamily="NunitoBold"
+                    Clicked="OnNextClicked" />
+        </VerticalStackLayout>
+    </Grid>
+</ContentPage>

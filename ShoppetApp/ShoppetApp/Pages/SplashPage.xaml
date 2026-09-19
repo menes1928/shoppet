@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ShoppetApp.Pages.SplashPage"
+             Shell.NavBarIsVisible="False"
+             NavigationPage.HasBackButton="False"
+             BackgroundColor="{StaticResource AppBackground}">
+    <VerticalStackLayout x:Name="SplashContent"
+                         VerticalOptions="Center"
+                         HorizontalOptions="Center"
+                         Spacing="16"
+                         Opacity="0"
+                         Scale="0.8">
+        <Image Source="shoppetlogo_1.png"
+               WidthRequest="96"
+               HeightRequest="96"
+               Aspect="AspectFit"
+               HorizontalOptions="Center" />
+        <Label Text="Shoppet Care"
+               FontFamily="NunitoExtraBold"
+               FontSize="28"
+               TextColor="{StaticResource Primary}"
+               HorizontalOptions="Center" />
+    </VerticalStackLayout>
+</ContentPage>

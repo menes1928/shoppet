@@ -1,0 +1,27 @@
+using SQLite;
+
+namespace ShoppetApp.Models;
+
+public class Pet
+{
+    [PrimaryKey, AutoIncrement]
+    public int Id { get; set; }
+
+    [Indexed]
+    public int UserId { get; set; }
+
+    public string Name { get; set; } = string.Empty;
+
+    /// <summary>"Dog" | "Cat" | "Bird" | "Small Pet" | "Other"</summary>
+    public string Species { get; set; } = "Dog";
+
+    public string Breed { get; set; } = string.Empty;
+
+    public int AgeYears { get; set; }
+
+    /// <summary>Free text e.g. "25 kg"</summary>
+    public string Weight { get; set; } = string.Empty;
+
+    /// <summary>URL or local path</summary>
+    public string PhotoUrl { get; set; } = string.Empty;
+}
