@@ -342,4 +342,3 @@ C:\Users\WINDOWS11\source\repos\Shoppet\ShoppetApp\ShoppetApp\obj\Debug\net10.0-
 C:\Users\WINDOWS11\source\repos\Shoppet\ShoppetApp\ShoppetApp\obj\Debug\net10.0-ios\iossimulator-x64\ShoppetApp.pdb
 C:\Users\WINDOWS11\source\repos\Shoppet\ShoppetApp\ShoppetApp\obj\Debug\net10.0-ios\iossimulator-x64\ShoppetApp.genruntimeconfig.cache
 C:\Users\WINDOWS11\source\repos\Shoppet\ShoppetApp\ShoppetApp\obj\Debug\net10.0-ios\iossimulator-x64\ref\ShoppetApp.dll
-C:\Users\WINDOWS11\source\repos\Shoppet\ShoppetApp\ShoppetApp\obj\Debug\net10.0-ios\iossimulator-x64\build-signature\signature

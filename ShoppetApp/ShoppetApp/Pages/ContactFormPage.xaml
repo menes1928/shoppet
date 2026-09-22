@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:ShoppetApp.ViewModels"
@@ -9,8 +9,8 @@
     <ScrollView>
         <VerticalStackLayout Spacing="16" Padding="16,24,16,32">
             <Grid ColumnDefinitions="Auto,*,Auto">
-                <Button Grid.Column="0" Text="✕" FontSize="18" BackgroundColor="Transparent" TextColor="{StaticResource SecondaryFg}" WidthRequest="40" Command="{Binding CloseCommand}" />
-                <Label Grid.Column="1" Text="{Binding Title}" FontFamily="NunitoBold" FontSize="16" HorizontalOptions="Center" VerticalOptions="Center" TextColor="{StaticResource SecondaryFg}" />
+                <Button Grid.Column="0" Text="✕" FontSize="18" BackgroundColor="Transparent" TextColor="Black" WidthRequest="40" Command="{Binding CloseCommand}" />
+                <Label Grid.Column="1" Text="{Binding Title}" FontFamily="NunitoBold" FontSize="16" HorizontalOptions="Center" VerticalOptions="Center" TextColor="Black" BackgroundColor="Transparent" />
                 <Button Grid.Column="2" Text="Save" FontFamily="NunitoBold" BackgroundColor="Transparent" TextColor="{StaticResource Primary}" Command="{Binding SaveCommand}" />
             </Grid>
 
@@ -29,7 +29,7 @@
                     <Border.StrokeShape>
                         <RoundRectangle CornerRadius="20" />
                     </Border.StrokeShape>
-                    <Picker ItemsSource="{Binding RoleOptions}" SelectedItem="{Binding Role}" TextColor="{StaticResource SecondaryFg}" Title="Select Role" HeightRequest="44" />
+                    <Picker ItemsSource="{Binding RoleOptions}" SelectedItem="{Binding Role}" ItemDisplayBinding="{Binding .}" TextColor="Black" BackgroundColor="Transparent" Title="Select Role" HeightRequest="44" />
                 </Border>
 
                 <Label Text="Phone Number *" FontFamily="NunitoSemiBold" FontSize="13" />
@@ -37,7 +37,7 @@
                     <Border.StrokeShape>
                         <RoundRectangle CornerRadius="20" />
                     </Border.StrokeShape>
-                    <Entry Text="{Binding Phone}" Keyboard="Numeric" MaxLength="11" Placeholder="09123456789" HeightRequest="52" />
+                    <Entry Text="{Binding Phone}" Keyboard="Numeric" MaxLength="11" Placeholder="09123456789" HeightRequest="52" TextChanged="OnPhoneTextChanged" />
                 </Border>
 
                 <Label Text="Address" FontFamily="NunitoSemiBold" FontSize="13" />

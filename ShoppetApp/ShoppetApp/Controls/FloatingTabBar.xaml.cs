@@ -1,4 +1,4 @@
-namespace ShoppetApp.Controls;
+﻿namespace ShoppetApp.Controls;
 
 public partial class FloatingTabBar : ContentView
 {
@@ -29,6 +29,8 @@ public partial class FloatingTabBar : ContentView
             SelectedTab = "shop";
         else if (route.Contains("profile", StringComparison.OrdinalIgnoreCase))
             SelectedTab = "profile";
+        else if (route.Contains("community", StringComparison.OrdinalIgnoreCase))
+            SelectedTab = "community";
         else if (route.Contains("home", StringComparison.OrdinalIgnoreCase))
             SelectedTab = "home";
     }
@@ -44,6 +46,7 @@ public partial class FloatingTabBar : ContentView
         StyleTab(HomeContainer, HomeIcon, HomeLabel, SelectedTab == "home");
         StyleTab(ShopContainer, ShopIcon, ShopLabel, SelectedTab == "shop");
         StyleTab(PetsContainer, PetsIcon, PetsLabel, SelectedTab == "pets");
+        StyleTab(CommunityContainer, CommunityIcon, CommunityLabel, SelectedTab == "community");
         StyleTab(ProfileContainer, ProfileIcon, ProfileLabel, SelectedTab == "profile");
     }
 
@@ -94,9 +97,10 @@ public partial class FloatingTabBar : ContentView
         await view.ScaleToAsync(0.94, 80, Easing.SinOut);
         await view.ScaleToAsync(1, 120, Easing.SinIn);
     }
-    private async void OnCommunityClicked(object sender, EventArgs e)
+    private async void OnCommunityClicked(object? sender, TappedEventArgs e)
     {
-        if (SelectedTab != "community")
-            await Shell.Current.GoToAsync("///community");
+        await BounceAsync(CommunityContainer);
+        SelectedTab = "community";
+        await Shell.Current.GoToAsync("//community");
     }
 }

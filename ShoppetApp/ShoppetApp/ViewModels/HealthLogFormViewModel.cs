@@ -1,4 +1,4 @@
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using ShoppetApp.Messages;
@@ -62,11 +62,11 @@ public partial class HealthLogFormViewModel : ObservableObject, IQueryAttributab
         var log = (await _api.GetHealthLogsAsync(PetId)).FirstOrDefault(l => l.Id == LogId);
         if (log is null) return;
 
-        LogType = log.Type;
+        LogType = TypeOptions.FirstOrDefault(t => string.Equals(t, log.Type, StringComparison.OrdinalIgnoreCase)) ?? log.Type;
         Name = log.Name;
         Completed = log.Completed;
         ValidityIntervalText = log.ValidityInterval.ToString();
-        ValidityUnit = string.IsNullOrEmpty(log.ValidityUnit) ? "Months" : log.ValidityUnit;
+        ValidityUnit = ValidityUnitOptions.FirstOrDefault(u => string.Equals(u, log.ValidityUnit, StringComparison.OrdinalIgnoreCase)) ?? (string.IsNullOrEmpty(log.ValidityUnit) ? "Months" : log.ValidityUnit);
         MedicationIntervalHoursText = log.MedicationIntervalHours.ToString();
         DosageTotalText = log.DosageTotal.ToString();
 
@@ -182,5 +182,8 @@ public partial class HealthLogFormViewModel : ObservableObject, IQueryAttributab
         await Shell.Current.GoToAsync("..");
     }
 }
+
+
+
 
 

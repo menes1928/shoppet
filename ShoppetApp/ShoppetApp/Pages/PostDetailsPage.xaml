@@ -1,0 +1,116 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:ShoppetApp.ViewModels"
+             xmlns:controls="clr-namespace:ShoppetApp.Controls"
+             x:Class="ShoppetApp.Pages.PostDetailsPage"
+             Title="Post Details"
+             Shell.NavBarIsVisible="False"
+             BackgroundColor="{StaticResource AppBackground}">
+
+    <Grid>
+        <Grid RowDefinitions="Auto,*,Auto">
+            
+            <!-- Header -->
+            <Border Grid.Row="0" BackgroundColor="{StaticResource AppBackground}" StrokeThickness="0" Padding="15,10">
+                <HorizontalStackLayout Spacing="10">
+                    <!-- Back Button -->
+                    <Label Text="◀ Back" TextColor="{StaticResource Primary}" FontFamily="NunitoBold" FontSize="16" VerticalOptions="Center">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding GoBackCommand}" />
+                        </Label.GestureRecognizers>
+                    </Label>
+                </HorizontalStackLayout>
+            </Border>
+
+            <RefreshView Grid.Row="1" Command="{Binding LoadCommentsCommand}" IsRefreshing="{Binding IsRefreshing}">
+                <ScrollView>
+                    <VerticalStackLayout Padding="15" Spacing="15" Margin="0,0,0,0">
+                        
+                        <!-- Original Post -->
+                        <Border BackgroundColor="{StaticResource CardBg}" Stroke="{StaticResource Secondary30}" StrokeThickness="1" StrokeShape="RoundRectangle 20" Padding="15">
+                            <VerticalStackLayout Spacing="10">
+                                <!-- Post Header -->
+                                <HorizontalStackLayout Spacing="10">
+                                    <Border WidthRequest="40" HeightRequest="40" BackgroundColor="{StaticResource Secondary}" StrokeShape="RoundRectangle 20" StrokeThickness="0">
+                                        <Label Text="{Binding Post.Initials}" TextColor="White" HorizontalOptions="Center" VerticalOptions="Center" FontSize="16" FontFamily="NunitoBold" />
+                                    </Border>
+                                    <VerticalStackLayout VerticalOptions="Center">
+                                        <HorizontalStackLayout Spacing="5">
+                                            <Label Text="{Binding Post.AuthorName}" TextColor="{StaticResource BodyText}" FontFamily="NunitoBold" FontSize="16" />
+                                            <Label Text="{Binding Post.PetName, StringFormat=' is with {0}'}" TextColor="#666666" FontSize="14" IsVisible="{Binding Post.PetName, Converter={StaticResource IsNotNullOrEmptyConverter}}" />
+                                        </HorizontalStackLayout>
+                                        <Label Text="{Binding Post.TimeAgo}" TextColor="#888888" FontSize="12" />
+                                    </VerticalStackLayout>
+                                </HorizontalStackLayout>
+
+                                <!-- Content -->
+                                <Label Text="{Binding Post.Content}" TextColor="{StaticResource BodyText}" FontSize="15" />
+                                <Image Source="{Binding Post.ImageUrls}" IsVisible="{Binding Post.HasImages}" Aspect="AspectFill" HeightRequest="250" />
+
+                                <!-- Likes & Comments Counts -->
+                                <HorizontalStackLayout Spacing="15">
+                                    <Label Text="{Binding Post.LikesCount, StringFormat='{0} Likes'}" TextColor="#666666" FontSize="13" />
+                                    <Label Text="{Binding Post.CommentsCount, StringFormat='{0} Comments'}" TextColor="#666666" FontSize="13" />
+                                </HorizontalStackLayout>
+
+                                <!-- Action Bar -->
+                                <Grid ColumnDefinitions="*,*">
+                                    <Button Grid.Column="0" Text="{Binding Post.IsLikedByMe, Converter={StaticResource BoolToLikeTextConverter}}" 
+                                            Command="{Binding ToggleLikeCommand}"
+                                            TextColor="{Binding Post.IsLikedByMe, Converter={StaticResource BoolToLikeColorConverter}}"
+                                            BackgroundColor="Transparent" FontFamily="NunitoBold" />
+                                    <Button Grid.Column="1" Text="🗨 Comment" TextColor="{StaticResource Primary}" BackgroundColor="Transparent" FontFamily="NunitoBold" />
+                                </Grid>
+                                
+                                <BoxView HeightRequest="1" Color="{StaticResource Secondary30}" Margin="0,10" />
+                            </VerticalStackLayout>
+                        </Border>
+                        
+                        <!-- Comments List -->
+                        <CollectionView ItemsSource="{Binding Comments}">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <HorizontalStackLayout Spacing="10" Margin="0,0,0,15">
+                                        <Border WidthRequest="32" HeightRequest="32" BackgroundColor="{StaticResource Secondary}" StrokeShape="RoundRectangle 16" StrokeThickness="0" VerticalOptions="Start">
+                                            <Label Text="{Binding Initials}" TextColor="White" HorizontalOptions="Center" VerticalOptions="Center" FontSize="12" FontFamily="NunitoBold" />
+                                        </Border>
+                                        <VerticalStackLayout>
+                                            <Border BackgroundColor="{StaticResource CardBg}" Stroke="{StaticResource Secondary30}" StrokeThickness="1" StrokeShape="RoundRectangle 15" Padding="10">
+                                                <VerticalStackLayout>
+                                                    <Label Text="{Binding AuthorName}" TextColor="{StaticResource BodyText}" FontFamily="NunitoBold" FontSize="14" />
+                                                    <Label Text="{Binding Content}" TextColor="{StaticResource BodyText}" FontSize="14" />
+                                                </VerticalStackLayout>
+                                            </Border>
+                                            <HorizontalStackLayout Spacing="15" Margin="10,5,0,0">
+                                                <Label Text="{Binding TimeAgo}" TextColor="#888888" FontSize="12" />
+                                                <Label Text="Reply" TextColor="#888888" FontSize="12" FontFamily="NunitoBold">
+                                                    <Label.GestureRecognizers>
+                                                        <TapGestureRecognizer />
+                                                    </Label.GestureRecognizers>
+                                                </Label>
+                                            </HorizontalStackLayout>
+                                        </VerticalStackLayout>
+                                    </HorizontalStackLayout>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </VerticalStackLayout>
+                </ScrollView>
+            </RefreshView>
+
+            <!-- Add Comment Input -->
+            <Border Grid.Row="2" BackgroundColor="{StaticResource CardBg}" Stroke="{StaticResource Secondary30}" StrokeThickness="1" Padding="10" Margin="0,0,0,0">
+                <Grid ColumnDefinitions="*,Auto" ColumnSpacing="10">
+                    <Border Grid.Column="0" StrokeShape="RoundRectangle 20" StrokeThickness="1" Stroke="{StaticResource Secondary30}" BackgroundColor="{StaticResource AppBackground}" Padding="15,0">
+                        <Editor Placeholder="Write a comment..." Text="{Binding NewCommentText}" TextColor="{StaticResource BodyText}" PlaceholderColor="#888888" BackgroundColor="Transparent" AutoSize="TextChanges" />
+                    </Border>
+                    <Button Grid.Column="1" Text="Send" Command="{Binding SendCommentCommand}" BackgroundColor="Transparent" TextColor="{StaticResource Primary}" FontFamily="NunitoBold" />
+                </Grid>
+            </Border>
+        </Grid>
+        
+        </Grid>
+</ContentPage>
+
+

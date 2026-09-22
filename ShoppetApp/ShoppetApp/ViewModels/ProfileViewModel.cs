@@ -1,4 +1,7 @@
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Maui.Views;
+using CommunityToolkit.Maui.Core;
+using CommunityToolkit.Maui;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using ShoppetApp.Helpers;
@@ -14,6 +17,30 @@ namespace ShoppetApp.ViewModels
         private readonly DatabaseService _db;
 
         [ObservableProperty] private System.Collections.ObjectModel.ObservableCollection<ContactModel> _contacts = [];
+        private System.Collections.Generic.List<ContactModel> _allContacts = new();
+
+        [ObservableProperty]
+        private string _contactSearchQuery;
+
+        partial void OnContactSearchQueryChanged(string value)
+        {
+            FilterContacts();
+        }
+
+        private void FilterContacts()
+        {
+            if (string.IsNullOrWhiteSpace(ContactSearchQuery))
+            {
+                Contacts = new System.Collections.ObjectModel.ObservableCollection<ContactModel>(_allContacts);
+            }
+            else
+            {
+                var q = ContactSearchQuery.ToLowerInvariant();
+                var filtered = _allContacts.Where(c => (c.Name?.ToLowerInvariant().Contains(q) == true) || (c.Role?.ToLowerInvariant().Contains(q) == true));
+                Contacts = new System.Collections.ObjectModel.ObservableCollection<ContactModel>(filtered);
+            }
+        }
+
         [ObservableProperty] private bool _isBusy;
         [ObservableProperty] private string _fullName = string.Empty;
 
@@ -48,7 +75,7 @@ namespace ShoppetApp.ViewModels
                     IsBusinessOwner = role == "BusinessOwner";
                 }
                 var contacts = await _api.GetContactsAsync();
-                Contacts = new System.Collections.ObjectModel.ObservableCollection<ContactModel>(contacts);
+                _allContacts = contacts.ToList(); FilterContacts();
             }
             finally
             {
@@ -59,6 +86,14 @@ namespace ShoppetApp.ViewModels
         [RelayCommand]
         private async Task AddContactAsync() =>
             await Shell.Current.GoToAsync("contactform");
+
+        [RelayCommand]
+        private async Task ViewContactDetailsAsync(ContactModel contact)
+        {
+            if (contact is null) return;
+            var popup = new Controls.ContactDetailsPopup(contact);
+            await Shell.Current.Navigation.PushModalAsync(popup);
+        }
 
         [RelayCommand]
         private async Task EditContactAsync(ContactModel contact) =>
@@ -111,6 +146,7 @@ namespace ShoppetApp.ViewModels
         private void Logout() => NavigationHelper.GoToAuth();
     }
 }
+
 
 
 

@@ -39,6 +39,18 @@
         <member name="P:ShoppetApp.Models.CartItem.Quantity">
             <inheritdoc cref="F:ShoppetApp.Models.CartItem._quantity"/>
         </member>
+        <member name="T:ShoppetApp.Models.CommunityPost">
+            <inheritdoc/>
+        </member>
+        <member name="P:ShoppetApp.Models.CommunityPost.LikesCount">
+            <inheritdoc cref="F:ShoppetApp.Models.CommunityPost._likesCount"/>
+        </member>
+        <member name="P:ShoppetApp.Models.CommunityPost.CommentsCount">
+            <inheritdoc cref="F:ShoppetApp.Models.CommunityPost._commentsCount"/>
+        </member>
+        <member name="P:ShoppetApp.Models.CommunityPost.IsLikedByMe">
+            <inheritdoc cref="F:ShoppetApp.Models.CommunityPost._isLikedByMe"/>
+        </member>
         <member name="P:ShoppetApp.Models.HealthLog.Type">
             <summary>"vaccine" | "medication" | "vital"</summary>
         </member>
@@ -230,6 +242,46 @@
         <member name="P:ShoppetApp.ViewModels.CartViewModel.GoBackCommand">
             <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IAsyncRelayCommand"/> instance wrapping <see cref="M:ShoppetApp.ViewModels.CartViewModel.GoBack"/>.</summary>
         </member>
+        <member name="T:ShoppetApp.ViewModels.CommunityViewModel">
+            <inheritdoc/>
+            <inheritdoc/>
+            <inheritdoc/>
+            <inheritdoc/>
+            <inheritdoc/>
+        </member>
+        <member name="P:ShoppetApp.ViewModels.CommunityViewModel.Posts">
+            <inheritdoc cref="F:ShoppetApp.ViewModels.CommunityViewModel._posts"/>
+        </member>
+        <member name="P:ShoppetApp.ViewModels.CommunityViewModel.IsRefreshing">
+            <inheritdoc cref="F:ShoppetApp.ViewModels.CommunityViewModel._isRefreshing"/>
+        </member>
+        <member name="P:ShoppetApp.ViewModels.CommunityViewModel.UserInitials">
+            <inheritdoc cref="F:ShoppetApp.ViewModels.CommunityViewModel._userInitials"/>
+        </member>
+        <member name="F:ShoppetApp.ViewModels.CommunityViewModel.loadPostsCommand">
+            <summary>The backing field for <see cref="P:ShoppetApp.ViewModels.CommunityViewModel.LoadPostsCommand"/>.</summary>
+        </member>
+        <member name="P:ShoppetApp.ViewModels.CommunityViewModel.LoadPostsCommand">
+            <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IAsyncRelayCommand"/> instance wrapping <see cref="M:ShoppetApp.ViewModels.CommunityViewModel.LoadPostsAsync"/>.</summary>
+        </member>
+        <member name="F:ShoppetApp.ViewModels.CommunityViewModel.toggleLikeCommand">
+            <summary>The backing field for <see cref="P:ShoppetApp.ViewModels.CommunityViewModel.ToggleLikeCommand"/>.</summary>
+        </member>
+        <member name="P:ShoppetApp.ViewModels.CommunityViewModel.ToggleLikeCommand">
+            <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IAsyncRelayCommand`1"/> instance wrapping <see cref="M:ShoppetApp.ViewModels.CommunityViewModel.ToggleLikeAsync(ShoppetApp.Models.CommunityPost)"/>.</summary>
+        </member>
+        <member name="F:ShoppetApp.ViewModels.CommunityViewModel.goToCreatePostCommand">
+            <summary>The backing field for <see cref="P:ShoppetApp.ViewModels.CommunityViewModel.GoToCreatePostCommand"/>.</summary>
+        </member>
+        <member name="P:ShoppetApp.ViewModels.CommunityViewModel.GoToCreatePostCommand">
+            <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IAsyncRelayCommand"/> instance wrapping <see cref="M:ShoppetApp.ViewModels.CommunityViewModel.GoToCreatePostAsync"/>.</summary>
+        </member>
+        <member name="F:ShoppetApp.ViewModels.CommunityViewModel.goToPostDetailsCommand">
+            <summary>The backing field for <see cref="P:ShoppetApp.ViewModels.CommunityViewModel.GoToPostDetailsCommand"/>.</summary>
+        </member>
+        <member name="P:ShoppetApp.ViewModels.CommunityViewModel.GoToPostDetailsCommand">
+            <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IAsyncRelayCommand`1"/> instance wrapping <see cref="M:ShoppetApp.ViewModels.CommunityViewModel.GoToPostDetailsAsync(ShoppetApp.Models.CommunityPost)"/>.</summary>
+        </member>
         <member name="T:ShoppetApp.ViewModels.ContactFormViewModel">
             <inheritdoc/>
             <inheritdoc/>
@@ -247,9 +299,6 @@
         </member>
         <member name="P:ShoppetApp.ViewModels.ContactFormViewModel.Address">
             <inheritdoc cref="F:ShoppetApp.ViewModels.ContactFormViewModel._address"/>
-        </member>
-        <member name="P:ShoppetApp.ViewModels.ContactFormViewModel.Phone">
-            <inheritdoc cref="F:ShoppetApp.ViewModels.ContactFormViewModel._phone"/>
         </member>
         <member name="P:ShoppetApp.ViewModels.ContactFormViewModel.IsEmergency">
             <inheritdoc cref="F:ShoppetApp.ViewModels.ContactFormViewModel._isEmergency"/>
@@ -271,6 +320,59 @@
         </member>
         <member name="P:ShoppetApp.ViewModels.ContactFormViewModel.DeleteCommand">
             <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IAsyncRelayCommand"/> instance wrapping <see cref="M:ShoppetApp.ViewModels.ContactFormViewModel.DeleteAsync"/>.</summary>
+        </member>
+        <member name="T:ShoppetApp.ViewModels.CreatePostViewModel">
+            <inheritdoc/>
+            <inheritdoc/>
+            <inheritdoc/>
+            <inheritdoc/>
+            <inheritdoc/>
+            <inheritdoc/>
+        </member>
+        <member name="P:ShoppetApp.ViewModels.CreatePostViewModel.Content">
+            <inheritdoc cref="F:ShoppetApp.ViewModels.CreatePostViewModel._content"/>
+        </member>
+        <member name="P:ShoppetApp.ViewModels.CreatePostViewModel.SelectedPets">
+            <inheritdoc cref="F:ShoppetApp.ViewModels.CreatePostViewModel._selectedPets"/>
+        </member>
+        <member name="P:ShoppetApp.ViewModels.CreatePostViewModel.AttachedPhotoPath">
+            <inheritdoc cref="F:ShoppetApp.ViewModels.CreatePostViewModel._attachedPhotoPath"/>
+        </member>
+        <member name="P:ShoppetApp.ViewModels.CreatePostViewModel.MyPets">
+            <inheritdoc cref="F:ShoppetApp.ViewModels.CreatePostViewModel._myPets"/>
+        </member>
+        <member name="P:ShoppetApp.ViewModels.CreatePostViewModel.IsPetModalVisible">
+            <inheritdoc cref="F:ShoppetApp.ViewModels.CreatePostViewModel._isPetModalVisible"/>
+        </member>
+        <member name="F:ShoppetApp.ViewModels.CreatePostViewModel.openPetModalCommand">
+            <summary>The backing field for <see cref="P:ShoppetApp.ViewModels.CreatePostViewModel.OpenPetModalCommand"/>.</summary>
+        </member>
+        <member name="P:ShoppetApp.ViewModels.CreatePostViewModel.OpenPetModalCommand">
+            <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IRelayCommand"/> instance wrapping <see cref="M:ShoppetApp.ViewModels.CreatePostViewModel.OpenPetModal"/>.</summary>
+        </member>
+        <member name="F:ShoppetApp.ViewModels.CreatePostViewModel.closePetModalCommand">
+            <summary>The backing field for <see cref="P:ShoppetApp.ViewModels.CreatePostViewModel.ClosePetModalCommand"/>.</summary>
+        </member>
+        <member name="P:ShoppetApp.ViewModels.CreatePostViewModel.ClosePetModalCommand">
+            <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IRelayCommand"/> instance wrapping <see cref="M:ShoppetApp.ViewModels.CreatePostViewModel.ClosePetModal"/>.</summary>
+        </member>
+        <member name="F:ShoppetApp.ViewModels.CreatePostViewModel.closeCommand">
+            <summary>The backing field for <see cref="P:ShoppetApp.ViewModels.CreatePostViewModel.CloseCommand"/>.</summary>
+        </member>
+        <member name="P:ShoppetApp.ViewModels.CreatePostViewModel.CloseCommand">
+            <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IAsyncRelayCommand"/> instance wrapping <see cref="M:ShoppetApp.ViewModels.CreatePostViewModel.CloseAsync"/>.</summary>
+        </member>
+        <member name="F:ShoppetApp.ViewModels.CreatePostViewModel.attachPhotoCommand">
+            <summary>The backing field for <see cref="P:ShoppetApp.ViewModels.CreatePostViewModel.AttachPhotoCommand"/>.</summary>
+        </member>
+        <member name="P:ShoppetApp.ViewModels.CreatePostViewModel.AttachPhotoCommand">
+            <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IAsyncRelayCommand"/> instance wrapping <see cref="M:ShoppetApp.ViewModels.CreatePostViewModel.AttachPhotoAsync"/>.</summary>
+        </member>
+        <member name="F:ShoppetApp.ViewModels.CreatePostViewModel.postCommand">
+            <summary>The backing field for <see cref="P:ShoppetApp.ViewModels.CreatePostViewModel.PostCommand"/>.</summary>
+        </member>
+        <member name="P:ShoppetApp.ViewModels.CreatePostViewModel.PostCommand">
+            <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IAsyncRelayCommand"/> instance wrapping <see cref="M:ShoppetApp.ViewModels.CreatePostViewModel.PostAsync"/>.</summary>
         </member>
         <member name="T:ShoppetApp.ViewModels.FoodLogFormViewModel">
             <inheritdoc/>
@@ -625,7 +727,56 @@
         <member name="P:ShoppetApp.ViewModels.PetsListViewModel.DeletePetCommand">
             <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IAsyncRelayCommand`1"/> instance wrapping <see cref="M:ShoppetApp.ViewModels.PetsListViewModel.DeletePetAsync(ShoppetApp.Models.Pet)"/>.</summary>
         </member>
+        <member name="T:ShoppetApp.ViewModels.PostDetailsViewModel">
+            <inheritdoc/>
+            <inheritdoc/>
+            <inheritdoc/>
+            <inheritdoc/>
+            <inheritdoc/>
+        </member>
+        <member name="P:ShoppetApp.ViewModels.PostDetailsViewModel.Post">
+            <inheritdoc cref="F:ShoppetApp.ViewModels.PostDetailsViewModel._post"/>
+        </member>
+        <member name="P:ShoppetApp.ViewModels.PostDetailsViewModel.Comments">
+            <inheritdoc cref="F:ShoppetApp.ViewModels.PostDetailsViewModel._comments"/>
+        </member>
+        <member name="P:ShoppetApp.ViewModels.PostDetailsViewModel.NewCommentText">
+            <inheritdoc cref="F:ShoppetApp.ViewModels.PostDetailsViewModel._newCommentText"/>
+        </member>
+        <member name="P:ShoppetApp.ViewModels.PostDetailsViewModel.IsRefreshing">
+            <inheritdoc cref="F:ShoppetApp.ViewModels.PostDetailsViewModel._isRefreshing"/>
+        </member>
+        <member name="M:ShoppetApp.ViewModels.PostDetailsViewModel.OnPostChanged(ShoppetApp.Models.CommunityPost)">
+            <summary>Executes the logic for when <see cref="P:ShoppetApp.ViewModels.PostDetailsViewModel.Post"/> just changed.</summary>
+            <param name="value">The new property value that was set.</param>
+            <remarks>This method is invoked right after the value of <see cref="P:ShoppetApp.ViewModels.PostDetailsViewModel.Post"/> is changed.</remarks>
+        </member>
+        <member name="F:ShoppetApp.ViewModels.PostDetailsViewModel.goBackCommand">
+            <summary>The backing field for <see cref="P:ShoppetApp.ViewModels.PostDetailsViewModel.GoBackCommand"/>.</summary>
+        </member>
+        <member name="P:ShoppetApp.ViewModels.PostDetailsViewModel.GoBackCommand">
+            <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IAsyncRelayCommand"/> instance wrapping <see cref="M:ShoppetApp.ViewModels.PostDetailsViewModel.GoBackAsync"/>.</summary>
+        </member>
+        <member name="F:ShoppetApp.ViewModels.PostDetailsViewModel.loadCommentsCommand">
+            <summary>The backing field for <see cref="P:ShoppetApp.ViewModels.PostDetailsViewModel.LoadCommentsCommand"/>.</summary>
+        </member>
+        <member name="P:ShoppetApp.ViewModels.PostDetailsViewModel.LoadCommentsCommand">
+            <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IAsyncRelayCommand"/> instance wrapping <see cref="M:ShoppetApp.ViewModels.PostDetailsViewModel.LoadCommentsAsync"/>.</summary>
+        </member>
+        <member name="F:ShoppetApp.ViewModels.PostDetailsViewModel.toggleLikeCommand">
+            <summary>The backing field for <see cref="P:ShoppetApp.ViewModels.PostDetailsViewModel.ToggleLikeCommand"/>.</summary>
+        </member>
+        <member name="P:ShoppetApp.ViewModels.PostDetailsViewModel.ToggleLikeCommand">
+            <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IAsyncRelayCommand"/> instance wrapping <see cref="M:ShoppetApp.ViewModels.PostDetailsViewModel.ToggleLikeAsync"/>.</summary>
+        </member>
+        <member name="F:ShoppetApp.ViewModels.PostDetailsViewModel.sendCommentCommand">
+            <summary>The backing field for <see cref="P:ShoppetApp.ViewModels.PostDetailsViewModel.SendCommentCommand"/>.</summary>
+        </member>
+        <member name="P:ShoppetApp.ViewModels.PostDetailsViewModel.SendCommentCommand">
+            <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IAsyncRelayCommand"/> instance wrapping <see cref="M:ShoppetApp.ViewModels.PostDetailsViewModel.SendCommentAsync"/>.</summary>
+        </member>
         <member name="T:ShoppetApp.ViewModels.ProfileViewModel">
+            <inheritdoc/>
             <inheritdoc/>
             <inheritdoc/>
             <inheritdoc/>
@@ -639,6 +790,9 @@
         <member name="P:ShoppetApp.ViewModels.ProfileViewModel.Contacts">
             <inheritdoc cref="F:ShoppetApp.ViewModels.ProfileViewModel._contacts"/>
         </member>
+        <member name="P:ShoppetApp.ViewModels.ProfileViewModel.ContactSearchQuery">
+            <inheritdoc cref="F:ShoppetApp.ViewModels.ProfileViewModel._contactSearchQuery"/>
+        </member>
         <member name="P:ShoppetApp.ViewModels.ProfileViewModel.IsBusy">
             <inheritdoc cref="F:ShoppetApp.ViewModels.ProfileViewModel._isBusy"/>
         </member>
@@ -651,11 +805,22 @@
         <member name="P:ShoppetApp.ViewModels.ProfileViewModel.IsBusinessOwner">
             <inheritdoc cref="F:ShoppetApp.ViewModels.ProfileViewModel._isBusinessOwner"/>
         </member>
+        <member name="M:ShoppetApp.ViewModels.ProfileViewModel.OnContactSearchQueryChanged(System.String)">
+            <summary>Executes the logic for when <see cref="P:ShoppetApp.ViewModels.ProfileViewModel.ContactSearchQuery"/> just changed.</summary>
+            <param name="value">The new property value that was set.</param>
+            <remarks>This method is invoked right after the value of <see cref="P:ShoppetApp.ViewModels.ProfileViewModel.ContactSearchQuery"/> is changed.</remarks>
+        </member>
         <member name="F:ShoppetApp.ViewModels.ProfileViewModel.addContactCommand">
             <summary>The backing field for <see cref="P:ShoppetApp.ViewModels.ProfileViewModel.AddContactCommand"/>.</summary>
         </member>
         <member name="P:ShoppetApp.ViewModels.ProfileViewModel.AddContactCommand">
             <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IAsyncRelayCommand"/> instance wrapping <see cref="M:ShoppetApp.ViewModels.ProfileViewModel.AddContactAsync"/>.</summary>
+        </member>
+        <member name="F:ShoppetApp.ViewModels.ProfileViewModel.viewContactDetailsCommand">
+            <summary>The backing field for <see cref="P:ShoppetApp.ViewModels.ProfileViewModel.ViewContactDetailsCommand"/>.</summary>
+        </member>
+        <member name="P:ShoppetApp.ViewModels.ProfileViewModel.ViewContactDetailsCommand">
+            <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IAsyncRelayCommand`1"/> instance wrapping <see cref="M:ShoppetApp.ViewModels.ProfileViewModel.ViewContactDetailsAsync(ShoppetApp.Models.Contact)"/>.</summary>
         </member>
         <member name="F:ShoppetApp.ViewModels.ProfileViewModel.editContactCommand">
             <summary>The backing field for <see cref="P:ShoppetApp.ViewModels.ProfileViewModel.EditContactCommand"/>.</summary>
@@ -966,6 +1131,15 @@
         <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.TotalAmount">
             <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "TotalAmount" generated properties.</summary>
         </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.LikesCount">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "LikesCount" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.CommentsCount">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "CommentsCount" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.IsLikedByMe">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "IsLikedByMe" generated properties.</summary>
+        </member>
         <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.Rotation">
             <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "Rotation" generated properties.</summary>
         </member>
@@ -1026,6 +1200,15 @@
         <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.GeneralError">
             <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "GeneralError" generated properties.</summary>
         </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.Posts">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "Posts" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.IsRefreshing">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "IsRefreshing" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.UserInitials">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "UserInitials" generated properties.</summary>
+        </member>
         <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.ContactId">
             <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "ContactId" generated properties.</summary>
         </member>
@@ -1038,11 +1221,23 @@
         <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.Address">
             <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "Address" generated properties.</summary>
         </member>
-        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.Phone">
-            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "Phone" generated properties.</summary>
-        </member>
         <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.IsEmergency">
             <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "IsEmergency" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.Content">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "Content" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.SelectedPets">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "SelectedPets" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.AttachedPhotoPath">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "AttachedPhotoPath" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.MyPets">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "MyPets" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.IsPetModalVisible">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "IsPetModalVisible" generated properties.</summary>
         </member>
         <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.PetId">
             <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "PetId" generated properties.</summary>
@@ -1140,8 +1335,20 @@
         <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.FoodLogs">
             <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "FoodLogs" generated properties.</summary>
         </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.Post">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "Post" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.Comments">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "Comments" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.NewCommentText">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "NewCommentText" generated properties.</summary>
+        </member>
         <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.Contacts">
             <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "Contacts" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.ContactSearchQuery">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "ContactSearchQuery" generated properties.</summary>
         </member>
         <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.IsAdmin">
             <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "IsAdmin" generated properties.</summary>
@@ -1181,6 +1388,15 @@
         </member>
         <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.TotalAmount">
             <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "TotalAmount" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.LikesCount">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "LikesCount" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.CommentsCount">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "CommentsCount" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.IsLikedByMe">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "IsLikedByMe" generated properties.</summary>
         </member>
         <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.Rotation">
             <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "Rotation" generated properties.</summary>
@@ -1242,6 +1458,15 @@
         <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.GeneralError">
             <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "GeneralError" generated properties.</summary>
         </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.Posts">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "Posts" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.IsRefreshing">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "IsRefreshing" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.UserInitials">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "UserInitials" generated properties.</summary>
+        </member>
         <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.ContactId">
             <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "ContactId" generated properties.</summary>
         </member>
@@ -1254,11 +1479,23 @@
         <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.Address">
             <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "Address" generated properties.</summary>
         </member>
-        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.Phone">
-            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "Phone" generated properties.</summary>
-        </member>
         <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.IsEmergency">
             <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "IsEmergency" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.Content">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "Content" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.SelectedPets">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "SelectedPets" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.AttachedPhotoPath">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "AttachedPhotoPath" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.MyPets">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "MyPets" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.IsPetModalVisible">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "IsPetModalVisible" generated properties.</summary>
         </member>
         <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.PetId">
             <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "PetId" generated properties.</summary>
@@ -1356,8 +1593,20 @@
         <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.FoodLogs">
             <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "FoodLogs" generated properties.</summary>
         </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.Post">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "Post" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.Comments">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "Comments" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.NewCommentText">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "NewCommentText" generated properties.</summary>
+        </member>
         <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.Contacts">
             <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "Contacts" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.ContactSearchQuery">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "ContactSearchQuery" generated properties.</summary>
         </member>
         <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.IsAdmin">
             <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "IsAdmin" generated properties.</summary>

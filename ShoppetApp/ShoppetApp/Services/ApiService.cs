@@ -1,4 +1,4 @@
-using ShoppetApp.Models;
+﻿using ShoppetApp.Models;
 using System.Net.Http.Json;
 
 namespace ShoppetApp.Services;
@@ -104,7 +104,10 @@ public class ApiService
                 res = await _http.PutAsJsonAsync($"pets/{pet.Id}", body);
 
             if (res.IsSuccessStatusCode)
+            {
+                if (pet.Id > 0) return pet;
                 return await res.Content.ReadFromJsonAsync<Pet>();
+            }
         }
         catch { }
         return null;
@@ -151,7 +154,10 @@ public class ApiService
                 res = await _http.PutAsJsonAsync($"pets/{petId}/healthlogs/{log.Id}", body);
 
             if (res.IsSuccessStatusCode)
+            {
+                if (log.Id > 0) return log;
                 return await res.Content.ReadFromJsonAsync<HealthLog>();
+            }
         }
         catch { }
         return null;
@@ -205,7 +211,10 @@ public class ApiService
                 res = await _http.PutAsJsonAsync($"pets/{petId}/foodlogs/{log.Id}", body);
 
             if (res.IsSuccessStatusCode)
+            {
+                if (log.Id > 0) return log;
                 return await res.Content.ReadFromJsonAsync<FoodLog>();
+            }
         }
         catch { }
         return null;
@@ -249,7 +258,10 @@ public class ApiService
                 res = await _http.PutAsJsonAsync($"contacts/{contact.Id}", body);
 
             if (res.IsSuccessStatusCode)
+            {
+                if (contact.Id > 0) return contact;
                 return await res.Content.ReadFromJsonAsync<Models.Contact>();
+            }
         }
         catch { }
         return null;
@@ -351,11 +363,91 @@ public class ApiService
         try { return await _http.GetFromJsonAsync<List<OrderDto>>("cart/orders") ?? []; }
         catch { return []; }
     }
+
+    // --- Community API ---
+
+    public async Task<List<CommunityPost>> GetCommunityPostsAsync(int userId)
+    {
+        try
+        {
+            return await _http.GetFromJsonAsync<List<CommunityPost>>($"community?userId={userId}") ?? new List<CommunityPost>();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error fetching posts: {ex.Message}");
+            return new List<CommunityPost>();
+        }
+    }
+
+    public async Task<bool> CreateCommunityPostAsync(object request)
+    {
+        try
+        {
+            var res = await _http.PostAsJsonAsync("community", request);
+            return res.IsSuccessStatusCode;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error creating post: {ex.Message}");
+            return false;
+        }
+    }
+
+    public async Task<bool> ToggleLikeAsync(int postId, int userId)
+    {
+        try
+        {
+            var res = await _http.PostAsJsonAsync($"community/{postId}/like", new { UserId = userId });
+            if (res.IsSuccessStatusCode)
+            {
+                var result = await res.Content.ReadFromJsonAsync<System.Text.Json.JsonElement>();
+                return result.GetProperty("isLiked").GetBoolean();
+            }
+            return false;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error toggling like: {ex.Message}");
+            return false;
+        }
+    }
+
+    public async Task<List<CommunityComment>> GetCommentsAsync(int postId)
+    {
+        try
+        {
+            return await _http.GetFromJsonAsync<List<CommunityComment>>($"community/{postId}/comments") ?? new List<CommunityComment>();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error fetching comments: {ex.Message}");
+            return new List<CommunityComment>();
+        }
+    }
+
+    public async Task<bool> AddCommentAsync(int postId, int userId, string content, int? parentCommentId = null)
+    {
+        try
+        {
+            var res = await _http.PostAsJsonAsync($"community/{postId}/comments", new 
+            { 
+                UserId = userId,
+                Content = content,
+                ParentCommentId = parentCommentId
+            });
+            return res.IsSuccessStatusCode;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error adding comment: {ex.Message}");
+            return false;
+        }
+    }
 }
 
 // ── DTOs ──────────────────────────────────────────────────────────────────────
 
-public class AuthResponse
+    public class AuthResponse
 {
     public int UserId { get; set; }
     public string FullName { get; set; } = string.Empty;
@@ -372,6 +464,12 @@ public class ApiResult<T>
     public static ApiResult<T> Ok(T data) => new() { Success = true, Data = data };
     public static ApiResult<T> Fail(string error) => new() { Success = false, Error = error };
 }
+
+
+
+
+
+
 
 
 

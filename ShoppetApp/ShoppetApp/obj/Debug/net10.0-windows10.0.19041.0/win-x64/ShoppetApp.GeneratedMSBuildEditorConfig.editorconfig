@@ -56,6 +56,16 @@ build_metadata.AdditionalFiles.NoWarn =
 build_metadata.AdditionalFiles.EnableDiagnostics = 
 build_metadata.AdditionalFiles.LineInfo = 
 
+[C:/Users/WINDOWS11/source/repos/Shoppet/ShoppetApp/ShoppetApp/Controls/ContactDetailsPopup.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = ShoppetApp.Controls.ContactDetailsPopup.xaml
+build_metadata.AdditionalFiles.TargetPath = Controls\ContactDetailsPopup.xaml
+build_metadata.AdditionalFiles.RelativePath = Controls\ContactDetailsPopup.xaml
+build_metadata.AdditionalFiles.Inflator = SourceGen
+build_metadata.AdditionalFiles.NoWarn = 
+build_metadata.AdditionalFiles.EnableDiagnostics = 
+build_metadata.AdditionalFiles.LineInfo = 
+
 [C:/Users/WINDOWS11/source/repos/Shoppet/ShoppetApp/ShoppetApp/Controls/FloatingTabBar.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = ShoppetApp.Controls.FloatingTabBar.xaml
@@ -126,6 +136,16 @@ build_metadata.AdditionalFiles.NoWarn =
 build_metadata.AdditionalFiles.EnableDiagnostics = 
 build_metadata.AdditionalFiles.LineInfo = 
 
+[C:/Users/WINDOWS11/source/repos/Shoppet/ShoppetApp/ShoppetApp/Pages/CreatePostPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = ShoppetApp.Pages.CreatePostPage.xaml
+build_metadata.AdditionalFiles.TargetPath = Pages\CreatePostPage.xaml
+build_metadata.AdditionalFiles.RelativePath = Pages\CreatePostPage.xaml
+build_metadata.AdditionalFiles.Inflator = SourceGen
+build_metadata.AdditionalFiles.NoWarn = 
+build_metadata.AdditionalFiles.EnableDiagnostics = 
+build_metadata.AdditionalFiles.LineInfo = 
+
 [C:/Users/WINDOWS11/source/repos/Shoppet/ShoppetApp/ShoppetApp/Pages/FoodLogFormPage.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = ShoppetApp.Pages.FoodLogFormPage.xaml
@@ -191,6 +211,16 @@ build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = ShoppetApp.Pages.PetsListPage.xaml
 build_metadata.AdditionalFiles.TargetPath = Pages\PetsListPage.xaml
 build_metadata.AdditionalFiles.RelativePath = Pages\PetsListPage.xaml
+build_metadata.AdditionalFiles.Inflator = SourceGen
+build_metadata.AdditionalFiles.NoWarn = 
+build_metadata.AdditionalFiles.EnableDiagnostics = 
+build_metadata.AdditionalFiles.LineInfo = 
+
+[C:/Users/WINDOWS11/source/repos/Shoppet/ShoppetApp/ShoppetApp/Pages/PostDetailsPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = ShoppetApp.Pages.PostDetailsPage.xaml
+build_metadata.AdditionalFiles.TargetPath = Pages\PostDetailsPage.xaml
+build_metadata.AdditionalFiles.RelativePath = Pages\PostDetailsPage.xaml
 build_metadata.AdditionalFiles.Inflator = SourceGen
 build_metadata.AdditionalFiles.NoWarn = 
 build_metadata.AdditionalFiles.EnableDiagnostics = 

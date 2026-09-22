@@ -256,3 +256,4 @@ C:\Users\WINDOWS11\source\repos\Shoppet\ShoppetAPI\ShoppetAPI\ShoppetAPI\obj\Deb
 C:\Users\WINDOWS11\source\repos\Shoppet\ShoppetAPI\ShoppetAPI\ShoppetAPI\obj\Debug\net10.0\ShoppetAPI.pdb
 C:\Users\WINDOWS11\source\repos\Shoppet\ShoppetAPI\ShoppetAPI\ShoppetAPI\obj\Debug\net10.0\ShoppetAPI.genruntimeconfig.cache
 C:\Users\WINDOWS11\source\repos\Shoppet\ShoppetAPI\ShoppetAPI\ShoppetAPI\obj\Debug\net10.0\ref\ShoppetAPI.dll
+C:\Users\WINDOWS11\source\repos\Shoppet\ShoppetAPI\ShoppetAPI\ShoppetAPI\obj\Debug\net10.0\staticwebassets.upToDateCheck.txt

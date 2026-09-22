@@ -43,7 +43,10 @@
             <x:String x:Key="IconArrowRight">M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z</x:String>
             <x:String x:Key="IconClose">M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z</x:String>
             <x:String x:Key="IconDelete">M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19Z</x:String>
+            <converters:BoolToLikeTextConverter x:Key="BoolToLikeTextConverter" />
+            <converters:BoolToLikeColorConverter x:Key="BoolToLikeColorConverter" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>
+
 

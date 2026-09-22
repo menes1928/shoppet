@@ -1,0 +1,128 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:ShoppetApp.ViewModels"
+             xmlns:controls="clr-namespace:ShoppetApp.Controls"
+             x:Class="ShoppetApp.Pages.CreatePostPage"
+             Title="New post"
+             Shell.NavBarIsVisible="False"
+             BackgroundColor="{StaticResource AppBackground}">
+
+    <Grid RowDefinitions="Auto, *, Auto" BackgroundColor="{StaticResource AppBackground}">
+        <!-- Header -->
+        <Grid Grid.Row="0" ColumnDefinitions="Auto, *, Auto" Padding="15,20,15,15">
+            <Label Grid.Column="0" Text="X" FontSize="20" FontFamily="NunitoBold" TextColor="{StaticResource BodyText}" VerticalOptions="Center">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding CloseCommand}" />
+                </Label.GestureRecognizers>
+            </Label>
+            <Label Grid.Column="1" Text="New post" FontSize="18" FontFamily="NunitoBold" TextColor="{StaticResource BodyText}" HorizontalOptions="Center" VerticalOptions="Center" />
+            <Label Grid.Column="2" WidthRequest="20" />
+        </Grid>
+
+        <!-- Body -->
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout Spacing="15" Padding="15,0,15,20">
+                
+                <HorizontalStackLayout Spacing="10">
+                    <Border WidthRequest="40" HeightRequest="40" BackgroundColor="{StaticResource Secondary}" StrokeShape="RoundRectangle 20" StrokeThickness="0" VerticalOptions="Start">
+                        <Label Text="{Binding UserInitials}" TextColor="White" HorizontalOptions="Center" VerticalOptions="Center" FontSize="14" FontFamily="NunitoBold" />
+                    </Border>
+                    
+                    <VerticalStackLayout Spacing="5" VerticalOptions="Start">
+                        <Label Text="{Binding UserFullName}" TextColor="{StaticResource BodyText}" FontFamily="NunitoBold" FontSize="16" />
+                        
+                        <HorizontalStackLayout Spacing="5" VerticalOptions="Center">
+                            <HorizontalStackLayout Spacing="5" VerticalOptions="Center">
+                                <BindableLayout.ItemsSource>
+                                <Binding Path="SelectedPets" />
+                            </BindableLayout.ItemsSource>
+                            <BindableLayout.ItemTemplate>
+                                <DataTemplate>
+                                    <Border Padding="10,5" StrokeShape="RoundRectangle 10" Stroke="{StaticResource Secondary30}" BackgroundColor="{StaticResource Secondary30}" >
+                                        <Label Text="{Binding Name}" TextColor="{StaticResource BodyText}" FontSize="12" />
+                                    </Border>
+                                </DataTemplate>
+                            </BindableLayout.ItemTemplate>
+                            </HorizontalStackLayout>
+                            
+                            <!-- Dotted Add Pet Button -->
+                            <Border StrokeShape="RoundRectangle 10" Stroke="{StaticResource Secondary}" StrokeDashArray="5,5" StrokeThickness="1" BackgroundColor="Transparent" Padding="10,5" >
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding OpenPetModalCommand}" />
+                                </Border.GestureRecognizers>
+                                <Label Text="Add Pet" TextColor="#888888" FontSize="12" />
+                            </Border>
+                        </HorizontalStackLayout>
+                    </VerticalStackLayout>
+                </HorizontalStackLayout>
+
+                <Editor Placeholder="What's on your mind?" 
+                        PlaceholderColor="#888888" 
+                        TextColor="{StaticResource BodyText}" 
+                        Text="{Binding Content}" 
+                        BackgroundColor="Transparent"
+                        AutoSize="TextChanges" 
+                        MinimumHeightRequest="150" />
+                        
+                <Image Source="{Binding AttachedPhotoPath}" IsVisible="{Binding AttachedPhotoPath, Converter={StaticResource IsNotNullOrEmptyConverter}}" Aspect="AspectFit" HeightRequest="250" HorizontalOptions="Start" />
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <!-- Bottom Action Bar -->
+        <Grid Grid.Row="2" ColumnDefinitions="Auto, *, Auto" Padding="15,10,15,20" BackgroundColor="{StaticResource CardBg}">
+            <Label Grid.Column="0" Text="[◉°]" FontSize="24" VerticalOptions="Center">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding AttachPhotoCommand}" />
+                </Label.GestureRecognizers>
+            </Label>
+            
+            <Button Grid.Column="2" Text="Post" 
+                    BackgroundColor="{StaticResource Primary}" 
+                    TextColor="White" 
+                    FontFamily="NunitoBold" 
+                    CornerRadius="10" 
+                    Padding="20,5"
+                    HeightRequest="40"
+                    Command="{Binding PostCommand}" />
+        </Grid>
+
+        <!-- Modal Overlay -->
+        <Grid Grid.RowSpan="3" BackgroundColor="#80000000" IsVisible="{Binding IsPetModalVisible}" ZIndex="10">
+            <Border BackgroundColor="{StaticResource CardBg}" VerticalOptions="Center" HorizontalOptions="Center" WidthRequest="300" StrokeShape="RoundRectangle 20" Padding="20">
+                <VerticalStackLayout Spacing="15">
+                    <Label Text="Select Pets" FontFamily="NunitoBold" FontSize="18" TextColor="{StaticResource BodyText}" HorizontalOptions="Center" />
+                    
+                    <CollectionView ItemsSource="{Binding MyPets}" SelectedItems="{Binding SelectedPets}" SelectionMode="Multiple" HeightRequest="200">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Padding="10">
+                                    <VisualStateManager.VisualStateGroups>
+                                        <VisualStateGroup Name="CommonStates">
+                                            <VisualState Name="Normal">
+                                                <VisualState.Setters>
+                                                    <Setter Property="BackgroundColor" Value="Transparent" />
+                                                </VisualState.Setters>
+                                            </VisualState>
+                                            <VisualState Name="Selected">
+                                                <VisualState.Setters>
+                                                    <Setter Property="BackgroundColor" Value="{StaticResource Secondary30}" />
+                                                </VisualState.Setters>
+                                            </VisualState>
+                                        </VisualStateGroup>
+                                    </VisualStateManager.VisualStateGroups>
+                                    <Label Text="{Binding Name}" TextColor="{StaticResource BodyText}" VerticalOptions="Center" />
+                                </Grid>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+
+                    <Button Text="Done" Command="{Binding ClosePetModalCommand}" BackgroundColor="{StaticResource Primary}" TextColor="White" CornerRadius="10" />
+                </VerticalStackLayout>
+            </Border>
+        </Grid>
+
+    </Grid>
+</ContentPage>
+
+

@@ -1,4 +1,4 @@
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using ShoppetApp.Messages;
@@ -15,7 +15,24 @@ public partial class ContactFormViewModel : ObservableObject, IQueryAttributable
     [ObservableProperty] private string _name = string.Empty;
     [ObservableProperty] private string _role = "Veterinarian";
     [ObservableProperty] private string _address = string.Empty;
-    [ObservableProperty] private string _phone = string.Empty;
+    private string _phone = string.Empty;
+    public string Phone
+    {
+        get => _phone;
+        set
+        {
+            if (value != null)
+            {
+                var digits = new string(value.Where(char.IsDigit).ToArray());
+                if (digits.Length > 11) digits = digits.Substring(0, 11);
+                SetProperty(ref _phone, digits);
+            }
+            else
+            {
+                SetProperty(ref _phone, string.Empty);
+            }
+        }
+    }
     [ObservableProperty] private bool _isEmergency = true;
 
     public IList<string> RoleOptions { get; } = ["Veterinarian", "Clinic", "Family", "Pet Sitter", "Groomer", "Other"];
@@ -38,7 +55,7 @@ public partial class ContactFormViewModel : ObservableObject, IQueryAttributable
         if (contact is null) return;
 
         Name = contact.Name;
-        Role = string.IsNullOrEmpty(contact.Role) ? "Veterinarian" : contact.Role;
+        Role = RoleOptions.FirstOrDefault(r => string.Equals(r, contact.Role, StringComparison.OrdinalIgnoreCase)) ?? (string.IsNullOrEmpty(contact.Role) ? "Veterinarian" : contact.Role);
         Address = contact.Address;
         Phone = contact.Phone;
         IsEmergency = contact.IsEmergency;

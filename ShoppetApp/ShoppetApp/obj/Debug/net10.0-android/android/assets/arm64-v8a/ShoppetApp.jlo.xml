@@ -1,0 +1,15 @@
+<api>
+  <jcw-types>
+    <type name="MainActivity" package="crc64df2cee456f73f398" application_java_class="android.app.Application" mono_runtime_initialization="mono.MonoPackageManager.LoadApplication (context);" extends_type="crc6488302ad6e9e4df1a.MauiAppCompatActivity" partial_assembly_qualified_name="ShoppetApp.MainActivity, ShoppetApp">
+      <constructors>
+        <constructor name="MainActivity" method="n_.ctor:()V:" jni_signature="()V" managed_parameters="" retval="void" is_dynamically_registered="True" />
+        <constructor name="MainActivity" method="n_.ctor:(I)V:" jni_signature="(I)V" managed_parameters="System.Int32, System.Private.CoreLib" params="int p0" retval="void" is_dynamically_registered="True" super_call="p0" activate_call="p0" />
+      </constructors>
+    </type>
+    <type name="MainApplication" package="crc64df2cee456f73f398" application_java_class="android.app.Application" mono_runtime_initialization="mono.MonoPackageManager.LoadApplication (context);" extends_type="crc6488302ad6e9e4df1a.MauiApplication" is_application="True" partial_assembly_qualified_name="ShoppetApp.MainApplication, ShoppetApp" application_constructor="MainApplication" />
+  </jcw-types>
+  <acw-types partial-assembly-name="ShoppetApp" module-name="ShoppetApp.dll">
+    <type assembly-qualified-name="ShoppetApp.MainActivity, ShoppetApp, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" compat-jni-name="shoppetapp.MainActivity" java-key="crc64df2cee456f73f398.MainActivity" managed-key="ShoppetApp.MainActivity" partial-assembly-qualified-name="ShoppetApp.MainActivity, ShoppetApp" />
+    <type assembly-qualified-name="ShoppetApp.MainApplication, ShoppetApp, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" compat-jni-name="shoppetapp.MainApplication" java-key="crc64df2cee456f73f398.MainApplication" managed-key="ShoppetApp.MainApplication" partial-assembly-qualified-name="ShoppetApp.MainApplication, ShoppetApp" />
+  </acw-types>
+</api>

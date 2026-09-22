@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:ShoppetApp.ViewModels"
@@ -10,8 +10,8 @@
         <VerticalStackLayout Spacing="16" Padding="16,24,16,32">
             <!-- Header Row -->
             <Grid ColumnDefinitions="Auto,*,Auto">
-                <Button Grid.Column="0" Text="✕" FontSize="18" BackgroundColor="Transparent" TextColor="{StaticResource SecondaryFg}" WidthRequest="40" Command="{Binding CloseCommand}" />
-                <Label Grid.Column="1" Text="{Binding Title}" FontFamily="NunitoBold" FontSize="16" HorizontalOptions="Center" VerticalOptions="Center" TextColor="{StaticResource SecondaryFg}" />
+                <Button Grid.Column="0" Text="✕" FontSize="18" BackgroundColor="Transparent" TextColor="Black" WidthRequest="40" Command="{Binding CloseCommand}" />
+                <Label Grid.Column="1" Text="{Binding Title}" FontFamily="NunitoBold" FontSize="16" HorizontalOptions="Center" VerticalOptions="Center" TextColor="Black" BackgroundColor="Transparent" />
                 <Button Grid.Column="2" Text="Save" FontFamily="NunitoBold" BackgroundColor="Transparent" TextColor="{StaticResource Primary}" Command="{Binding SaveCommand}" />
             </Grid>
 
@@ -23,10 +23,10 @@
                         <RoundRectangle CornerRadius="20" />
                     </Border.StrokeShape>
                     <Picker ItemsSource="{Binding TypeOptions}" 
-                            SelectedItem="{Binding LogType}" 
+                            SelectedItem="{Binding LogType}" ItemDisplayBinding="{Binding .}" 
                             Title="Select Type" 
                             TitleColor="Gray"
-                            TextColor="{StaticResource SecondaryFg}" 
+                            TextColor="Black" BackgroundColor="Transparent" 
                             HeightRequest="44" />
                 </Border>
 
@@ -46,7 +46,7 @@
                         <Border.StrokeShape>
                             <RoundRectangle CornerRadius="20" />
                         </Border.StrokeShape>
-                        <DatePicker Date="{Binding DateAdministered}" Format="MMMM d, yyyy" TextColor="{StaticResource SecondaryFg}" HeightRequest="44" />
+                        <DatePicker Date="{Binding DateAdministered}" Format="MMMM d, yyyy" TextColor="Black" BackgroundColor="Transparent" HeightRequest="44" />
                     </Border>
 
                     <Label Text="Validity Interval" FontFamily="NunitoSemiBold" FontSize="13" />
@@ -62,10 +62,10 @@
                                 <RoundRectangle CornerRadius="20" />
                             </Border.StrokeShape>
                             <Picker ItemsSource="{Binding ValidityUnitOptions}" 
-                                    SelectedItem="{Binding ValidityUnit}" 
+                                    SelectedItem="{Binding ValidityUnit}" ItemDisplayBinding="{Binding .}" 
                                     Title="Unit"
                                     TitleColor="Gray"
-                                    TextColor="{StaticResource SecondaryFg}" 
+                                    TextColor="Black" BackgroundColor="Transparent" 
                                     HeightRequest="44" />
                         </Border>
                     </Grid>
@@ -79,13 +79,13 @@
                             <Border.StrokeShape>
                                 <RoundRectangle CornerRadius="20" />
                             </Border.StrokeShape>
-                            <DatePicker Date="{Binding TimeStartedDate}" Format="MMM d, yyyy" TextColor="{StaticResource SecondaryFg}" HeightRequest="44" />
+                            <DatePicker Date="{Binding TimeStartedDate}" Format="MMM d, yyyy" TextColor="Black" BackgroundColor="Transparent" HeightRequest="44" />
                         </Border>
                         <Border Grid.Column="1" Stroke="{StaticResource Secondary30}" StrokeThickness="1" Padding="12,4">
                             <Border.StrokeShape>
                                 <RoundRectangle CornerRadius="20" />
                             </Border.StrokeShape>
-                            <TimePicker Time="{Binding TimeStartedTime}" Format="h:mm tt" TextColor="{StaticResource SecondaryFg}" HeightRequest="44" HorizontalOptions="Center" />
+                            <TimePicker Time="{Binding TimeStartedTime}" Format="h:mm tt" TextColor="Black" BackgroundColor="Transparent" HeightRequest="44" HorizontalOptions="Center" />
                         </Border>
                     </Grid>
 
@@ -113,7 +113,7 @@
                         <Border.StrokeShape>
                             <RoundRectangle CornerRadius="20" />
                         </Border.StrokeShape>
-                        <DatePicker Date="{Binding CheckupDate}" Format="MMMM d, yyyy" TextColor="{StaticResource SecondaryFg}" HeightRequest="44" />
+                        <DatePicker Date="{Binding CheckupDate}" Format="MMMM d, yyyy" TextColor="Black" BackgroundColor="Transparent" HeightRequest="44" />
                     </Border>
 
                     <Label Text="Attached Documents" FontFamily="NunitoSemiBold" FontSize="13" />
@@ -138,13 +138,13 @@
                         <Border.StrokeShape>
                             <RoundRectangle CornerRadius="20" />
                         </Border.StrokeShape>
-                        <DatePicker Date="{Binding DueDate}" Format="MMM d, yyyy" TextColor="{StaticResource SecondaryFg}" HeightRequest="44" />
+                        <DatePicker Date="{Binding DueDate}" Format="MMM d, yyyy" TextColor="Black" BackgroundColor="Transparent" HeightRequest="44" />
                     </Border>
                     <Border Grid.Column="1" Stroke="{StaticResource Secondary30}" StrokeThickness="1" Padding="12,4">
                         <Border.StrokeShape>
                             <RoundRectangle CornerRadius="20" />
                         </Border.StrokeShape>
-                        <TimePicker Time="{Binding DueTime}" Format="h:mm tt" TextColor="{StaticResource SecondaryFg}" HeightRequest="44" HorizontalOptions="Center" />
+                        <TimePicker Time="{Binding DueTime}" Format="h:mm tt" TextColor="Black" BackgroundColor="Transparent" HeightRequest="44" HorizontalOptions="Center" />
                     </Border>
                 </Grid>
 

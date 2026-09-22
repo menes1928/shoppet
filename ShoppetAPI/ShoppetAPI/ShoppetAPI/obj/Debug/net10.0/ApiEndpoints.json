@@ -68,6 +68,96 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "ShoppetAPI.Controllers.CommunityController",
+    "Method": "GetPosts",
+    "RelativePath": "api/Community",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ShoppetAPI.Controllers.CommunityController",
+    "Method": "CreatePost",
+    "RelativePath": "api/Community",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "ShoppetAPI.Controllers.CreatePostRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ShoppetAPI.Controllers.CommunityController",
+    "Method": "GetComments",
+    "RelativePath": "api/Community/{id}/comments",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ShoppetAPI.Controllers.CommunityController",
+    "Method": "AddComment",
+    "RelativePath": "api/Community/{id}/comments",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "request",
+        "Type": "ShoppetAPI.Controllers.AddCommentRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ShoppetAPI.Controllers.CommunityController",
+    "Method": "ToggleLike",
+    "RelativePath": "api/Community/{id}/like",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "request",
+        "Type": "ShoppetAPI.Controllers.ToggleLikeRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "ShoppetAPI.Controllers.ContactsController",
     "Method": "GetContacts",
     "RelativePath": "api/Contacts",
@@ -244,6 +334,32 @@
   },
   {
     "ContainingType": "ShoppetAPI.Controllers.FoodLogsController",
+    "Method": "UpdateFoodLog",
+    "RelativePath": "api/pets/{petId}/FoodLogs/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "petId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "request",
+        "Type": "ShoppetAPI.Controllers.FoodLogRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ShoppetAPI.Controllers.FoodLogsController",
     "Method": "DeleteFoodLog",
     "RelativePath": "api/pets/{petId}/FoodLogs/{id}",
     "HttpMethod": "DELETE",
@@ -310,6 +426,32 @@
     "Parameters": [
       {
         "Name": "petId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "request",
+        "Type": "ShoppetAPI.Controllers.HealthLogRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ShoppetAPI.Controllers.HealthLogsController",
+    "Method": "UpdateHealthLog",
+    "RelativePath": "api/pets/{petId}/HealthLogs/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "petId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "id",
         "Type": "System.Int32",
         "IsRequired": true
       },

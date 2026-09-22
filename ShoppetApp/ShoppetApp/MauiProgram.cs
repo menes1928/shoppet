@@ -60,8 +60,15 @@ public static class MauiProgram
         builder.Services.AddTransient<ContactFormViewModel>();
         builder.Services.AddTransient<CartPage>();
         builder.Services.AddTransient<CartViewModel>();
+        builder.Services.AddTransient<CommunityPage>();
+        builder.Services.AddTransient<CommunityViewModel>();
+        builder.Services.AddTransient<CreatePostPage>();
+        builder.Services.AddTransient<CreatePostViewModel>();
+        builder.Services.AddTransient<PostDetailsPage>();
+        builder.Services.AddTransient<PostDetailsViewModel>();
         builder.Services.AddTransient<AppShell>();
 
         return builder.Build();
     }
 }
+
