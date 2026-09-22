@@ -8,12 +8,12 @@ namespace ShoppetApp.ViewModels;
 public partial class CartViewModel : ObservableObject
 {
     public CartService CartService { get; }
-    private readonly DatabaseService _db;
+    private readonly ApiService _api;
 
-    public CartViewModel(CartService cartService, DatabaseService db)
+    public CartViewModel(CartService cartService, ApiService api)
     {
         CartService = cartService;
-        _db = db;
+        _api = api;
     }
 
     [RelayCommand]

@@ -10,7 +10,7 @@ namespace ShoppetApp.ViewModels;
 
 public partial class PetFormViewModel : ObservableObject, IQueryAttributable
 {
-    private readonly DatabaseService _db;
+    private readonly ApiService _api;
 
     [ObservableProperty] private int _petId;
     [ObservableProperty] private string _name = string.Empty;
@@ -83,9 +83,9 @@ public partial class PetFormViewModel : ObservableObject, IQueryAttributable
     public IList<string> SpeciesOptions { get; } = ["Dog", "Cat", "Bird", "Small Pet", "Other"];
     public ObservableCollection<string> AvailableBreeds { get; } = new();
 
-    public PetFormViewModel(DatabaseService db)
+    public PetFormViewModel(ApiService api)
     {
-        _db = db;
+        _api = api;
         UpdateAvailableBreeds();
     }
 
@@ -105,7 +105,7 @@ public partial class PetFormViewModel : ObservableObject, IQueryAttributable
             return;
         }
 
-        var pet = await _db.GetPetAsync(PetId);
+        var pet = (await _api.GetPetsAsync()).FirstOrDefault(p => p.Id == PetId);
         if (pet is null)
             return;
 
@@ -182,8 +182,8 @@ public partial class PetFormViewModel : ObservableObject, IQueryAttributable
             AgeYears = age
         };
 
-        int result = await _db.SavePetAsync(pet);
-        if (result > 0)
+        var result = await _api.SavePetAsync(pet);
+        if (result != null)
         {
             WeakReferenceMessenger.Default.Send(DataChangedMessage.Instance);
             await Shell.Current.GoToAsync("..");
@@ -198,14 +198,18 @@ public partial class PetFormViewModel : ObservableObject, IQueryAttributable
     private async Task DeleteAsync()
     {
         if (PetId <= 0) return;
-        var pet = await _db.GetPetAsync(PetId);
+        var pet = (await _api.GetPetsAsync()).FirstOrDefault(p => p.Id == PetId);
         if (pet is null) return;
 
         bool confirm = await Shell.Current.DisplayAlert("Delete Pet", $"Remove {pet.Name}?", "Delete", "Cancel");
         if (!confirm) return;
 
-        await _db.DeletePetAsync(pet);
+        await _api.DeletePetAsync(pet.Id);
         WeakReferenceMessenger.Default.Send(DataChangedMessage.Instance);
         await Shell.Current.GoToAsync("..");
     }
 }
+
+
+
+

@@ -1402,23 +1402,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\524U\\.nuget\\packages\\": {},
+    "C:\\Users\\WINDOWS11\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\ShoppetAPI\\ShoppetAPI\\ShoppetAPI\\ShoppetAPI.csproj",
+      "projectUniqueName": "C:\\Users\\WINDOWS11\\source\\repos\\Shoppet\\ShoppetAPI\\ShoppetAPI\\ShoppetAPI\\ShoppetAPI.csproj",
       "projectName": "ShoppetAPI",
-      "projectPath": "C:\\ShoppetAPI\\ShoppetAPI\\ShoppetAPI\\ShoppetAPI.csproj",
-      "packagesPath": "C:\\Users\\524U\\.nuget\\packages\\",
-      "outputPath": "C:\\ShoppetAPI\\ShoppetAPI\\ShoppetAPI\\obj\\",
+      "projectPath": "C:\\Users\\WINDOWS11\\source\\repos\\Shoppet\\ShoppetAPI\\ShoppetAPI\\ShoppetAPI\\ShoppetAPI.csproj",
+      "packagesPath": "C:\\Users\\WINDOWS11\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\WINDOWS11\\source\\repos\\Shoppet\\ShoppetAPI\\ShoppetAPI\\ShoppetAPI\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\524U\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\WINDOWS11\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],

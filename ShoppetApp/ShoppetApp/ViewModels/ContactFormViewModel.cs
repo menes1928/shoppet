@@ -9,7 +9,7 @@ namespace ShoppetApp.ViewModels;
 
 public partial class ContactFormViewModel : ObservableObject, IQueryAttributable
 {
-    private readonly DatabaseService _db;
+    private readonly ApiService _api;
 
     [ObservableProperty] private int _contactId;
     [ObservableProperty] private string _name = string.Empty;
@@ -23,7 +23,7 @@ public partial class ContactFormViewModel : ObservableObject, IQueryAttributable
     public string Title => ContactId > 0 ? "Edit Contact" : "Add Contact";
     public bool CanDelete => ContactId > 0;
 
-    public ContactFormViewModel(DatabaseService db) => _db = db;
+    public ContactFormViewModel(ApiService api) => _api = api;
 
     public void ApplyQueryAttributes(IDictionary<string, object> query)
     {
@@ -34,7 +34,7 @@ public partial class ContactFormViewModel : ObservableObject, IQueryAttributable
     public async Task LoadAsync()
     {
         if (ContactId <= 0) return;
-        var contact = await _db.GetContactAsync(ContactId);
+        var contact = (await _api.GetContactsAsync()).FirstOrDefault(c => c.Id == ContactId);
         if (contact is null) return;
 
         Name = contact.Name;
@@ -75,8 +75,8 @@ public partial class ContactFormViewModel : ObservableObject, IQueryAttributable
             IsEmergency = IsEmergency
         };
 
-        int result = await _db.SaveContactAsync(contact);
-        if (result > 0)
+        var result = await _api.SaveContactAsync(contact);
+        if (result != null)
         {
             WeakReferenceMessenger.Default.Send(DataChangedMessage.Instance);
             await Shell.Current.GoToAsync("..");
@@ -91,14 +91,19 @@ public partial class ContactFormViewModel : ObservableObject, IQueryAttributable
     private async Task DeleteAsync()
     {
         if (ContactId <= 0) return;
-        var contact = await _db.GetContactAsync(ContactId);
+        var contact = (await _api.GetContactsAsync()).FirstOrDefault(c => c.Id == ContactId);
         if (contact is null) return;
 
         bool confirm = await Shell.Current.DisplayAlert("Delete", $"Remove {contact.Name}?", "Delete", "Cancel");
         if (!confirm) return;
 
-        await _db.DeleteContactAsync(contact);
+        await _api.DeleteContactAsync(ContactId);
         WeakReferenceMessenger.Default.Send(DataChangedMessage.Instance);
         await Shell.Current.GoToAsync("..");
     }
 }
+
+
+
+
+

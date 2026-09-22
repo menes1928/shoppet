@@ -78,7 +78,7 @@ public class ApiService
 
     public async Task<List<Pet>> GetPetsAsync()
     {
-        try { return await _http.GetFromJsonAsync<List<Pet>>("pets") ?? []; }
+        try { return await _http.GetFromJsonAsync<List<Pet>>($"pets?userId={Microsoft.Maui.Storage.Preferences.Get("LoggedInUserId", 0)}") ?? []; }
         catch { return []; }
     }
 
@@ -120,7 +120,7 @@ public class ApiService
 
     public async Task<List<HealthLog>> GetHealthLogsAsync(int petId)
     {
-        try { return await _http.GetFromJsonAsync<List<HealthLog>>($"pets/{petId}/health") ?? []; }
+        try { return await _http.GetFromJsonAsync<List<HealthLog>>($"pets/{petId}/healthlogs") ?? []; }
         catch { return []; }
     }
 
@@ -146,9 +146,9 @@ public class ApiService
             };
             HttpResponseMessage res;
             if (log.Id == 0)
-                res = await _http.PostAsJsonAsync($"pets/{petId}/health", body);
+                res = await _http.PostAsJsonAsync($"pets/{petId}/healthlogs", body);
             else
-                res = await _http.PutAsJsonAsync($"pets/{petId}/health/{log.Id}", body);
+                res = await _http.PutAsJsonAsync($"pets/{petId}/healthlogs/{log.Id}", body);
 
             if (res.IsSuccessStatusCode)
                 return await res.Content.ReadFromJsonAsync<HealthLog>();
@@ -156,10 +156,24 @@ public class ApiService
         catch { }
         return null;
     }
+    public async Task<bool> CompleteFoodLogAsync(int petId, int id)
+    {
+        try { return (await _http.PutAsync($"pets/{petId}/foodlogs/{id}/complete", null)).IsSuccessStatusCode; }
+        catch { return false; }
+    }
+    
+    public async Task<bool> CompleteHealthLogAsync(int petId, int id, string nextDueDate)
+    {
+        try { 
+            var body = new { NextDueDate = nextDueDate };
+            return (await _http.PutAsJsonAsync($"pets/{petId}/healthlogs/{id}/complete", body)).IsSuccessStatusCode; 
+        }
+        catch { return false; }
+    }
 
     public async Task<bool> DeleteHealthLogAsync(int petId, int logId)
     {
-        try { return (await _http.DeleteAsync($"pets/{petId}/health/{logId}")).IsSuccessStatusCode; }
+        try { return (await _http.DeleteAsync($"pets/{petId}/healthlogs/{logId}")).IsSuccessStatusCode; }
         catch { return false; }
     }
 
@@ -167,7 +181,7 @@ public class ApiService
 
     public async Task<List<FoodLog>> GetFoodLogsAsync(int petId)
     {
-        try { return await _http.GetFromJsonAsync<List<FoodLog>>($"pets/{petId}/food") ?? []; }
+        try { return await _http.GetFromJsonAsync<List<FoodLog>>($"pets/{petId}/foodlogs") ?? []; }
         catch { return []; }
     }
 
@@ -186,9 +200,9 @@ public class ApiService
             };
             HttpResponseMessage res;
             if (log.Id == 0)
-                res = await _http.PostAsJsonAsync($"pets/{petId}/food", body);
+                res = await _http.PostAsJsonAsync($"pets/{petId}/foodlogs", body);
             else
-                res = await _http.PutAsJsonAsync($"pets/{petId}/food/{log.Id}", body);
+                res = await _http.PutAsJsonAsync($"pets/{petId}/foodlogs/{log.Id}", body);
 
             if (res.IsSuccessStatusCode)
                 return await res.Content.ReadFromJsonAsync<FoodLog>();
@@ -201,7 +215,7 @@ public class ApiService
     {
         try
         {
-            var res = await _http.PostAsync($"pets/{petId}/food/{logId}/done", null);
+            var res = await _http.PostAsync($"pets/{petId}/foodlogs/{logId}/done", null);
             if (res.IsSuccessStatusCode)
                 return await res.Content.ReadFromJsonAsync<FoodLog>();
         }
@@ -211,7 +225,7 @@ public class ApiService
 
     public async Task<bool> DeleteFoodLogAsync(int petId, int logId)
     {
-        try { return (await _http.DeleteAsync($"pets/{petId}/food/{logId}")).IsSuccessStatusCode; }
+        try { return (await _http.DeleteAsync($"pets/{petId}/foodlogs/{logId}")).IsSuccessStatusCode; }
         catch { return false; }
     }
 
@@ -219,7 +233,7 @@ public class ApiService
 
     public async Task<List<Models.Contact>> GetContactsAsync()
     {
-        try { return await _http.GetFromJsonAsync<List<Models.Contact>>("contacts") ?? []; }
+        try { return await _http.GetFromJsonAsync<List<Models.Contact>>($"contacts?userId={Microsoft.Maui.Storage.Preferences.Get("LoggedInUserId", 0)}") ?? []; }
         catch { return []; }
     }
 
@@ -227,7 +241,7 @@ public class ApiService
     {
         try
         {
-            var body = new { contact.Name, contact.Role, contact.Address, contact.Phone, contact.IsEmergency };
+            var body = new { UserId = Microsoft.Maui.Storage.Preferences.Get("LoggedInUserId", 0), contact.Name, contact.Role, contact.Address, contact.Phone, contact.IsEmergency };
             HttpResponseMessage res;
             if (contact.Id == 0)
                 res = await _http.PostAsJsonAsync("contacts", body);
@@ -358,3 +372,8 @@ public class ApiResult<T>
     public static ApiResult<T> Ok(T data) => new() { Success = true, Data = data };
     public static ApiResult<T> Fail(string error) => new() { Success = false, Error = error };
 }
+
+
+
+
+

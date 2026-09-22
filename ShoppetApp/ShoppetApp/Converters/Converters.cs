@@ -323,3 +323,53 @@ public class LastFedLabelConverter : IValueConverter
     public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
         => throw new NotSupportedException();
 }
+
+
+public class HealthScheduleLabelConverter : IValueConverter
+{
+    public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
+    {
+        if (value is not ShoppetApp.Models.HealthLog log)
+            return string.Empty;
+
+        if (log.Completed)
+        {
+            if (log.CompletedAt.HasValue)
+            {
+                var diff = DateTime.Now - log.CompletedAt.Value;
+                if (diff.TotalMinutes < 60)
+                    return $"Completed {(int)diff.TotalMinutes} min ago";
+                if (diff.TotalHours < 24)
+                    return $"Completed {(int)diff.TotalHours} hr ago";
+                if (diff.TotalDays < 2)
+                    return "Completed yesterday";
+                return $"Completed {log.CompletedAt.Value:MMM d, yyyy}";
+            }
+            return "Completed";
+        }
+
+        if (!DateTime.TryParse(log.DueDate, out var next))
+            return string.Empty;
+
+        var now = DateTime.Now;
+        if (next < now)
+            return "Due now";
+
+        var dueDiff = next - now;
+        if (dueDiff.TotalMinutes < 60)
+            return $"In {(int)dueDiff.TotalMinutes} min";
+
+        var timeStr = next.ToString("h:mm tt");
+        if (next.Date == now.Date)
+            return $"Today {timeStr}";
+        if (next.Date == now.Date.AddDays(1))
+            return $"Tomorrow {timeStr}";
+        if (dueDiff.TotalDays < 7)
+            return $"In {(int)dueDiff.TotalDays} days";
+
+        return $"Due {next:MMM d, yyyy}";
+    }
+
+    public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
+        => throw new NotSupportedException();
+}

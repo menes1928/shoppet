@@ -138,6 +138,20 @@
         "tags": [
           "Contacts"
         ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "query",
+            "schema": {
+              "pattern": "^-?(?:0|[1-9]\\d*)$",
+              "type": [
+                "integer",
+                "string"
+              ],
+              "format": "int32"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -175,7 +189,79 @@
         }
       }
     },
-    "/api/pets/{petId}/food": {
+    "/api/Contacts/{id}": {
+      "put": {
+        "tags": [
+          "Contacts"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "pattern": "^-?(?:0|[1-9]\\d*)$",
+              "type": [
+                "integer",
+                "string"
+              ],
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ContactRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ContactRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ContactRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Contacts"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "pattern": "^-?(?:0|[1-9]\\d*)$",
+              "type": [
+                "integer",
+                "string"
+              ],
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/pets/{petId}/FoodLogs": {
       "get": {
         "tags": [
           "FoodLogs"
@@ -247,7 +333,7 @@
         }
       }
     },
-    "/api/pets/{petId}/food/{id}": {
+    "/api/pets/{petId}/FoodLogs/{id}": {
       "delete": {
         "tags": [
           "FoodLogs"
@@ -287,7 +373,47 @@
         }
       }
     },
-    "/api/pets/{petId}/health": {
+    "/api/pets/{petId}/FoodLogs/{id}/complete": {
+      "put": {
+        "tags": [
+          "FoodLogs"
+        ],
+        "parameters": [
+          {
+            "name": "petId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "pattern": "^-?(?:0|[1-9]\\d*)$",
+              "type": [
+                "integer",
+                "string"
+              ],
+              "format": "int32"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "pattern": "^-?(?:0|[1-9]\\d*)$",
+              "type": [
+                "integer",
+                "string"
+              ],
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/pets/{petId}/HealthLogs": {
       "get": {
         "tags": [
           "HealthLogs"
@@ -359,7 +485,7 @@
         }
       }
     },
-    "/api/pets/{petId}/health/{id}": {
+    "/api/pets/{petId}/HealthLogs/{id}": {
       "delete": {
         "tags": [
           "HealthLogs"
@@ -392,6 +518,66 @@
             }
           }
         ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/pets/{petId}/HealthLogs/{id}/complete": {
+      "put": {
+        "tags": [
+          "HealthLogs"
+        ],
+        "parameters": [
+          {
+            "name": "petId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "pattern": "^-?(?:0|[1-9]\\d*)$",
+              "type": [
+                "integer",
+                "string"
+              ],
+              "format": "int32"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "pattern": "^-?(?:0|[1-9]\\d*)$",
+              "type": [
+                "integer",
+                "string"
+              ],
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CompleteHealthLogRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CompleteHealthLogRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CompleteHealthLogRequest"
+              }
+            }
+          },
+          "required": true
+        },
         "responses": {
           "200": {
             "description": "OK"
@@ -404,6 +590,20 @@
         "tags": [
           "Pets"
         ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "query",
+            "schema": {
+              "pattern": "^-?(?:0|[1-9]\\d*)$",
+              "type": [
+                "integer",
+                "string"
+              ],
+              "format": "int32"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -418,17 +618,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/PetCreateRequest"
+                "$ref": "#/components/schemas/PetRequest"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/PetCreateRequest"
+                "$ref": "#/components/schemas/PetRequest"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/PetCreateRequest"
+                "$ref": "#/components/schemas/PetRequest"
               }
             }
           },
@@ -442,6 +642,51 @@
       }
     },
     "/api/Pets/{id}": {
+      "put": {
+        "tags": [
+          "Pets"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "pattern": "^-?(?:0|[1-9]\\d*)$",
+              "type": [
+                "integer",
+                "string"
+              ],
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PetRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PetRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/PetRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
       "delete": {
         "tags": [
           "Pets"
@@ -578,9 +823,25 @@
           }
         }
       },
+      "CompleteHealthLogRequest": {
+        "type": "object",
+        "properties": {
+          "nextDueDate": {
+            "type": "string"
+          }
+        }
+      },
       "ContactRequest": {
         "type": "object",
         "properties": {
+          "userId": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": [
+              "integer",
+              "string"
+            ],
+            "format": "int32"
+          },
           "name": {
             "type": "string"
           },
@@ -648,9 +909,6 @@
           "dueDate": {
             "type": "string"
           },
-          "completed": {
-            "type": "boolean"
-          },
           "dateAdministered": {
             "type": "string"
           },
@@ -711,7 +969,7 @@
           }
         }
       },
-      "PetCreateRequest": {
+      "PetRequest": {
         "type": "object",
         "properties": {
           "userId": {

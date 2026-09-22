@@ -19,6 +19,8 @@ public class HealthLog
 
     public bool Completed { get; set; }
 
+    public DateTime? CompletedAt { get; set; }
+
     // ── VACCINE Fields ─────────────────────────────────────────────────────────
 
     /// <summary>ISO 8601 string</summary>
@@ -70,3 +72,4 @@ public class HealthLog
         ? []
         : DocumentPaths.Split('|', StringSplitOptions.RemoveEmptyEntries);
 }
+

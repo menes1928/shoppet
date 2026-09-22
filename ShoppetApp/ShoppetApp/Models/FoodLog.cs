@@ -19,9 +19,9 @@ public class FoodLog
     public string FedDate { get; set; } = string.Empty;
     public string Notes { get; set; } = string.Empty;
 
-    // Added property to fix the compilation error
-    [Ignore]
     public bool IsCompleted { get; set; }
+
+    public DateTime? CompletedAt { get; set; }
 
     [Ignore]
     public bool HasLastFed => !string.IsNullOrEmpty(LastFedTimestamp);
@@ -53,3 +53,4 @@ public class FoodLog
             ? (dt.Kind == DateTimeKind.Utc ? dt.ToLocalTime() : dt)
             : null;
 }
+

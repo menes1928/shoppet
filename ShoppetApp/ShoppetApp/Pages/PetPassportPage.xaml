@@ -158,7 +158,7 @@
                                         <!-- Row 2: Schedule info -->
                                         <HorizontalStackLayout Spacing="6" IsVisible="{Binding BaseDateDisplay, Converter={StaticResource IsNotNullOrEmptyConverter}}">
                                             <Label Text="🕐" FontSize="11" VerticalOptions="Center" />
-                                            <Label Text="{Binding BaseDateDisplay, Converter={StaticResource IsoDateFormatConverter}, ConverterParameter='MMM d, h:mmtt'}"
+                                            <Label Text="{Binding ., Converter={StaticResource HealthScheduleLabelConverter}}"
                                                    FontFamily="Nunito" FontSize="12"
                                                    TextColor="{StaticResource Secondary}" VerticalOptions="Center" />
                                         </HorizontalStackLayout>
@@ -184,6 +184,8 @@
                                                 <Label Text="✓ COMPLETED" FontFamily="NunitoBold" FontSize="12" TextColor="{StaticResource StatusHealthy}" IsVisible="{Binding Completed}" />
                                             </VerticalStackLayout>
 
+                                            <!-- Completed Label (Visible when Completed = true) -->
+                                            <Label Grid.Column="1" Text="Completed" FontFamily="NunitoBold" FontSize="12" TextColor="{StaticResource Success}" VerticalOptions="Center" IsVisible="{Binding Completed}" />
                                             <!-- Action buttons -->
                                             <HorizontalStackLayout Grid.Column="1" Spacing="6" IsVisible="{Binding Completed, Converter={StaticResource InverseBoolConverter}}">
                                                 <Button Text="Complete" FontFamily="NunitoBold" FontSize="12" HeightRequest="36" Padding="12,0" CornerRadius="18" BackgroundColor="Transparent" TextColor="{StaticResource StatusOverdue}" VerticalOptions="Center" Command="{Binding Source={RelativeSource AncestorType={x:Type vm:PetPassportViewModel}}, Path=MarkCompletedCommand}" CommandParameter="{Binding .}" />
@@ -322,3 +324,5 @@
         </ScrollView>
     </Grid>
 </ContentPage>
+
+

@@ -10,7 +10,7 @@ namespace ShoppetApp.ViewModels;
 
 public partial class HomeViewModel : ObservableObject, IRecipient<DataChangedMessage>
 {
-    private readonly DatabaseService _db;
+    private readonly ApiService _api;
 
     [ObservableProperty] private ObservableCollection<Pet> _pets = [];
     [ObservableProperty] private ObservableCollection<HealthLog> _actionRequiredLogs = [];
@@ -32,9 +32,9 @@ public partial class HomeViewModel : ObservableObject, IRecipient<DataChangedMes
         }
     }
 
-    public HomeViewModel(DatabaseService db)
+    public HomeViewModel(ApiService api)
     {
-        _db = db;
+        _api = api;
         WeakReferenceMessenger.Default.Register(this);
         InitializeStories();
     }
@@ -91,16 +91,23 @@ public partial class HomeViewModel : ObservableObject, IRecipient<DataChangedMes
 
     public async Task LoadAsync()
     {
-        if (IsBusy || _db == null)
+        if (IsBusy || _api == null)
             return;
 
         IsBusy = true;
         try
         {
-            var pets = await _db.GetPetsAsync();
+            var pets = await _api.GetPetsAsync();
             Pets = new ObservableCollection<Pet>(pets ?? new List<Pet>());
 
-            var logs = await _db.GetAllActionRequiredLogsAsync();
+            var allLogs = new List<HealthLog>();
+            if (pets != null) {
+                foreach (var p in pets) {
+                    var pLogs = await _api.GetHealthLogsAsync(p.Id);
+                    allLogs.AddRange(pLogs.Where(l => l.Status == "Action Required" || l.Status == "Pending"));
+                }
+            }
+            var logs = allLogs;
             ActionRequiredLogs = new ObservableCollection<HealthLog>(logs ?? new List<HealthLog>());
         }
         catch (Exception ex)
@@ -118,7 +125,7 @@ public partial class HomeViewModel : ObservableObject, IRecipient<DataChangedMes
     {
         if (log == null) return;
         log.Completed = true;
-        await _db.SaveHealthLogAsync(log);
+        await _api.SaveHealthLogAsync(log.PetId, log);
         WeakReferenceMessenger.Default.Send(DataChangedMessage.Instance);
     }
 
@@ -144,3 +151,6 @@ public partial class HomeViewModel : ObservableObject, IRecipient<DataChangedMes
             await Shell.Current.GoToAsync($"petpassport?petId={log.PetId}");
     }
 }
+
+
+

@@ -1,157 +1,29 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\ShoppetApp 1\\ShoppetApp\\",
+  "WorkspaceRootPath": "C:\\Users\\WINDOWS11\\source\\repos\\Shoppet\\ShoppetApp\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{9EA9A421-2637-0BB6-417A-64C6E83C6540}|ShoppetApp\\ShoppetApp.csproj|c:\\shoppetapp 1\\shoppetapp\\shoppetapp\\pages\\communitypage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{9EA9A421-2637-0BB6-417A-64C6E83C6540}|ShoppetApp\\ShoppetApp.csproj|solutionrelative:shoppetapp\\pages\\communitypage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9EA9A421-2637-0BB6-417A-64C6E83C6540}|ShoppetApp\\ShoppetApp.csproj|c:\\shoppetapp 1\\shoppetapp\\shoppetapp\\pages\\communitypage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9EA9A421-2637-0BB6-417A-64C6E83C6540}|ShoppetApp\\ShoppetApp.csproj|solutionrelative:shoppetapp\\pages\\communitypage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9EA9A421-2637-0BB6-417A-64C6E83C6540}|ShoppetApp\\ShoppetApp.csproj|c:\\shoppetapp 1\\shoppetapp\\shoppetapp\\pages\\petpassportpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{9EA9A421-2637-0BB6-417A-64C6E83C6540}|ShoppetApp\\ShoppetApp.csproj|solutionrelative:shoppetapp\\pages\\petpassportpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9EA9A421-2637-0BB6-417A-64C6E83C6540}|ShoppetApp\\ShoppetApp.csproj|c:\\shoppetapp 1\\shoppetapp\\shoppetapp\\platforms\\android\\androidmanifest.xml||{4E01A4BC-CFCF-452C-8C08-51352512D197}",
-      "RelativeMoniker": "D:0:0:{9EA9A421-2637-0BB6-417A-64C6E83C6540}|ShoppetApp\\ShoppetApp.csproj|solutionrelative:shoppetapp\\platforms\\android\\androidmanifest.xml||{4E01A4BC-CFCF-452C-8C08-51352512D197}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9EA9A421-2637-0BB6-417A-64C6E83C6540}|ShoppetApp\\ShoppetApp.csproj|c:\\shoppetapp 1\\shoppetapp\\shoppetapp\\services\\databaseservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9EA9A421-2637-0BB6-417A-64C6E83C6540}|ShoppetApp\\ShoppetApp.csproj|solutionrelative:shoppetapp\\services\\databaseservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9EA9A421-2637-0BB6-417A-64C6E83C6540}|ShoppetApp\\ShoppetApp.csproj|c:\\shoppetapp 1\\shoppetapp\\shoppetapp\\viewmodels\\homeviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9EA9A421-2637-0BB6-417A-64C6E83C6540}|ShoppetApp\\ShoppetApp.csproj|solutionrelative:shoppetapp\\viewmodels\\homeviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9EA9A421-2637-0BB6-417A-64C6E83C6540}|ShoppetApp\\ShoppetApp.csproj|c:\\shoppetapp 1\\shoppetapp\\shoppetapp\\models\\cartitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9EA9A421-2637-0BB6-417A-64C6E83C6540}|ShoppetApp\\ShoppetApp.csproj|solutionrelative:shoppetapp\\models\\cartitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9EA9A421-2637-0BB6-417A-64C6E83C6540}|ShoppetApp\\ShoppetApp.csproj|c:\\shoppetapp 1\\shoppetapp\\shoppetapp\\models\\product.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9EA9A421-2637-0BB6-417A-64C6E83C6540}|ShoppetApp\\ShoppetApp.csproj|solutionrelative:shoppetapp\\models\\product.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9EA9A421-2637-0BB6-417A-64C6E83C6540}|ShoppetApp\\ShoppetApp.csproj|c:\\shoppetapp 1\\shoppetapp\\shoppetapp\\services\\cartservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9EA9A421-2637-0BB6-417A-64C6E83C6540}|ShoppetApp\\ShoppetApp.csproj|solutionrelative:shoppetapp\\services\\cartservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9EA9A421-2637-0BB6-417A-64C6E83C6540}|ShoppetApp\\ShoppetApp.csproj|c:\\shoppetapp 1\\shoppetapp\\shoppetapp\\viewmodels\\cartviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9EA9A421-2637-0BB6-417A-64C6E83C6540}|ShoppetApp\\ShoppetApp.csproj|solutionrelative:shoppetapp\\viewmodels\\cartviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9EA9A421-2637-0BB6-417A-64C6E83C6540}|ShoppetApp\\ShoppetApp.csproj|c:\\shoppetapp 1\\shoppetapp\\shoppetapp\\models\\communitypost.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9EA9A421-2637-0BB6-417A-64C6E83C6540}|ShoppetApp\\ShoppetApp.csproj|solutionrelative:shoppetapp\\models\\communitypost.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9EA9A421-2637-0BB6-417A-64C6E83C6540}|ShoppetApp\\ShoppetApp.csproj|c:\\shoppetapp 1\\shoppetapp\\shoppetapp\\pages\\healthlogformpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{9EA9A421-2637-0BB6-417A-64C6E83C6540}|ShoppetApp\\ShoppetApp.csproj|solutionrelative:shoppetapp\\pages\\healthlogformpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9EA9A421-2637-0BB6-417A-64C6E83C6540}|ShoppetApp\\ShoppetApp.csproj|c:\\shoppetapp 1\\shoppetapp\\shoppetapp\\mauiprogram.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9EA9A421-2637-0BB6-417A-64C6E83C6540}|ShoppetApp\\ShoppetApp.csproj|solutionrelative:shoppetapp\\mauiprogram.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9EA9A421-2637-0BB6-417A-64C6E83C6540}|ShoppetApp\\ShoppetApp.csproj|c:\\shoppetapp 1\\shoppetapp\\shoppetapp\\models\\cartdtos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9EA9A421-2637-0BB6-417A-64C6E83C6540}|ShoppetApp\\ShoppetApp.csproj|solutionrelative:shoppetapp\\models\\cartdtos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9EA9A421-2637-0BB6-417A-64C6E83C6540}|ShoppetApp\\ShoppetApp.csproj|c:\\shoppetapp 1\\shoppetapp\\shoppetapp\\appshell.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{9EA9A421-2637-0BB6-417A-64C6E83C6540}|ShoppetApp\\ShoppetApp.csproj|solutionrelative:shoppetapp\\appshell.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9EA9A421-2637-0BB6-417A-64C6E83C6540}|ShoppetApp\\ShoppetApp.csproj|c:\\shoppetapp 1\\shoppetapp\\shoppetapp\\appshell.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9EA9A421-2637-0BB6-417A-64C6E83C6540}|ShoppetApp\\ShoppetApp.csproj|solutionrelative:shoppetapp\\appshell.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9EA9A421-2637-0BB6-417A-64C6E83C6540}|ShoppetApp\\ShoppetApp.csproj|c:\\shoppetapp 1\\shoppetapp\\shoppetapp\\models\\foodlog.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9EA9A421-2637-0BB6-417A-64C6E83C6540}|ShoppetApp\\ShoppetApp.csproj|solutionrelative:shoppetapp\\models\\foodlog.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9EA9A421-2637-0BB6-417A-64C6E83C6540}|ShoppetApp\\ShoppetApp.csproj|c:\\shoppetapp 1\\shoppetapp\\shoppetapp\\pages\\shoppage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9EA9A421-2637-0BB6-417A-64C6E83C6540}|ShoppetApp\\ShoppetApp.csproj|solutionrelative:shoppetapp\\pages\\shoppage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9EA9A421-2637-0BB6-417A-64C6E83C6540}|ShoppetApp\\ShoppetApp.csproj|c:\\shoppetapp 1\\shoppetapp\\shoppetapp\\pages\\shoppage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{9EA9A421-2637-0BB6-417A-64C6E83C6540}|ShoppetApp\\ShoppetApp.csproj|solutionrelative:shoppetapp\\pages\\shoppage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9EA9A421-2637-0BB6-417A-64C6E83C6540}|ShoppetApp\\ShoppetApp.csproj|c:\\shoppetapp 1\\shoppetapp\\shoppetapp\\resources\\styles\\styles.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{9EA9A421-2637-0BB6-417A-64C6E83C6540}|ShoppetApp\\ShoppetApp.csproj|solutionrelative:shoppetapp\\resources\\styles\\styles.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9EA9A421-2637-0BB6-417A-64C6E83C6540}|ShoppetApp\\ShoppetApp.csproj|c:\\shoppetapp 1\\shoppetapp\\shoppetapp\\resources\\styles\\colors.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{9EA9A421-2637-0BB6-417A-64C6E83C6540}|ShoppetApp\\ShoppetApp.csproj|solutionrelative:shoppetapp\\resources\\styles\\colors.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9EA9A421-2637-0BB6-417A-64C6E83C6540}|ShoppetApp\\ShoppetApp.csproj|c:\\shoppetapp 1\\shoppetapp\\shoppetapp\\viewmodels\\profileviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9EA9A421-2637-0BB6-417A-64C6E83C6540}|ShoppetApp\\ShoppetApp.csproj|solutionrelative:shoppetapp\\viewmodels\\profileviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9EA9A421-2637-0BB6-417A-64C6E83C6540}|ShoppetApp\\ShoppetApp.csproj|c:\\shoppetapp 1\\shoppetapp\\shoppetapp\\pages\\profilepage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{9EA9A421-2637-0BB6-417A-64C6E83C6540}|ShoppetApp\\ShoppetApp.csproj|solutionrelative:shoppetapp\\pages\\profilepage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9EA9A421-2637-0BB6-417A-64C6E83C6540}|ShoppetApp\\ShoppetApp.csproj|c:\\shoppetapp 1\\shoppetapp\\shoppetapp\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9EA9A421-2637-0BB6-417A-64C6E83C6540}|ShoppetApp\\ShoppetApp.csproj|solutionrelative:shoppetapp\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9EA9A421-2637-0BB6-417A-64C6E83C6540}|ShoppetApp\\ShoppetApp.csproj|c:\\shoppetapp 1\\shoppetapp\\shoppetapp\\app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9EA9A421-2637-0BB6-417A-64C6E83C6540}|ShoppetApp\\ShoppetApp.csproj|solutionrelative:shoppetapp\\app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9EA9A421-2637-0BB6-417A-64C6E83C6540}|ShoppetApp\\ShoppetApp.csproj|c:\\shoppetapp 1\\shoppetapp\\shoppetapp\\models\\localpetshop.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9EA9A421-2637-0BB6-417A-64C6E83C6540}|ShoppetApp\\ShoppetApp.csproj|solutionrelative:shoppetapp\\models\\localpetshop.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9EA9A421-2637-0BB6-417A-64C6E83C6540}|ShoppetApp\\ShoppetApp.csproj|c:\\shoppetapp 1\\shoppetapp\\shoppetapp\\messages\\datachangedmessage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9EA9A421-2637-0BB6-417A-64C6E83C6540}|ShoppetApp\\ShoppetApp.csproj|solutionrelative:shoppetapp\\messages\\datachangedmessage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9EA9A421-2637-0BB6-417A-64C6E83C6540}|ShoppetApp\\ShoppetApp.csproj|c:\\shoppetapp 1\\shoppetapp\\shoppetapp\\pages\\splashpage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9EA9A421-2637-0BB6-417A-64C6E83C6540}|ShoppetApp\\ShoppetApp.csproj|solutionrelative:shoppetapp\\pages\\splashpage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9EA9A421-2637-0BB6-417A-64C6E83C6540}|ShoppetApp\\ShoppetApp.csproj|c:\\shoppetapp 1\\shoppetapp\\shoppetapp\\pages\\splashpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{9EA9A421-2637-0BB6-417A-64C6E83C6540}|ShoppetApp\\ShoppetApp.csproj|solutionrelative:shoppetapp\\pages\\splashpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9EA9A421-2637-0BB6-417A-64C6E83C6540}|ShoppetApp\\ShoppetApp.csproj|c:\\shoppetapp 1\\shoppetapp\\shoppetapp\\viewmodels\\authviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9EA9A421-2637-0BB6-417A-64C6E83C6540}|ShoppetApp\\ShoppetApp.csproj|solutionrelative:shoppetapp\\viewmodels\\authviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9EA9A421-2637-0BB6-417A-64C6E83C6540}|ShoppetApp\\ShoppetApp.csproj|c:\\shoppetapp 1\\shoppetapp\\shoppetapp\\viewmodels\\healthlogformviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9EA9A421-2637-0BB6-417A-64C6E83C6540}|ShoppetApp\\ShoppetApp.csproj|solutionrelative:shoppetapp\\viewmodels\\healthlogformviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9EA9A421-2637-0BB6-417A-64C6E83C6540}|ShoppetApp\\ShoppetApp.csproj|c:\\shoppetapp 1\\shoppetapp\\shoppetapp\\pages\\contactformpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{9EA9A421-2637-0BB6-417A-64C6E83C6540}|ShoppetApp\\ShoppetApp.csproj|solutionrelative:shoppetapp\\pages\\contactformpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9EA9A421-2637-0BB6-417A-64C6E83C6540}|ShoppetApp\\ShoppetApp.csproj|c:\\shoppetapp 1\\shoppetapp\\shoppetapp\\viewmodels\\petformviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9EA9A421-2637-0BB6-417A-64C6E83C6540}|ShoppetApp\\ShoppetApp.csproj|solutionrelative:shoppetapp\\viewmodels\\petformviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9EA9A421-2637-0BB6-417A-64C6E83C6540}|ShoppetApp\\ShoppetApp.csproj|c:\\shoppetapp 1\\shoppetapp\\shoppetapp\\viewmodels\\petslistviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9EA9A421-2637-0BB6-417A-64C6E83C6540}|ShoppetApp\\ShoppetApp.csproj|solutionrelative:shoppetapp\\viewmodels\\petslistviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9EA9A421-2637-0BB6-417A-64C6E83C6540}|ShoppetApp\\ShoppetApp.csproj|c:\\shoppetapp 1\\shoppetapp\\shoppetapp\\viewmodels\\contactformviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9EA9A421-2637-0BB6-417A-64C6E83C6540}|ShoppetApp\\ShoppetApp.csproj|solutionrelative:shoppetapp\\viewmodels\\contactformviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9EA9A421-2637-0BB6-417A-64C6E83C6540}|ShoppetApp\\ShoppetApp.csproj|c:\\shoppetapp 1\\shoppetapp\\shoppetapp\\services\\apiservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9EA9A421-2637-0BB6-417A-64C6E83C6540}|ShoppetApp\\ShoppetApp.csproj|solutionrelative:shoppetapp\\services\\apiservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9EA9A421-2637-0BB6-417A-64C6E83C6540}|ShoppetApp\\ShoppetApp.csproj|c:\\shoppetapp 1\\shoppetapp\\shoppetapp\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "AbsoluteMoniker": "D:0:0:{9EA9A421-2637-0BB6-417A-64C6E83C6540}|ShoppetApp\\ShoppetApp.csproj|c:\\users\\windows11\\source\\repos\\shoppet\\shoppetapp\\shoppetapp\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
       "RelativeMoniker": "D:0:0:{9EA9A421-2637-0BB6-417A-64C6E83C6540}|ShoppetApp\\ShoppetApp.csproj|solutionrelative:shoppetapp\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{9EA9A421-2637-0BB6-417A-64C6E83C6540}|ShoppetApp\\ShoppetApp.csproj|c:\\shoppetapp 1\\shoppetapp\\shoppetapp\\pages\\authpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "AbsoluteMoniker": "D:0:0:{9EA9A421-2637-0BB6-417A-64C6E83C6540}|ShoppetApp\\ShoppetApp.csproj|c:\\users\\windows11\\source\\repos\\shoppet\\shoppetapp\\shoppetapp\\viewmodels\\petformviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9EA9A421-2637-0BB6-417A-64C6E83C6540}|ShoppetApp\\ShoppetApp.csproj|solutionrelative:shoppetapp\\viewmodels\\petformviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9EA9A421-2637-0BB6-417A-64C6E83C6540}|ShoppetApp\\ShoppetApp.csproj|c:\\users\\windows11\\source\\repos\\shoppet\\shoppetapp\\shoppetapp\\viewmodels\\authviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9EA9A421-2637-0BB6-417A-64C6E83C6540}|ShoppetApp\\ShoppetApp.csproj|solutionrelative:shoppetapp\\viewmodels\\authviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9EA9A421-2637-0BB6-417A-64C6E83C6540}|ShoppetApp\\ShoppetApp.csproj|c:\\users\\windows11\\source\\repos\\shoppet\\shoppetapp\\shoppetapp\\pages\\contactformpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{9EA9A421-2637-0BB6-417A-64C6E83C6540}|ShoppetApp\\ShoppetApp.csproj|solutionrelative:shoppetapp\\pages\\contactformpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9EA9A421-2637-0BB6-417A-64C6E83C6540}|ShoppetApp\\ShoppetApp.csproj|c:\\users\\windows11\\source\\repos\\shoppet\\shoppetapp\\shoppetapp\\services\\apiservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9EA9A421-2637-0BB6-417A-64C6E83C6540}|ShoppetApp\\ShoppetApp.csproj|solutionrelative:shoppetapp\\services\\apiservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9EA9A421-2637-0BB6-417A-64C6E83C6540}|ShoppetApp\\ShoppetApp.csproj|c:\\users\\windows11\\source\\repos\\shoppet\\shoppetapp\\shoppetapp\\pages\\authpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{9EA9A421-2637-0BB6-417A-64C6E83C6540}|ShoppetApp\\ShoppetApp.csproj|solutionrelative:shoppetapp\\pages\\authpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     }
   ],
@@ -162,35 +34,8 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 6,
           "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 24,
-              "Title": "App.xaml.cs",
-              "DocumentMoniker": "C:\\ShoppetApp 1\\ShoppetApp\\ShoppetApp\\App.xaml.cs",
-              "RelativeDocumentMoniker": "ShoppetApp\\App.xaml.cs",
-              "ToolTip": "C:\\ShoppetApp 1\\ShoppetApp\\ShoppetApp\\App.xaml.cs",
-              "RelativeToolTip": "ShoppetApp\\App.xaml.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-09-15T16:53:26.437Z",
-              "IsPinned": true
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "PetPassportPage.xaml",
-              "DocumentMoniker": "C:\\ShoppetApp 1\\ShoppetApp\\ShoppetApp\\Pages\\PetPassportPage.xaml",
-              "RelativeDocumentMoniker": "ShoppetApp\\Pages\\PetPassportPage.xaml",
-              "ToolTip": "C:\\ShoppetApp 1\\ShoppetApp\\ShoppetApp\\Pages\\PetPassportPage.xaml",
-              "RelativeToolTip": "ShoppetApp\\Pages\\PetPassportPage.xaml",
-              "ViewState": "AgIAAH4AAAAAAAAAAAAowIwAAAAmAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2026-09-18T17:02:54.666Z",
-              "IsPinned": true,
-              "EditorCaption": ""
-            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
@@ -201,374 +46,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "CommunityPage.xaml",
-              "DocumentMoniker": "C:\\ShoppetApp 1\\ShoppetApp\\ShoppetApp\\Pages\\CommunityPage.xaml",
-              "RelativeDocumentMoniker": "ShoppetApp\\Pages\\CommunityPage.xaml",
-              "ToolTip": "C:\\ShoppetApp 1\\ShoppetApp\\ShoppetApp\\Pages\\CommunityPage.xaml",
-              "RelativeToolTip": "ShoppetApp\\Pages\\CommunityPage.xaml",
-              "ViewState": "AgIAAAkCAAAAAAAAAAAcwBACAAA2AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2026-09-18T06:46:08.928Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "DatabaseService.cs",
-              "DocumentMoniker": "C:\\ShoppetApp 1\\ShoppetApp\\ShoppetApp\\Services\\DatabaseService.cs",
-              "RelativeDocumentMoniker": "ShoppetApp\\Services\\DatabaseService.cs",
-              "ToolTip": "C:\\ShoppetApp 1\\ShoppetApp\\ShoppetApp\\Services\\DatabaseService.cs",
-              "RelativeToolTip": "ShoppetApp\\Services\\DatabaseService.cs",
-              "ViewState": "AgIAAJEBAAAAAAAAAAA+wK4BAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-09-15T15:27:32.277Z"
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "CommunityPage.xaml.cs",
-              "DocumentMoniker": "C:\\ShoppetApp 1\\ShoppetApp\\ShoppetApp\\Pages\\CommunityPage.xaml.cs",
-              "RelativeDocumentMoniker": "ShoppetApp\\Pages\\CommunityPage.xaml.cs",
-              "ToolTip": "C:\\ShoppetApp 1\\ShoppetApp\\ShoppetApp\\Pages\\CommunityPage.xaml.cs",
-              "RelativeToolTip": "ShoppetApp\\Pages\\CommunityPage.xaml.cs",
-              "ViewState": "AgIAACcCAAAAAAAAAAAcwEYCAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-09-18T06:47:39.877Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "AndroidManifest.xml",
-              "DocumentMoniker": "C:\\ShoppetApp 1\\ShoppetApp\\ShoppetApp\\Platforms\\Android\\AndroidManifest.xml",
-              "RelativeDocumentMoniker": "ShoppetApp\\Platforms\\Android\\AndroidManifest.xml",
-              "ToolTip": "C:\\ShoppetApp 1\\ShoppetApp\\ShoppetApp\\Platforms\\Android\\AndroidManifest.xml",
-              "RelativeToolTip": "ShoppetApp\\Platforms\\Android\\AndroidManifest.xml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003576|",
-              "WhenOpened": "2026-09-18T18:24:42.548Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "HomeViewModel.cs",
-              "DocumentMoniker": "C:\\ShoppetApp 1\\ShoppetApp\\ShoppetApp\\ViewModels\\HomeViewModel.cs",
-              "RelativeDocumentMoniker": "ShoppetApp\\ViewModels\\HomeViewModel.cs",
-              "ToolTip": "C:\\ShoppetApp 1\\ShoppetApp\\ShoppetApp\\ViewModels\\HomeViewModel.cs",
-              "RelativeToolTip": "ShoppetApp\\ViewModels\\HomeViewModel.cs",
-              "ViewState": "AgIAAHQAAAAAAAAAAAA+wJEAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-09-15T16:51:27.7Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "CartItem.cs",
-              "DocumentMoniker": "C:\\ShoppetApp 1\\ShoppetApp\\ShoppetApp\\Models\\CartItem.cs",
-              "RelativeDocumentMoniker": "ShoppetApp\\Models\\CartItem.cs",
-              "ToolTip": "C:\\ShoppetApp 1\\ShoppetApp\\ShoppetApp\\Models\\CartItem.cs",
-              "RelativeToolTip": "ShoppetApp\\Models\\CartItem.cs",
-              "ViewState": "AgIAAAoAAAAAAAAAAAAcwCkAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-09-18T17:49:24.476Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "CartViewModel.cs",
-              "DocumentMoniker": "C:\\ShoppetApp 1\\ShoppetApp\\ShoppetApp\\ViewModels\\CartViewModel.cs",
-              "RelativeDocumentMoniker": "ShoppetApp\\ViewModels\\CartViewModel.cs",
-              "ToolTip": "C:\\ShoppetApp 1\\ShoppetApp\\ShoppetApp\\ViewModels\\CartViewModel.cs",
-              "RelativeToolTip": "ShoppetApp\\ViewModels\\CartViewModel.cs",
-              "ViewState": "AgIAADEAAAAAAAAAAAAIwE4AAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-09-18T17:39:46.628Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "Product.cs",
-              "DocumentMoniker": "C:\\ShoppetApp 1\\ShoppetApp\\ShoppetApp\\Models\\Product.cs",
-              "RelativeDocumentMoniker": "ShoppetApp\\Models\\Product.cs",
-              "ToolTip": "C:\\ShoppetApp 1\\ShoppetApp\\ShoppetApp\\Models\\Product.cs",
-              "RelativeToolTip": "ShoppetApp\\Models\\Product.cs",
-              "ViewState": "AgIAAAIAAAAAAAAAAAAcwCEAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-09-18T17:44:16.657Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "CartService.cs",
-              "DocumentMoniker": "C:\\ShoppetApp 1\\ShoppetApp\\ShoppetApp\\Services\\CartService.cs",
-              "RelativeDocumentMoniker": "ShoppetApp\\Services\\CartService.cs",
-              "ToolTip": "C:\\ShoppetApp 1\\ShoppetApp\\ShoppetApp\\Services\\CartService.cs",
-              "RelativeToolTip": "ShoppetApp\\Services\\CartService.cs",
-              "ViewState": "AgIAADEAAAAAAAAAAAAcwDYAAAAZAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-09-15T15:27:30.296Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 16,
-              "Title": "FoodLog.cs",
-              "DocumentMoniker": "C:\\ShoppetApp 1\\ShoppetApp\\ShoppetApp\\Models\\FoodLog.cs",
-              "RelativeDocumentMoniker": "ShoppetApp\\Models\\FoodLog.cs",
-              "ToolTip": "C:\\ShoppetApp 1\\ShoppetApp\\ShoppetApp\\Models\\FoodLog.cs",
-              "RelativeToolTip": "ShoppetApp\\Models\\FoodLog.cs",
-              "ViewState": "AgIAABcAAAAAAAAAAAA2wDYAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-09-18T08:06:11.404Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "CommunityPost.cs",
-              "DocumentMoniker": "C:\\ShoppetApp 1\\ShoppetApp\\ShoppetApp\\Models\\CommunityPost.cs",
-              "RelativeDocumentMoniker": "ShoppetApp\\Models\\CommunityPost.cs",
-              "ToolTip": "C:\\ShoppetApp 1\\ShoppetApp\\ShoppetApp\\Models\\CommunityPost.cs",
-              "RelativeToolTip": "ShoppetApp\\Models\\CommunityPost.cs",
-              "ViewState": "AgIAAAgAAAAAAAAAAAA2wBAAAABdAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-09-18T06:45:39.493Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "HealthLogFormPage.xaml",
-              "DocumentMoniker": "C:\\ShoppetApp 1\\ShoppetApp\\ShoppetApp\\Pages\\HealthLogFormPage.xaml",
-              "RelativeDocumentMoniker": "ShoppetApp\\Pages\\HealthLogFormPage.xaml",
-              "ToolTip": "C:\\ShoppetApp 1\\ShoppetApp\\ShoppetApp\\Pages\\HealthLogFormPage.xaml",
-              "RelativeToolTip": "ShoppetApp\\Pages\\HealthLogFormPage.xaml",
-              "ViewState": "AgIAAGYAAAAAAAAAAAAowHYAAAApAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2026-08-28T04:09:15.939Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 15,
-              "Title": "AppShell.xaml.cs",
-              "DocumentMoniker": "C:\\ShoppetApp 1\\ShoppetApp\\ShoppetApp\\AppShell.xaml.cs",
-              "RelativeDocumentMoniker": "ShoppetApp\\AppShell.xaml.cs",
-              "ToolTip": "C:\\ShoppetApp 1\\ShoppetApp\\ShoppetApp\\AppShell.xaml.cs",
-              "RelativeToolTip": "ShoppetApp\\AppShell.xaml.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAuwBIAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-09-15T16:50:54.006Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 13,
-              "Title": "CartDtos.cs",
-              "DocumentMoniker": "C:\\ShoppetApp 1\\ShoppetApp\\ShoppetApp\\Models\\CartDtos.cs",
-              "RelativeDocumentMoniker": "ShoppetApp\\Models\\CartDtos.cs",
-              "ToolTip": "C:\\ShoppetApp 1\\ShoppetApp\\ShoppetApp\\Models\\CartDtos.cs",
-              "RelativeToolTip": "ShoppetApp\\Models\\CartDtos.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-09-18T16:46:34.736Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "MauiProgram.cs",
-              "DocumentMoniker": "C:\\ShoppetApp 1\\ShoppetApp\\ShoppetApp\\MauiProgram.cs",
-              "RelativeDocumentMoniker": "ShoppetApp\\MauiProgram.cs",
-              "ToolTip": "C:\\ShoppetApp 1\\ShoppetApp\\ShoppetApp\\MauiProgram.cs",
-              "RelativeToolTip": "ShoppetApp\\MauiProgram.cs",
-              "ViewState": "AgIAACMAAAAAAAAAAAAcwDgAAAA5AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-09-18T16:54:16.76Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 14,
-              "Title": "AppShell.xaml",
-              "DocumentMoniker": "C:\\ShoppetApp 1\\ShoppetApp\\ShoppetApp\\AppShell.xaml",
-              "RelativeDocumentMoniker": "ShoppetApp\\AppShell.xaml",
-              "ToolTip": "C:\\ShoppetApp 1\\ShoppetApp\\ShoppetApp\\AppShell.xaml",
-              "RelativeToolTip": "ShoppetApp\\AppShell.xaml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAuwBwAAAAIAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2026-08-27T23:06:10.175Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 17,
-              "Title": "ShopPage.xaml.cs",
-              "DocumentMoniker": "C:\\ShoppetApp 1\\ShoppetApp\\ShoppetApp\\Pages\\ShopPage.xaml.cs",
-              "RelativeDocumentMoniker": "ShoppetApp\\Pages\\ShopPage.xaml.cs",
-              "ToolTip": "C:\\ShoppetApp 1\\ShoppetApp\\ShoppetApp\\Pages\\ShopPage.xaml.cs",
-              "RelativeToolTip": "ShoppetApp\\Pages\\ShopPage.xaml.cs",
-              "ViewState": "AgIAAEwAAAAAAAAAAAA5wFMAAAAFAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-09-18T07:22:49.718Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 18,
-              "Title": "ShopPage.xaml",
-              "DocumentMoniker": "C:\\ShoppetApp 1\\ShoppetApp\\ShoppetApp\\Pages\\ShopPage.xaml",
-              "RelativeDocumentMoniker": "ShoppetApp\\Pages\\ShopPage.xaml",
-              "ToolTip": "C:\\ShoppetApp 1\\ShoppetApp\\ShoppetApp\\Pages\\ShopPage.xaml",
-              "RelativeToolTip": "ShoppetApp\\Pages\\ShopPage.xaml",
-              "ViewState": "AgIAADoAAAAAAAAAAAAgwFkAAAAOAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2026-09-18T07:22:38.086Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 20,
-              "Title": "Colors.xaml",
-              "DocumentMoniker": "C:\\ShoppetApp 1\\ShoppetApp\\ShoppetApp\\Resources\\Styles\\Colors.xaml",
-              "RelativeDocumentMoniker": "ShoppetApp\\Resources\\Styles\\Colors.xaml",
-              "ToolTip": "C:\\ShoppetApp 1\\ShoppetApp\\ShoppetApp\\Resources\\Styles\\Colors.xaml",
-              "RelativeToolTip": "ShoppetApp\\Resources\\Styles\\Colors.xaml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2026-09-18T07:13:26.623Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 19,
-              "Title": "Styles.xaml",
-              "DocumentMoniker": "C:\\ShoppetApp 1\\ShoppetApp\\ShoppetApp\\Resources\\Styles\\Styles.xaml",
-              "RelativeDocumentMoniker": "ShoppetApp\\Resources\\Styles\\Styles.xaml",
-              "ToolTip": "C:\\ShoppetApp 1\\ShoppetApp\\ShoppetApp\\Resources\\Styles\\Styles.xaml",
-              "RelativeToolTip": "ShoppetApp\\Resources\\Styles\\Styles.xaml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2026-09-18T07:13:28.477Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 22,
-              "Title": "ProfilePage.xaml",
-              "DocumentMoniker": "C:\\ShoppetApp 1\\ShoppetApp\\ShoppetApp\\Pages\\ProfilePage.xaml",
-              "RelativeDocumentMoniker": "ShoppetApp\\Pages\\ProfilePage.xaml",
-              "ToolTip": "C:\\ShoppetApp 1\\ShoppetApp\\ShoppetApp\\Pages\\ProfilePage.xaml",
-              "RelativeToolTip": "ShoppetApp\\Pages\\ProfilePage.xaml",
-              "ViewState": "AgIAALQAAAAAAAAAAAAuwNEAAAAOAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2026-09-18T06:56:58.746Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 21,
-              "Title": "ProfileViewModel.cs",
-              "DocumentMoniker": "C:\\ShoppetApp 1\\ShoppetApp\\ShoppetApp\\ViewModels\\ProfileViewModel.cs",
-              "RelativeDocumentMoniker": "ShoppetApp\\ViewModels\\ProfileViewModel.cs",
-              "ToolTip": "C:\\ShoppetApp 1\\ShoppetApp\\ShoppetApp\\ViewModels\\ProfileViewModel.cs",
-              "RelativeToolTip": "ShoppetApp\\ViewModels\\ProfileViewModel.cs",
-              "ViewState": "AgIAAFIAAAAAAAAAAAAwwG4AAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-09-15T15:22:23.343Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 23,
-              "Title": "User.cs",
-              "DocumentMoniker": "C:\\ShoppetApp 1\\ShoppetApp\\ShoppetApp\\Models\\User.cs",
-              "RelativeDocumentMoniker": "ShoppetApp\\Models\\User.cs",
-              "ToolTip": "C:\\ShoppetApp 1\\ShoppetApp\\ShoppetApp\\Models\\User.cs",
-              "RelativeToolTip": "ShoppetApp\\Models\\User.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-09-18T06:44:31.112Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 25,
-              "Title": "LocalPetShop.cs",
-              "DocumentMoniker": "C:\\ShoppetApp 1\\ShoppetApp\\ShoppetApp\\Models\\LocalPetShop.cs",
-              "RelativeDocumentMoniker": "ShoppetApp\\Models\\LocalPetShop.cs",
-              "ToolTip": "C:\\ShoppetApp 1\\ShoppetApp\\ShoppetApp\\Models\\LocalPetShop.cs",
-              "RelativeToolTip": "ShoppetApp\\Models\\LocalPetShop.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-09-18T06:53:50.331Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 26,
-              "Title": "DataChangedMessage.cs",
-              "DocumentMoniker": "C:\\ShoppetApp 1\\ShoppetApp\\ShoppetApp\\Messages\\DataChangedMessage.cs",
-              "RelativeDocumentMoniker": "ShoppetApp\\Messages\\DataChangedMessage.cs",
-              "ToolTip": "C:\\ShoppetApp 1\\ShoppetApp\\ShoppetApp\\Messages\\DataChangedMessage.cs",
-              "RelativeToolTip": "ShoppetApp\\Messages\\DataChangedMessage.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-09-18T06:42:18.83Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 30,
-              "Title": "HealthLogFormViewModel.cs",
-              "DocumentMoniker": "C:\\ShoppetApp 1\\ShoppetApp\\ShoppetApp\\ViewModels\\HealthLogFormViewModel.cs",
-              "RelativeDocumentMoniker": "ShoppetApp\\ViewModels\\HealthLogFormViewModel.cs",
-              "ToolTip": "C:\\ShoppetApp 1\\ShoppetApp\\ShoppetApp\\ViewModels\\HealthLogFormViewModel.cs",
-              "RelativeToolTip": "ShoppetApp\\ViewModels\\HealthLogFormViewModel.cs",
-              "ViewState": "AgIAAJgAAAAAAAAAAAAcwKAAAABNAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-09-15T15:55:15.078Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 27,
-              "Title": "SplashPage.xaml.cs",
-              "DocumentMoniker": "C:\\ShoppetApp 1\\ShoppetApp\\ShoppetApp\\Pages\\SplashPage.xaml.cs",
-              "RelativeDocumentMoniker": "ShoppetApp\\Pages\\SplashPage.xaml.cs",
-              "ToolTip": "C:\\ShoppetApp 1\\ShoppetApp\\ShoppetApp\\Pages\\SplashPage.xaml.cs",
-              "RelativeToolTip": "ShoppetApp\\Pages\\SplashPage.xaml.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAvAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-08-28T06:59:34.285Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 28,
-              "Title": "SplashPage.xaml",
-              "DocumentMoniker": "C:\\ShoppetApp 1\\ShoppetApp\\ShoppetApp\\Pages\\SplashPage.xaml",
-              "RelativeDocumentMoniker": "ShoppetApp\\Pages\\SplashPage.xaml",
-              "ToolTip": "C:\\ShoppetApp 1\\ShoppetApp\\ShoppetApp\\Pages\\SplashPage.xaml",
-              "RelativeToolTip": "ShoppetApp\\Pages\\SplashPage.xaml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAcwBkAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2026-08-28T07:00:04.381Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 34,
-              "Title": "ContactFormViewModel.cs",
-              "DocumentMoniker": "C:\\ShoppetApp 1\\ShoppetApp\\ShoppetApp\\ViewModels\\ContactFormViewModel.cs",
-              "RelativeDocumentMoniker": "ShoppetApp\\ViewModels\\ContactFormViewModel.cs",
-              "ToolTip": "C:\\ShoppetApp 1\\ShoppetApp\\ShoppetApp\\ViewModels\\ContactFormViewModel.cs",
-              "RelativeToolTip": "ShoppetApp\\ViewModels\\ContactFormViewModel.cs",
-              "ViewState": "AgIAAEgAAAAAAAAAAAAcwFoAAAAkAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-09-15T15:56:14.3Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 33,
-              "Title": "PetsListViewModel.cs",
-              "DocumentMoniker": "C:\\ShoppetApp 1\\ShoppetApp\\ShoppetApp\\ViewModels\\PetsListViewModel.cs",
-              "RelativeDocumentMoniker": "ShoppetApp\\ViewModels\\PetsListViewModel.cs",
-              "ToolTip": "C:\\ShoppetApp 1\\ShoppetApp\\ShoppetApp\\ViewModels\\PetsListViewModel.cs",
-              "RelativeToolTip": "ShoppetApp\\ViewModels\\PetsListViewModel.cs",
-              "ViewState": "AgIAACgAAAAAAAAAAAAcwEcAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-09-15T16:22:55.857Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 32,
               "Title": "PetFormViewModel.cs",
-              "DocumentMoniker": "C:\\ShoppetApp 1\\ShoppetApp\\ShoppetApp\\ViewModels\\PetFormViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\WINDOWS11\\source\\repos\\Shoppet\\ShoppetApp\\ShoppetApp\\ViewModels\\PetFormViewModel.cs",
               "RelativeDocumentMoniker": "ShoppetApp\\ViewModels\\PetFormViewModel.cs",
-              "ToolTip": "C:\\ShoppetApp 1\\ShoppetApp\\ShoppetApp\\ViewModels\\PetFormViewModel.cs",
+              "ToolTip": "C:\\Users\\WINDOWS11\\source\\repos\\Shoppet\\ShoppetApp\\ShoppetApp\\ViewModels\\PetFormViewModel.cs",
               "RelativeToolTip": "ShoppetApp\\ViewModels\\PetFormViewModel.cs",
               "ViewState": "AgIAALQAAAAAAAAAAAAUwNIAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -576,11 +58,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 29,
+              "DocumentIndex": 2,
               "Title": "AuthViewModel.cs",
-              "DocumentMoniker": "C:\\ShoppetApp 1\\ShoppetApp\\ShoppetApp\\ViewModels\\AuthViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\WINDOWS11\\source\\repos\\Shoppet\\ShoppetApp\\ShoppetApp\\ViewModels\\AuthViewModel.cs",
               "RelativeDocumentMoniker": "ShoppetApp\\ViewModels\\AuthViewModel.cs",
-              "ToolTip": "C:\\ShoppetApp 1\\ShoppetApp\\ShoppetApp\\ViewModels\\AuthViewModel.cs",
+              "ToolTip": "C:\\Users\\WINDOWS11\\source\\repos\\Shoppet\\ShoppetApp\\ShoppetApp\\ViewModels\\AuthViewModel.cs",
               "RelativeToolTip": "ShoppetApp\\ViewModels\\AuthViewModel.cs",
               "ViewState": "AgIAAJUAAAAAAAAAAAAcwLQAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -588,11 +70,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 31,
+              "DocumentIndex": 3,
               "Title": "ContactFormPage.xaml",
-              "DocumentMoniker": "C:\\ShoppetApp 1\\ShoppetApp\\ShoppetApp\\Pages\\ContactFormPage.xaml",
+              "DocumentMoniker": "C:\\Users\\WINDOWS11\\source\\repos\\Shoppet\\ShoppetApp\\ShoppetApp\\Pages\\ContactFormPage.xaml",
               "RelativeDocumentMoniker": "ShoppetApp\\Pages\\ContactFormPage.xaml",
-              "ToolTip": "C:\\ShoppetApp 1\\ShoppetApp\\ShoppetApp\\Pages\\ContactFormPage.xaml",
+              "ToolTip": "C:\\Users\\WINDOWS11\\source\\repos\\Shoppet\\ShoppetApp\\ShoppetApp\\Pages\\ContactFormPage.xaml",
               "RelativeToolTip": "ShoppetApp\\Pages\\ContactFormPage.xaml",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAqAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
@@ -600,11 +82,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 35,
+              "DocumentIndex": 4,
               "Title": "ApiService.cs",
-              "DocumentMoniker": "C:\\ShoppetApp 1\\ShoppetApp\\ShoppetApp\\Services\\ApiService.cs",
+              "DocumentMoniker": "C:\\Users\\WINDOWS11\\source\\repos\\Shoppet\\ShoppetApp\\ShoppetApp\\Services\\ApiService.cs",
               "RelativeDocumentMoniker": "ShoppetApp\\Services\\ApiService.cs",
-              "ToolTip": "C:\\ShoppetApp 1\\ShoppetApp\\ShoppetApp\\Services\\ApiService.cs",
+              "ToolTip": "C:\\Users\\WINDOWS11\\source\\repos\\Shoppet\\ShoppetApp\\ShoppetApp\\Services\\ApiService.cs",
               "RelativeToolTip": "ShoppetApp\\Services\\ApiService.cs",
               "ViewState": "AgIAAFIBAAAAAAAAAAAmwF4BAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -612,23 +94,24 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 36,
+              "DocumentIndex": 0,
               "Title": "launchSettings.json",
-              "DocumentMoniker": "C:\\ShoppetApp 1\\ShoppetApp\\ShoppetApp\\Properties\\launchSettings.json",
+              "DocumentMoniker": "C:\\Users\\WINDOWS11\\source\\repos\\Shoppet\\ShoppetApp\\ShoppetApp\\Properties\\launchSettings.json",
               "RelativeDocumentMoniker": "ShoppetApp\\Properties\\launchSettings.json",
-              "ToolTip": "C:\\ShoppetApp 1\\ShoppetApp\\ShoppetApp\\Properties\\launchSettings.json",
+              "ToolTip": "C:\\Users\\WINDOWS11\\source\\repos\\Shoppet\\ShoppetApp\\ShoppetApp\\Properties\\launchSettings.json",
               "RelativeToolTip": "ShoppetApp\\Properties\\launchSettings.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAADAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2026-09-15T04:59:15.127Z"
+              "WhenOpened": "2026-09-15T04:59:15.127Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 37,
+              "DocumentIndex": 5,
               "Title": "AuthPage.xaml",
-              "DocumentMoniker": "C:\\ShoppetApp 1\\ShoppetApp\\ShoppetApp\\Pages\\AuthPage.xaml",
+              "DocumentMoniker": "C:\\Users\\WINDOWS11\\source\\repos\\Shoppet\\ShoppetApp\\ShoppetApp\\Pages\\AuthPage.xaml",
               "RelativeDocumentMoniker": "ShoppetApp\\Pages\\AuthPage.xaml",
-              "ToolTip": "C:\\ShoppetApp 1\\ShoppetApp\\ShoppetApp\\Pages\\AuthPage.xaml",
+              "ToolTip": "C:\\Users\\WINDOWS11\\source\\repos\\Shoppet\\ShoppetApp\\ShoppetApp\\Pages\\AuthPage.xaml",
               "RelativeToolTip": "ShoppetApp\\Pages\\AuthPage.xaml",
               "ViewState": "AgIAAB4AAAAAAAAAAAAQwCsAAAAsAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",

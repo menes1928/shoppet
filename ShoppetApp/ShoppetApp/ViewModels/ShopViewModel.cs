@@ -22,7 +22,7 @@ public partial class FilterItem : ObservableObject
 public partial class ShopViewModel : ObservableObject
 {
     private readonly CartService _cartService;
-    private readonly DatabaseService _db;
+    private readonly ApiService _api;
     private List<Product> _allProducts = new();
 
     public ObservableCollection<Product> Products { get; } = new();
@@ -32,10 +32,10 @@ public partial class ShopViewModel : ObservableObject
     [ObservableProperty]
     private string _searchText = string.Empty;
 
-    public ShopViewModel(CartService cartService, DatabaseService db)
+    public ShopViewModel(CartService cartService, ApiService api)
     {
         _cartService = cartService;
-        _db = db;
+        _api = api;
 
         // Initialize static species list
         var species = new[] { "Dog", "Cat", "Bird", "Small Pet", "Other" };
@@ -51,15 +51,15 @@ public partial class ShopViewModel : ObservableObject
     private async Task LoadDataAsync()
     {
         // 1. Fetch categories
-        var cats = await _db.GetCategoriesAsync();
+        var cats = await _api.GetCategoriesAsync();
         Categories.Clear();
         foreach (var c in cats)
         {
-            Categories.Add(new FilterItem(c)); // Fixed: c is already a string
+            Categories.Add(new FilterItem(c.Name));
         }
 
         // 2. Fetch products
-        _allProducts = await _db.GetProductsAsync();
+        _allProducts = await _api.GetProductsAsync();
         ApplyFilters();
 
         // 3. Sync cart

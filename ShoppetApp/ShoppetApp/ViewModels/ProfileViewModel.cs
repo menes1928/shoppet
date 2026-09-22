@@ -10,6 +10,7 @@ namespace ShoppetApp.ViewModels
 {
     public partial class ProfileViewModel : ObservableObject, IRecipient<DataChangedMessage>
     {
+        private readonly ApiService _api;
         private readonly DatabaseService _db;
 
         [ObservableProperty] private System.Collections.ObjectModel.ObservableCollection<ContactModel> _contacts = [];
@@ -20,8 +21,9 @@ namespace ShoppetApp.ViewModels
         [ObservableProperty] private bool _isAdmin;
         [ObservableProperty] private bool _isBusinessOwner;
 
-        public ProfileViewModel(DatabaseService db)
+        public ProfileViewModel(ApiService api, DatabaseService db)
         {
+            _api = api;
             _db = db;
             WeakReferenceMessenger.Default.Register(this);
         }
@@ -37,15 +39,15 @@ namespace ShoppetApp.ViewModels
             IsBusy = true;
             try
             {
-                if (_db.CurrentUser != null)
+                int savedUserId = Preferences.Get("LoggedInUserId", 0);
+                if (savedUserId > 0)
                 {
-                    FullName = _db.CurrentUser.FullName;
-
-                    // RBAC Role check
-                    IsAdmin = _db.CurrentUser.Role == "Admin";
-                    IsBusinessOwner = _db.CurrentUser.Role == "BusinessOwner";
+                    FullName = Preferences.Get("LoggedInFullName", "");
+                    string role = Preferences.Get("LoggedInRole", "User");
+                    IsAdmin = role == "Admin";
+                    IsBusinessOwner = role == "BusinessOwner";
                 }
-                var contacts = await _db.GetContactsAsync();
+                var contacts = await _api.GetContactsAsync();
                 Contacts = new System.Collections.ObjectModel.ObservableCollection<ContactModel>(contacts);
             }
             finally
@@ -88,7 +90,7 @@ namespace ShoppetApp.ViewModels
             if (!confirm)
                 return;
 
-            await _db.DeleteContactAsync(contact);
+            await _api.DeleteContactAsync(contact.Id);
             WeakReferenceMessenger.Default.Send(DataChangedMessage.Instance);
             await LoadAsync();
         }
@@ -109,3 +111,9 @@ namespace ShoppetApp.ViewModels
         private void Logout() => NavigationHelper.GoToAuth();
     }
 }
+
+
+
+
+
+

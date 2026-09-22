@@ -74,7 +74,13 @@
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
-    "Parameters": [],
+    "Parameters": [
+      {
+        "Name": "userId",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      }
+    ],
     "ReturnTypes": []
   },
   {
@@ -94,18 +100,61 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "ShoppetAPI.Controllers.ContactsController",
+    "Method": "UpdateContact",
+    "RelativePath": "api/Contacts/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "request",
+        "Type": "ShoppetAPI.Controllers.ContactRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ShoppetAPI.Controllers.ContactsController",
+    "Method": "DeleteContact",
+    "RelativePath": "api/Contacts/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "ShoppetAPI.Controllers.PetsController",
     "Method": "GetPets",
     "RelativePath": "api/Pets",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
-    "Parameters": [],
+    "Parameters": [
+      {
+        "Name": "userId",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      }
+    ],
     "ReturnTypes": []
   },
   {
     "ContainingType": "ShoppetAPI.Controllers.PetsController",
-    "Method": "CreatePet",
+    "Method": "AddPet",
     "RelativePath": "api/Pets",
     "HttpMethod": "POST",
     "IsController": true,
@@ -113,7 +162,28 @@
     "Parameters": [
       {
         "Name": "request",
-        "Type": "ShoppetAPI.Controllers.PetCreateRequest",
+        "Type": "ShoppetAPI.Controllers.PetRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ShoppetAPI.Controllers.PetsController",
+    "Method": "UpdatePet",
+    "RelativePath": "api/Pets/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "request",
+        "Type": "ShoppetAPI.Controllers.PetRequest",
         "IsRequired": true
       }
     ],
@@ -138,7 +208,7 @@
   {
     "ContainingType": "ShoppetAPI.Controllers.FoodLogsController",
     "Method": "GetFoodLogs",
-    "RelativePath": "api/pets/{petId}/food",
+    "RelativePath": "api/pets/{petId}/FoodLogs",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -154,7 +224,7 @@
   {
     "ContainingType": "ShoppetAPI.Controllers.FoodLogsController",
     "Method": "CreateFoodLog",
-    "RelativePath": "api/pets/{petId}/food",
+    "RelativePath": "api/pets/{petId}/FoodLogs",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -175,8 +245,29 @@
   {
     "ContainingType": "ShoppetAPI.Controllers.FoodLogsController",
     "Method": "DeleteFoodLog",
-    "RelativePath": "api/pets/{petId}/food/{id}",
+    "RelativePath": "api/pets/{petId}/FoodLogs/{id}",
     "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "petId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ShoppetAPI.Controllers.FoodLogsController",
+    "Method": "CompleteFoodLog",
+    "RelativePath": "api/pets/{petId}/FoodLogs/{id}/complete",
+    "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
     "Parameters": [
@@ -196,7 +287,7 @@
   {
     "ContainingType": "ShoppetAPI.Controllers.HealthLogsController",
     "Method": "GetHealthLogs",
-    "RelativePath": "api/pets/{petId}/health",
+    "RelativePath": "api/pets/{petId}/HealthLogs",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -212,7 +303,7 @@
   {
     "ContainingType": "ShoppetAPI.Controllers.HealthLogsController",
     "Method": "CreateHealthLog",
-    "RelativePath": "api/pets/{petId}/health",
+    "RelativePath": "api/pets/{petId}/HealthLogs",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -233,7 +324,7 @@
   {
     "ContainingType": "ShoppetAPI.Controllers.HealthLogsController",
     "Method": "DeleteHealthLog",
-    "RelativePath": "api/pets/{petId}/health/{id}",
+    "RelativePath": "api/pets/{petId}/HealthLogs/{id}",
     "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,
@@ -246,6 +337,32 @@
       {
         "Name": "id",
         "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ShoppetAPI.Controllers.HealthLogsController",
+    "Method": "CompleteHealthLog",
+    "RelativePath": "api/pets/{petId}/HealthLogs/{id}/complete",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "petId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "req",
+        "Type": "ShoppetAPI.Controllers.CompleteHealthLogRequest",
         "IsRequired": true
       }
     ],

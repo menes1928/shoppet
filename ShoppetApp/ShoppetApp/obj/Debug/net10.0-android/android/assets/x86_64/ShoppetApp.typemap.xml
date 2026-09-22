@@ -1,10 +1,10 @@
-<api type="debug" assembly-name="ShoppetApp" mvid="7df1fb8cff4c4c518a367759d032f06b">
+<api type="debug" assembly-name="ShoppetApp" mvid="f5b19016efb74387974ca89cbc9a8c8b">
   <java-to-managed>
-    <entry java-name="crc64df2cee456f73f398/MainActivity" managed-name="ShoppetApp.MainActivity, ShoppetApp" managed-type-token-id="33554460" />
-    <entry java-name="crc64df2cee456f73f398/MainApplication" managed-name="ShoppetApp.MainApplication, ShoppetApp" managed-type-token-id="33554461" />
+    <entry java-name="crc64df2cee456f73f398/MainActivity" managed-name="ShoppetApp.MainActivity, ShoppetApp" managed-type-token-id="33554461" />
+    <entry java-name="crc64df2cee456f73f398/MainApplication" managed-name="ShoppetApp.MainApplication, ShoppetApp" managed-type-token-id="33554462" />
   </java-to-managed>
   <managed-to-java>
-    <entry java-name="crc64df2cee456f73f398/MainActivity" managed-name="ShoppetApp.MainActivity, ShoppetApp" managed-type-token-id="33554460" />
-    <entry java-name="crc64df2cee456f73f398/MainApplication" managed-name="ShoppetApp.MainApplication, ShoppetApp" managed-type-token-id="33554461" />
+    <entry java-name="crc64df2cee456f73f398/MainActivity" managed-name="ShoppetApp.MainActivity, ShoppetApp" managed-type-token-id="33554461" />
+    <entry java-name="crc64df2cee456f73f398/MainApplication" managed-name="ShoppetApp.MainApplication, ShoppetApp" managed-type-token-id="33554462" />
   </managed-to-java>
 </api>

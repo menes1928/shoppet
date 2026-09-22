@@ -24,7 +24,7 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property.EntryPointFilePath = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = ShoppetApp
-build_property.ProjectDir = C:\ShoppetApp 1\ShoppetApp\ShoppetApp\
+build_property.ProjectDir = C:\Users\WINDOWS11\source\repos\Shoppet\ShoppetApp\ShoppetApp\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.CsWinRTAotExportsEnabled = 
@@ -36,7 +36,7 @@ build_property.CsWinRTUseWindowsUIXamlProjections = false
 build_property.EffectiveAnalysisLevelStyle = 10.0
 build_property.EnableCodeStyleSeverity = 
 
-[C:/ShoppetApp 1/ShoppetApp/ShoppetApp/App.xaml]
+[C:/Users/WINDOWS11/source/repos/Shoppet/ShoppetApp/ShoppetApp/App.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = ShoppetApp.App.xaml
 build_metadata.AdditionalFiles.TargetPath = App.xaml
@@ -46,7 +46,7 @@ build_metadata.AdditionalFiles.NoWarn =
 build_metadata.AdditionalFiles.EnableDiagnostics = 
 build_metadata.AdditionalFiles.LineInfo = 
 
-[C:/ShoppetApp 1/ShoppetApp/ShoppetApp/AppShell.xaml]
+[C:/Users/WINDOWS11/source/repos/Shoppet/ShoppetApp/ShoppetApp/AppShell.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = ShoppetApp.AppShell.xaml
 build_metadata.AdditionalFiles.TargetPath = AppShell.xaml
@@ -56,7 +56,7 @@ build_metadata.AdditionalFiles.NoWarn =
 build_metadata.AdditionalFiles.EnableDiagnostics = 
 build_metadata.AdditionalFiles.LineInfo = 
 
-[C:/ShoppetApp 1/ShoppetApp/ShoppetApp/Controls/FloatingTabBar.xaml]
+[C:/Users/WINDOWS11/source/repos/Shoppet/ShoppetApp/ShoppetApp/Controls/FloatingTabBar.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = ShoppetApp.Controls.FloatingTabBar.xaml
 build_metadata.AdditionalFiles.TargetPath = Controls\FloatingTabBar.xaml
@@ -66,7 +66,7 @@ build_metadata.AdditionalFiles.NoWarn =
 build_metadata.AdditionalFiles.EnableDiagnostics = 
 build_metadata.AdditionalFiles.LineInfo = 
 
-[C:/ShoppetApp 1/ShoppetApp/ShoppetApp/Controls/HeaderView.xaml]
+[C:/Users/WINDOWS11/source/repos/Shoppet/ShoppetApp/ShoppetApp/Controls/HeaderView.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = ShoppetApp.Controls.HeaderView.xaml
 build_metadata.AdditionalFiles.TargetPath = Controls\HeaderView.xaml
@@ -76,7 +76,7 @@ build_metadata.AdditionalFiles.NoWarn =
 build_metadata.AdditionalFiles.EnableDiagnostics = 
 build_metadata.AdditionalFiles.LineInfo = 
 
-[C:/ShoppetApp 1/ShoppetApp/ShoppetApp/MainPage.xaml]
+[C:/Users/WINDOWS11/source/repos/Shoppet/ShoppetApp/ShoppetApp/MainPage.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = ShoppetApp.MainPage.xaml
 build_metadata.AdditionalFiles.TargetPath = MainPage.xaml
@@ -86,7 +86,7 @@ build_metadata.AdditionalFiles.NoWarn =
 build_metadata.AdditionalFiles.EnableDiagnostics = 
 build_metadata.AdditionalFiles.LineInfo = 
 
-[C:/ShoppetApp 1/ShoppetApp/ShoppetApp/Pages/AuthPage.xaml]
+[C:/Users/WINDOWS11/source/repos/Shoppet/ShoppetApp/ShoppetApp/Pages/AuthPage.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = ShoppetApp.Pages.AuthPage.xaml
 build_metadata.AdditionalFiles.TargetPath = Pages\AuthPage.xaml
@@ -96,7 +96,7 @@ build_metadata.AdditionalFiles.NoWarn =
 build_metadata.AdditionalFiles.EnableDiagnostics = 
 build_metadata.AdditionalFiles.LineInfo = 
 
-[C:/ShoppetApp 1/ShoppetApp/ShoppetApp/Pages/CartPage.xaml]
+[C:/Users/WINDOWS11/source/repos/Shoppet/ShoppetApp/ShoppetApp/Pages/CartPage.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = ShoppetApp.Pages.CartPage.xaml
 build_metadata.AdditionalFiles.TargetPath = Pages\CartPage.xaml
@@ -106,7 +106,7 @@ build_metadata.AdditionalFiles.NoWarn =
 build_metadata.AdditionalFiles.EnableDiagnostics = 
 build_metadata.AdditionalFiles.LineInfo = 
 
-[C:/ShoppetApp 1/ShoppetApp/ShoppetApp/Pages/CommunityPage.xaml]
+[C:/Users/WINDOWS11/source/repos/Shoppet/ShoppetApp/ShoppetApp/Pages/CommunityPage.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = ShoppetApp.Pages.CommunityPage.xaml
 build_metadata.AdditionalFiles.TargetPath = Pages\CommunityPage.xaml
@@ -116,7 +116,7 @@ build_metadata.AdditionalFiles.NoWarn =
 build_metadata.AdditionalFiles.EnableDiagnostics = 
 build_metadata.AdditionalFiles.LineInfo = 
 
-[C:/ShoppetApp 1/ShoppetApp/ShoppetApp/Pages/ContactFormPage.xaml]
+[C:/Users/WINDOWS11/source/repos/Shoppet/ShoppetApp/ShoppetApp/Pages/ContactFormPage.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = ShoppetApp.Pages.ContactFormPage.xaml
 build_metadata.AdditionalFiles.TargetPath = Pages\ContactFormPage.xaml
@@ -126,7 +126,7 @@ build_metadata.AdditionalFiles.NoWarn =
 build_metadata.AdditionalFiles.EnableDiagnostics = 
 build_metadata.AdditionalFiles.LineInfo = 
 
-[C:/ShoppetApp 1/ShoppetApp/ShoppetApp/Pages/FoodLogFormPage.xaml]
+[C:/Users/WINDOWS11/source/repos/Shoppet/ShoppetApp/ShoppetApp/Pages/FoodLogFormPage.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = ShoppetApp.Pages.FoodLogFormPage.xaml
 build_metadata.AdditionalFiles.TargetPath = Pages\FoodLogFormPage.xaml
@@ -136,7 +136,7 @@ build_metadata.AdditionalFiles.NoWarn =
 build_metadata.AdditionalFiles.EnableDiagnostics = 
 build_metadata.AdditionalFiles.LineInfo = 
 
-[C:/ShoppetApp 1/ShoppetApp/ShoppetApp/Pages/HealthLogFormPage.xaml]
+[C:/Users/WINDOWS11/source/repos/Shoppet/ShoppetApp/ShoppetApp/Pages/HealthLogFormPage.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = ShoppetApp.Pages.HealthLogFormPage.xaml
 build_metadata.AdditionalFiles.TargetPath = Pages\HealthLogFormPage.xaml
@@ -146,7 +146,7 @@ build_metadata.AdditionalFiles.NoWarn =
 build_metadata.AdditionalFiles.EnableDiagnostics = 
 build_metadata.AdditionalFiles.LineInfo = 
 
-[C:/ShoppetApp 1/ShoppetApp/ShoppetApp/Pages/HomePage.xaml]
+[C:/Users/WINDOWS11/source/repos/Shoppet/ShoppetApp/ShoppetApp/Pages/HomePage.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = ShoppetApp.Pages.HomePage.xaml
 build_metadata.AdditionalFiles.TargetPath = Pages\HomePage.xaml
@@ -156,7 +156,7 @@ build_metadata.AdditionalFiles.NoWarn =
 build_metadata.AdditionalFiles.EnableDiagnostics = 
 build_metadata.AdditionalFiles.LineInfo = 
 
-[C:/ShoppetApp 1/ShoppetApp/ShoppetApp/Pages/OnboardingPage.xaml]
+[C:/Users/WINDOWS11/source/repos/Shoppet/ShoppetApp/ShoppetApp/Pages/OnboardingPage.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = ShoppetApp.Pages.OnboardingPage.xaml
 build_metadata.AdditionalFiles.TargetPath = Pages\OnboardingPage.xaml
@@ -166,7 +166,7 @@ build_metadata.AdditionalFiles.NoWarn =
 build_metadata.AdditionalFiles.EnableDiagnostics = 
 build_metadata.AdditionalFiles.LineInfo = 
 
-[C:/ShoppetApp 1/ShoppetApp/ShoppetApp/Pages/PetFormPage.xaml]
+[C:/Users/WINDOWS11/source/repos/Shoppet/ShoppetApp/ShoppetApp/Pages/PetFormPage.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = ShoppetApp.Pages.PetFormPage.xaml
 build_metadata.AdditionalFiles.TargetPath = Pages\PetFormPage.xaml
@@ -176,7 +176,7 @@ build_metadata.AdditionalFiles.NoWarn =
 build_metadata.AdditionalFiles.EnableDiagnostics = 
 build_metadata.AdditionalFiles.LineInfo = 
 
-[C:/ShoppetApp 1/ShoppetApp/ShoppetApp/Pages/PetPassportPage.xaml]
+[C:/Users/WINDOWS11/source/repos/Shoppet/ShoppetApp/ShoppetApp/Pages/PetPassportPage.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = ShoppetApp.Pages.PetPassportPage.xaml
 build_metadata.AdditionalFiles.TargetPath = Pages\PetPassportPage.xaml
@@ -186,7 +186,7 @@ build_metadata.AdditionalFiles.NoWarn =
 build_metadata.AdditionalFiles.EnableDiagnostics = 
 build_metadata.AdditionalFiles.LineInfo = 
 
-[C:/ShoppetApp 1/ShoppetApp/ShoppetApp/Pages/PetsListPage.xaml]
+[C:/Users/WINDOWS11/source/repos/Shoppet/ShoppetApp/ShoppetApp/Pages/PetsListPage.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = ShoppetApp.Pages.PetsListPage.xaml
 build_metadata.AdditionalFiles.TargetPath = Pages\PetsListPage.xaml
@@ -196,7 +196,7 @@ build_metadata.AdditionalFiles.NoWarn =
 build_metadata.AdditionalFiles.EnableDiagnostics = 
 build_metadata.AdditionalFiles.LineInfo = 
 
-[C:/ShoppetApp 1/ShoppetApp/ShoppetApp/Pages/ProfilePage.xaml]
+[C:/Users/WINDOWS11/source/repos/Shoppet/ShoppetApp/ShoppetApp/Pages/ProfilePage.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = ShoppetApp.Pages.ProfilePage.xaml
 build_metadata.AdditionalFiles.TargetPath = Pages\ProfilePage.xaml
@@ -206,7 +206,7 @@ build_metadata.AdditionalFiles.NoWarn =
 build_metadata.AdditionalFiles.EnableDiagnostics = 
 build_metadata.AdditionalFiles.LineInfo = 
 
-[C:/ShoppetApp 1/ShoppetApp/ShoppetApp/Pages/ShopPage.xaml]
+[C:/Users/WINDOWS11/source/repos/Shoppet/ShoppetApp/ShoppetApp/Pages/ShopPage.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = ShoppetApp.Pages.ShopPage.xaml
 build_metadata.AdditionalFiles.TargetPath = Pages\ShopPage.xaml
@@ -216,7 +216,7 @@ build_metadata.AdditionalFiles.NoWarn =
 build_metadata.AdditionalFiles.EnableDiagnostics = 
 build_metadata.AdditionalFiles.LineInfo = 
 
-[C:/ShoppetApp 1/ShoppetApp/ShoppetApp/Pages/SplashPage.xaml]
+[C:/Users/WINDOWS11/source/repos/Shoppet/ShoppetApp/ShoppetApp/Pages/SplashPage.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = ShoppetApp.Pages.SplashPage.xaml
 build_metadata.AdditionalFiles.TargetPath = Pages\SplashPage.xaml
@@ -226,7 +226,7 @@ build_metadata.AdditionalFiles.NoWarn =
 build_metadata.AdditionalFiles.EnableDiagnostics = 
 build_metadata.AdditionalFiles.LineInfo = 
 
-[C:/ShoppetApp 1/ShoppetApp/ShoppetApp/Resources/Styles/Colors.xaml]
+[C:/Users/WINDOWS11/source/repos/Shoppet/ShoppetApp/ShoppetApp/Resources/Styles/Colors.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = ShoppetApp.Resources.Styles.Colors.xaml
 build_metadata.AdditionalFiles.TargetPath = Resources\Styles\Colors.xaml
@@ -236,7 +236,7 @@ build_metadata.AdditionalFiles.NoWarn =
 build_metadata.AdditionalFiles.EnableDiagnostics = 
 build_metadata.AdditionalFiles.LineInfo = 
 
-[C:/ShoppetApp 1/ShoppetApp/ShoppetApp/Resources/Styles/Styles.xaml]
+[C:/Users/WINDOWS11/source/repos/Shoppet/ShoppetApp/ShoppetApp/Resources/Styles/Styles.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = ShoppetApp.Resources.Styles.Styles.xaml
 build_metadata.AdditionalFiles.TargetPath = Resources\Styles\Styles.xaml

@@ -12,7 +12,7 @@
       <CodesignDisableTimestamp>true</CodesignDisableTimestamp>
       <CodesignKeychain></CodesignKeychain>
       <CodesignUseHardenedRuntime></CodesignUseHardenedRuntime>
-      <SourceProjectPath>C:\ShoppetApp 1\ShoppetApp\ShoppetApp</SourceProjectPath>
+      <SourceProjectPath>C:\Users\WINDOWS11\source\repos\Shoppet\ShoppetApp\ShoppetApp</SourceProjectPath>
     </_CodesignBundle>
   </ItemGroup>
 </Project>

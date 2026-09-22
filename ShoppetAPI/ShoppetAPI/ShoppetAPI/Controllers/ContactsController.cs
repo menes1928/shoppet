@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using MySql.Data.MySqlClient;
 using System.Data;
 
@@ -16,7 +16,7 @@ namespace ShoppetAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetContacts()
+        public async Task<IActionResult> GetContacts([FromQuery] int? userId)
         {
             try
             {
@@ -27,22 +27,32 @@ namespace ShoppetAPI.Controllers
                 {
                     await connection.OpenAsync();
                     var query = "SELECT Id, UserId, Name, Role, Address, Phone, IsEmergency FROM emergencycontacts";
+                    if (userId.HasValue)
+                    {
+                        query += " WHERE UserId = @UserId";
+                    }
 
                     using (var cmd = new MySqlCommand(query, connection))
-                    using (var reader = await cmd.ExecuteReaderAsync())
                     {
-                        while (await reader.ReadAsync())
+                        if (userId.HasValue)
                         {
-                            contacts.Add(new
+                            cmd.Parameters.AddWithValue("@UserId", userId.Value);
+                        }
+                        using (var reader = await cmd.ExecuteReaderAsync())
+                        {
+                            while (await reader.ReadAsync())
                             {
-                                Id = reader.GetInt32("Id"),
-                                UserId = reader.GetInt32("UserId"),
-                                Name = reader.GetString("Name"),
-                                Role = reader.GetString("Role"),
-                                Address = reader.GetString("Address"),
-                                Phone = reader.GetString("Phone"),
-                                IsEmergency = reader.GetBoolean("IsEmergency")
-                            });
+                                contacts.Add(new
+                                {
+                                    Id = reader.GetInt32("Id"),
+                                    UserId = reader.GetInt32("UserId"),
+                                    Name = reader.GetString("Name"),
+                                    Role = reader.GetString("Role"),
+                                    Address = reader.GetString("Address"),
+                                    Phone = reader.GetString("Phone"),
+                                    IsEmergency = reader.GetBoolean("IsEmergency")
+                                });
+                            }
                         }
                     }
                 }
@@ -66,11 +76,12 @@ namespace ShoppetAPI.Controllers
                 {
                     await connection.OpenAsync();
                     var query = @"INSERT INTO emergencycontacts (UserId, Name, Role, Address, Phone, IsEmergency) 
-                                  VALUES (1, @Name, @Role, @Address, @Phone, @IsEmergency);
+                                  VALUES (@UserId, @Name, @Role, @Address, @Phone, @IsEmergency);
                                   SELECT LAST_INSERT_ID();";
 
                     using (var cmd = new MySqlCommand(query, connection))
                     {
+                        cmd.Parameters.AddWithValue("@UserId", request.UserId);
                         cmd.Parameters.AddWithValue("@Name", request.Name ?? "");
                         cmd.Parameters.AddWithValue("@Role", request.Role ?? "");
                         cmd.Parameters.AddWithValue("@Address", request.Address ?? "");
@@ -82,17 +93,73 @@ namespace ShoppetAPI.Controllers
                     }
                 }
 
-                return Ok(new { Id = (int)newId, request.Name, request.Role, request.Phone });
+                return Ok(new { Id = (int)newId, request.UserId, request.Name, request.Role, request.Phone });
             }
             catch (Exception ex)
             {
                 return StatusCode(500, $"Error saving contact: {ex.Message}");
             }
         }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateContact(int id, [FromBody] ContactRequest request)
+        {
+            try
+            {
+                string connString = _configuration.GetConnectionString("DefaultConnection")!;
+                using (var connection = new MySqlConnection(connString))
+                {
+                    await connection.OpenAsync();
+                    var query = @"UPDATE emergencycontacts 
+                                  SET Name=@Name, Role=@Role, Address=@Address, Phone=@Phone, IsEmergency=@IsEmergency 
+                                  WHERE Id=@Id";
+                    using (var cmd = new MySqlCommand(query, connection))
+                    {
+                        cmd.Parameters.AddWithValue("@Id", id);
+                        cmd.Parameters.AddWithValue("@Name", request.Name ?? "");
+                        cmd.Parameters.AddWithValue("@Role", request.Role ?? "");
+                        cmd.Parameters.AddWithValue("@Address", request.Address ?? "");
+                        cmd.Parameters.AddWithValue("@Phone", request.Phone ?? "");
+                        cmd.Parameters.AddWithValue("@IsEmergency", request.IsEmergency);
+                        await cmd.ExecuteNonQueryAsync();
+                    }
+                }
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Error updating contact: {ex.Message}");
+            }
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteContact(int id)
+        {
+            try
+            {
+                string connString = _configuration.GetConnectionString("DefaultConnection")!;
+                using (var connection = new MySqlConnection(connString))
+                {
+                    await connection.OpenAsync();
+                    var query = "DELETE FROM emergencycontacts WHERE Id=@Id";
+                    using (var cmd = new MySqlCommand(query, connection))
+                    {
+                        cmd.Parameters.AddWithValue("@Id", id);
+                        await cmd.ExecuteNonQueryAsync();
+                    }
+                }
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Error deleting contact: {ex.Message}");
+            }
+        }
     }
 
     public class ContactRequest
     {
+        public int UserId { get; set; }
         public string Name { get; set; } = string.Empty;
         public string Role { get; set; } = string.Empty;
         public string Address { get; set; } = string.Empty;

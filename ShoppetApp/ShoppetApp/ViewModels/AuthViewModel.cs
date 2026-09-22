@@ -108,6 +108,8 @@ public partial class AuthViewModel : ObservableObject
 
                     // Save user session locally for API mapping
                     Preferences.Set("LoggedInUserId", result.Data.UserId);
+                    Preferences.Set("LoggedInFullName", result.Data.FullName);
+                    Preferences.Set("LoggedInRole", "User");
 
                     _databaseService.CurrentUser = new User
                     {
@@ -153,6 +155,8 @@ public partial class AuthViewModel : ObservableObject
 
                     // Save user session locally for API mapping
                     Preferences.Set("LoggedInUserId", result.Data.UserId);
+                    Preferences.Set("LoggedInFullName", result.Data.FullName);
+                    Preferences.Set("LoggedInRole", "User");
 
                     _databaseService.CurrentUser = new User
                     {
@@ -179,3 +183,5 @@ public partial class AuthViewModel : ObservableObject
         }
     }
 }
+
+

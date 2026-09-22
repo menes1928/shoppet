@@ -10,14 +10,14 @@ namespace ShoppetApp.ViewModels;
 
 public partial class PetsListViewModel : ObservableObject, IRecipient<DataChangedMessage>
 {
-    private readonly DatabaseService _db;
+    private readonly ApiService _api;
 
     [ObservableProperty] private ObservableCollection<Pet> _pets = [];
     [ObservableProperty] private bool _isBusy;
 
-    public PetsListViewModel(DatabaseService db)
+    public PetsListViewModel(ApiService api)
     {
-        _db = db;
+        _api = api;
         WeakReferenceMessenger.Default.Register(this);
     }
 
@@ -32,7 +32,7 @@ public partial class PetsListViewModel : ObservableObject, IRecipient<DataChange
         IsBusy = true;
         try
         {
-            var pets = await _db.GetPetsAsync();
+            var pets = await _api.GetPetsAsync();
             Pets = new ObservableCollection<Pet>(pets);
         }
         finally
@@ -65,7 +65,9 @@ public partial class PetsListViewModel : ObservableObject, IRecipient<DataChange
         if (!confirm)
             return;
 
-        await _db.DeletePetAsync(pet);
+        await _api.DeletePetAsync(pet.Id);
         WeakReferenceMessenger.Default.Send(DataChangedMessage.Instance);
     }
 }
+
+
