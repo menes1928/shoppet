@@ -41,11 +41,25 @@
                                 </VerticalStackLayout>
                             </HorizontalStackLayout>
                             <Label Text="{Binding Post.Content}" TextColor="{StaticResource BodyText}" FontSize="15" />
-                            <Image Source="{Binding Post.ImageUrls}" IsVisible="{Binding Post.HasImages}" Aspect="AspectFill" HeightRequest="250">
-                                <Image.GestureRecognizers>
-                                    <TapGestureRecognizer Command="{Binding OpenPreviewCommand}" CommandParameter="{Binding Post.ImageUrls}" />
-                                </Image.GestureRecognizers>
-                            </Image>
+                            <CollectionView ItemsSource="{Binding Post.ImageList}"
+                                            IsVisible="{Binding Post.HasImages}"
+                                            HeightRequest="250"
+                                            Margin="0,10"
+                                            HorizontalScrollBarVisibility="Never">
+                                <CollectionView.ItemsLayout>
+                                    <LinearItemsLayout Orientation="Horizontal" ItemSpacing="10" />
+                                </CollectionView.ItemsLayout>
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Border StrokeShape="RoundRectangle 10" StrokeThickness="0" BackgroundColor="Transparent" Margin="0,0,10,0">
+                                            <Image Source="{Binding .}"
+                                                   Aspect="AspectFill"
+                                                   HeightRequest="250"
+                                                   WidthRequest="300" />
+                                        </Border>
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+                            </CollectionView>
                             <HorizontalStackLayout Spacing="15">
                                 <Label Text="{Binding Post.LikesCount, StringFormat='{0} Likes'}" TextColor="#666666" FontSize="13" />
                                 <Label Text="{Binding Post.CommentsCount, StringFormat='{0} Comments'}" TextColor="#666666" FontSize="13" />
@@ -174,6 +188,7 @@
 
 
 </ContentPage>
+
 
 
 
