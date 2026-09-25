@@ -1,4 +1,4 @@
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using ShoppetApp.Models;
@@ -6,6 +6,17 @@ using ShoppetApp.Services;
 
 namespace ShoppetApp.ViewModels
 {
+    public partial class MediaAttachment : ObservableObject
+    {
+        [ObservableProperty]
+        private string _filePath = string.Empty;
+
+        [ObservableProperty]
+        private bool _isVideo;
+
+        public bool IsImage => !IsVideo;
+    }
+
     public partial class CreatePostViewModel : ObservableObject
     {
         private readonly ApiService _api;
@@ -18,7 +29,7 @@ namespace ShoppetApp.ViewModels
         private ObservableCollection<object> _selectedPets = new();
 
         [ObservableProperty]
-        private string _attachedPhotoPath = string.Empty;
+        private ObservableCollection<MediaAttachment> _attachedMedia = new();
 
         [ObservableProperty]
         private ObservableCollection<Pet> _myPets = new();
@@ -68,19 +79,37 @@ namespace ShoppetApp.ViewModels
         }
 
         [RelayCommand]
+        private void RemoveMedia(MediaAttachment media)
+        {
+            if (media != null && AttachedMedia.Contains(media))
+            {
+                AttachedMedia.Remove(media);
+            }
+        }
+
+        [RelayCommand]
         private async Task AttachPhotoAsync()
         {
             try
             {
-                var result = await FilePicker.Default.PickAsync(new PickOptions
+                var result = await FilePicker.Default.PickMultipleAsync(new PickOptions
                 {
-                    PickerTitle = "Select a Photo",
+                    PickerTitle = "Select Photos",
                     FileTypes = FilePickerFileType.Images
                 });
 
                 if (result != null)
                 {
-                    AttachedPhotoPath = result.FullPath;
+                    foreach (var file in result)
+                    {
+                        if (AttachedMedia.Count >= 5)
+                        {
+                            await Shell.Current.DisplayAlert("Limit Reached", "You can only attach a maximum of 5 photos.", "OK");
+                            break;
+                        }
+
+                        AttachedMedia.Add(new MediaAttachment { FilePath = file.FullPath, IsVideo = false });
+                    }
                 }
             }
             catch (Exception ex)
@@ -92,10 +121,12 @@ namespace ShoppetApp.ViewModels
         [RelayCommand]
         private async Task PostAsync()
         {
-            if (string.IsNullOrWhiteSpace(Content) && string.IsNullOrWhiteSpace(AttachedPhotoPath))
+            if (string.IsNullOrWhiteSpace(Content) && AttachedMedia.Count == 0)
                 return;
 
             if (_db.CurrentUser == null) return;
+
+            var mediaPaths = string.Join(",", AttachedMedia.Select(m => m.FilePath));
 
             var request = new 
             {
@@ -104,7 +135,7 @@ namespace ShoppetApp.ViewModels
                 AuthorName = _db.CurrentUser.FullName,
                 PetName = SelectedPets.Count > 0 ? string.Join(" and ", SelectedPets.Cast<Pet>().Select(p => p.Name)) : "",
                 Content = Content,
-                ImageUrls = AttachedPhotoPath // Simple string for now
+                ImageUrls = mediaPaths
             };
 
             var success = await _api.CreateCommunityPostAsync(request);
@@ -119,10 +150,3 @@ namespace ShoppetApp.ViewModels
         }
     }
 }
-
-
-
-
-
-
-

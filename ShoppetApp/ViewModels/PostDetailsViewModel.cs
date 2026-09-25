@@ -59,20 +59,152 @@ namespace ShoppetApp.ViewModels
         {
             if (Post == null) return;
 
+            // Preserve old states
+            var oldVisibleCounts = Comments
+                .Where(c => c.TopLevelParent == c)
+                .ToDictionary(c => c.Id, c => c.VisibleDescendantsCount);
+
             IsRefreshing = true;
             try
             {
                 var data = await _api.GetCommentsAsync(Post.Id);
-                Comments.Clear();
+                
+                var dict = data.ToDictionary(c => c.Id);
+                var roots = new List<CommunityComment>();
+                
                 foreach (var c in data)
                 {
-                    Comments.Add(c);
+                    if (c.ParentCommentId.HasValue && dict.TryGetValue(c.ParentCommentId.Value, out var parent))
+                    {
+                        parent.Replies.Add(c);
+                    }
+                    else
+                    {
+                        roots.Add(c);
+                    }
+                }
+                
+                Comments.Clear();
+                foreach (var root in roots)
+                {
+                    root.TopLevelParent = root;
+                    root.AllDescendants = new List<CommunityComment>();
+                    CollectDescendants(root, root, 0);
+                    
+                    root.TotalDescendantsCount = root.AllDescendants.Count;
+                    
+                    if (oldVisibleCounts.TryGetValue(root.Id, out int oldVisible))
+                    {
+                        if (root.TotalDescendantsCount > oldVisible) {
+                            root.VisibleDescendantsCount = root.TotalDescendantsCount;
+                        } else {
+                            root.VisibleDescendantsCount = Math.Min(oldVisible, root.TotalDescendantsCount);
+                        }
+                    }
+                    else
+                    {
+                        root.VisibleDescendantsCount = 0;
+                    }
+                    
+                    Comments.Add(root);
+                    
+                    for (int i = 0; i < root.VisibleDescendantsCount; i++)
+                    {
+                        Comments.Add(root.AllDescendants[i]);
+                    }
+                    
+                    UpdatePaginatorForRoot(root);
                 }
             }
             finally
             {
                 IsRefreshing = false;
             }
+        }
+        
+        private void CollectDescendants(CommunityComment root, CommunityComment node, int depth)
+        {
+            node.Depth = depth;
+            if (node != root)
+            {
+                node.TopLevelParent = root;
+                root.AllDescendants.Add(node);
+            }
+            foreach (var child in node.Replies)
+            {
+                CollectDescendants(root, child, depth + 1);
+            }
+        }
+
+        private void UpdatePaginatorForRoot(CommunityComment root)
+        {
+            root.IsPaginatorVisible = false;
+            foreach (var d in root.AllDescendants)
+            {
+                d.IsPaginatorVisible = false;
+                d.IsHideVisible = false;
+            }
+            
+            int total = root.TotalDescendantsCount;
+            if (total == 0) return;
+            
+            int visible = root.VisibleDescendantsCount;
+            var anchor = visible == 0 ? root : root.AllDescendants[visible - 1];
+            
+            anchor.IsPaginatorVisible = true;
+            anchor.IsHideVisible = visible > 0;
+            
+            int remaining = total - visible;
+            if (remaining > 0)
+            {
+                if (visible == 0)
+                    anchor.PaginatorText = $"View {total} replies \u2304";
+                else
+                    anchor.PaginatorText = $"View {Math.Min(5, remaining)} more \u2304";
+            }
+            else
+            {
+                anchor.PaginatorText = string.Empty;
+            }
+        }
+
+        [RelayCommand]
+        private void LoadMoreReplies(CommunityComment anchor)
+        {
+            var root = anchor.TopLevelParent ?? anchor;
+            int currentVisible = root.VisibleDescendantsCount;
+            int remaining = root.TotalDescendantsCount - currentVisible;
+            int toAdd = Math.Min(5, remaining);
+            
+            if (toAdd <= 0) return;
+            
+            int anchorIndex = Comments.IndexOf(anchor);
+            if (anchorIndex < 0) return;
+            
+            for (int i = 0; i < toAdd; i++)
+            {
+                var child = root.AllDescendants[currentVisible + i];
+                Comments.Insert(anchorIndex + 1 + i, child);
+            }
+            
+            root.VisibleDescendantsCount += toAdd;
+            UpdatePaginatorForRoot(root);
+        }
+
+        [RelayCommand]
+        private void HideReplies(CommunityComment anchor)
+        {
+            var root = anchor.TopLevelParent ?? anchor;
+            int visible = root.VisibleDescendantsCount;
+            if (visible == 0) return;
+            
+            for (int i = 0; i < visible; i++)
+            {
+                Comments.Remove(root.AllDescendants[i]);
+            }
+            
+            root.VisibleDescendantsCount = 0;
+            UpdatePaginatorForRoot(root);
         }
 
         [RelayCommand]
@@ -150,5 +282,13 @@ namespace ShoppetApp.ViewModels
         }
     }
 }
+
+
+
+
+
+
+
+
 
 

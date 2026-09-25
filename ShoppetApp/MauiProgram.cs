@@ -1,4 +1,4 @@
-using CommunityToolkit.Maui;
+﻿using CommunityToolkit.Maui;
 using Microsoft.Extensions.Logging;
 using ShoppetApp.Pages;
 using ShoppetApp.Services;
@@ -14,6 +14,7 @@ public static class MauiProgram
         builder
             .UseMauiApp<App>()
             .UseMauiCommunityToolkit()
+            .UseMauiCommunityToolkitMediaElement(false)
             .ConfigureFonts(fonts =>
             {
                 fonts.AddFont("Nunito-Regular.ttf", "Nunito");
@@ -70,5 +71,8 @@ public static class MauiProgram
         return builder.Build();
     }
 }
+
+
+
 
 

@@ -37,6 +37,41 @@ namespace ShoppetApp.Models
             }
         }
 
+        public System.Collections.ObjectModel.ObservableCollection<CommunityComment> Replies { get; } = new();
+
+        public CommunityComment TopLevelParent { get; set; }
+        public System.Collections.Generic.List<CommunityComment> AllDescendants { get; set; } = new();
+        
+        [ObservableProperty]
+        private int _visibleDescendantsCount;
+
+        [ObservableProperty]
+        private int _totalDescendantsCount;
+
+        [ObservableProperty]
+        private bool _isPaginatorVisible;
+
+        [ObservableProperty]
+        private string _paginatorText = string.Empty;
+
+        [ObservableProperty]
+        private bool _isHideVisible;
+        
+        [ObservableProperty]
+        private int _depth;
+        
+        public Microsoft.Maui.Thickness ReplyMargin => new Microsoft.Maui.Thickness(Depth == 0 ? 0 : 46 + (Depth - 1) * 36, 0, 0, 10);
+        
+        public int AvatarSize => Depth == 0 ? 36 : 26;
+        public int AvatarRadius => AvatarSize / 2;
         public string Initials => string.IsNullOrWhiteSpace(AuthorName) ? "U" : AuthorName.Substring(0, 1).ToUpper();
     }
 }
+
+
+
+
+
+
+
+

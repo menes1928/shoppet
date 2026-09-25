@@ -10,7 +10,18 @@ public partial class ImagePreviewPage : ContentPage
         set
         {
             _imageUrl = value;
-            PreviewImage.Source = value;
+            if (value != null && (value.EndsWith(".mp4", StringComparison.OrdinalIgnoreCase) || value.EndsWith(".mov", StringComparison.OrdinalIgnoreCase)))
+            {
+                PreviewImage.IsVisible = false;
+                PreviewVideo.IsVisible = true;
+                PreviewVideo.Source = value;
+            }
+            else
+            {
+                PreviewImage.IsVisible = true;
+                PreviewVideo.IsVisible = false;
+                PreviewImage.Source = value;
+            }
         }
     }
 
@@ -21,6 +32,10 @@ public partial class ImagePreviewPage : ContentPage
 
     private async void OnCloseTapped(object sender, TappedEventArgs e)
     {
+        if (PreviewVideo.IsVisible)
+        {
+            PreviewVideo.Stop();
+        }
         await Shell.Current.GoToAsync("..");
     }
 }

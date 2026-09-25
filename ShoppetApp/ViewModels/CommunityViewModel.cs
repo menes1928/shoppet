@@ -1,4 +1,4 @@
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using ShoppetApp.Models;
@@ -8,6 +8,7 @@ namespace ShoppetApp.ViewModels
 {
     public partial class CommunityViewModel : ObservableObject
     {
+
         private readonly ApiService _api;
         private readonly DatabaseService _db;
 
@@ -85,3 +86,4 @@ namespace ShoppetApp.ViewModels
         }
     }
 }
+

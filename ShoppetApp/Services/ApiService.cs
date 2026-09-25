@@ -98,7 +98,7 @@ public class ApiService
             };
 
             HttpResponseMessage res;
-            if (pet.Id == 0)
+            if (pet.Id <= 0)
                 res = await _http.PostAsJsonAsync("pets", body);
             else
                 res = await _http.PutAsJsonAsync($"pets/{pet.Id}", body);
@@ -485,6 +485,8 @@ public class ApiResult<T>
     public static ApiResult<T> Ok(T data) => new() { Success = true, Data = data };
     public static ApiResult<T> Fail(string error) => new() { Success = false, Error = error };
 }
+
+
 
 
 

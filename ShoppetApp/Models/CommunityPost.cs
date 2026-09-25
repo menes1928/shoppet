@@ -29,10 +29,9 @@ namespace ShoppetApp.Models
             : ImageUrls.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries).ToList();
 
         public bool HasImages => ImageList.Any();
-    public int LikeCount { get; set; }
-    public int CommentCount { get; set; }
+        public int LikeCount { get; set; }
+        public int CommentCount { get; set; }
 
-        // FB-like Relative Time Formatting (2h, 3d, 36m)
         public string TimeAgo
         {
             get
@@ -49,5 +48,3 @@ namespace ShoppetApp.Models
         public string Initials => string.IsNullOrWhiteSpace(AuthorName) ? "U" : AuthorName.Substring(0, 1).ToUpper();
     }
 }
-
-

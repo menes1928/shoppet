@@ -201,7 +201,9 @@ namespace ShoppetAPI.Controllers
         }
     }
 
-    public class CreatePostRequest { public int UserId { get; set; } public string Content { get; set; } = string.Empty; public string? ImageUrls { get; set; } }
+    public class CreatePostRequest { public int UserId { get; set; } public int? PetId { get; set; } public string AuthorName { get; set; } = string.Empty; public string PetName { get; set; } = string.Empty; public string Content { get; set; } = string.Empty; public string? ImageUrls { get; set; } }
     public class AddCommentRequest { public int UserId { get; set; } public int? ParentCommentId { get; set; } public string Content { get; set; } = string.Empty; }
     public class LikeRequest { public int UserId { get; set; } }
 }
+
+

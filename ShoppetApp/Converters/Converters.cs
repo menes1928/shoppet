@@ -440,3 +440,18 @@ public class BoolToHeartIconConverter : IValueConverter
 
     public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) => throw new NotSupportedException();
 }
+
+public class DepthToMarginConverter : IValueConverter
+{
+    public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+    {
+        if (value is int depth)
+        {
+            return new Microsoft.Maui.Thickness(depth * 60, 0, 0, 10);
+        }
+        return new Microsoft.Maui.Thickness(0, 0, 0, 10);
+    }
+
+    public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture) => throw new NotImplementedException();
+}
+

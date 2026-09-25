@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:vm="clr-namespace:ShoppetApp.ViewModels"
              xmlns:controls="clr-namespace:ShoppetApp.Controls"
              x:Class="ShoppetApp.Pages.CommunityPage"
@@ -79,7 +80,18 @@
                                             <Label Text="{Binding Content}" TextColor="{StaticResource BodyText}" FontSize="15" />
 
                                             <!-- Attached Media -->
-                                            <Image Source="{Binding ImageUrls}" IsVisible="{Binding HasImages}" Aspect="AspectFill" HeightRequest="250" />
+                                            <CollectionView ItemsSource="{Binding ImageList}" IsVisible="{Binding HasImages}" HeightRequest="250" Margin="0,5">
+                                                  <CollectionView.ItemsLayout>
+                                                      <LinearItemsLayout Orientation="Horizontal" ItemSpacing="5" />
+                                                  </CollectionView.ItemsLayout>
+                                                  <CollectionView.ItemTemplate>
+                                                      <DataTemplate>
+                                                          <Grid WidthRequest="300" HeightRequest="250">
+                                                              <Image Source="{Binding .}" Aspect="AspectFill" HeightRequest="250" />
+                                                          </Grid>
+                                                      </DataTemplate>
+                                                  </CollectionView.ItemTemplate>
+                                              </CollectionView>
 
                                             <!-- Stats -->
                                             <HorizontalStackLayout Spacing="15" Margin="0,5,0,0">
@@ -115,6 +127,12 @@
         </Grid>
     </Grid>
 </ContentPage>
+
+
+
+
+
+
 
 
 
