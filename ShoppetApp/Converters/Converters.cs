@@ -1,4 +1,4 @@
-using System.Globalization;
+﻿using System.Globalization;
 
 namespace ShoppetApp.Converters;
 
@@ -314,7 +314,7 @@ public class LastFedLabelConverter : IValueConverter
 
         if (!DateTime.TryParse(log.LastFedTimestamp, out var dt))
             return string.Empty;
-
+            
         if (dt.Kind == DateTimeKind.Utc) dt = dt.ToLocalTime();
 
         return $"Last fed: {dt.ToString("MMM d, h:mmtt")}";
@@ -323,44 +323,104 @@ public class LastFedLabelConverter : IValueConverter
     public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
         => throw new NotSupportedException();
 }
-/// <summary>
-/// Returns Red if the value is true (liked), Gray otherwise.
-/// </summary>
-public class LikeColorConverter : IValueConverter
-{
-    public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
-        => value is true ? Colors.Red : Color.FromArgb("#7C8782");
 
-    public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
-        => throw new NotSupportedException();
-}
-/// <summary>
-/// Extracts the first letter(s) of a name to create an avatar initial.
-/// "Jully Hat Doug" → "JD"
-/// "Federico" → "F"
-/// </summary>
-public class InitialsConverter : IValueConverter
+
+public class HealthScheduleLabelConverter : IValueConverter
 {
     public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
-        var name = value?.ToString()?.Trim();
-        if (string.IsNullOrWhiteSpace(name)) return "?";
+        if (value is not ShoppetApp.Models.HealthLog log)
+            return string.Empty;
 
-        var parts = name.Split(' ', StringSplitOptions.RemoveEmptyEntries);
-        if (parts.Length == 1)
-            return parts[0].Substring(0, Math.Min(2, parts[0].Length)).ToUpperInvariant();
+        if (log.Completed)
+        {
+            if (log.CompletedAt.HasValue)
+            {
+                var diff = DateTime.Now - log.CompletedAt.Value;
+                if (diff.TotalMinutes < 60)
+                    return $"Completed {(int)diff.TotalMinutes} min ago";
+                if (diff.TotalHours < 24)
+                    return $"Completed {(int)diff.TotalHours} hr ago";
+                if (diff.TotalDays < 2)
+                    return "Completed yesterday";
+                return $"Completed {log.CompletedAt.Value:MMM d, yyyy}";
+            }
+            return "Completed";
+        }
 
-        // Take first letter of first + last word
-        return $"{parts[0][0]}{parts[^1][0]}".ToUpperInvariant();
+        if (!DateTime.TryParse(log.DueDate, out var next))
+            return string.Empty;
+
+        var now = DateTime.Now;
+        if (next < now)
+            return "Due now";
+
+        var dueDiff = next - now;
+        if (dueDiff.TotalMinutes < 60)
+            return $"In {(int)dueDiff.TotalMinutes} min";
+
+        var timeStr = next.ToString("h:mm tt");
+        if (next.Date == now.Date)
+            return $"Today {timeStr}";
+        if (next.Date == now.Date.AddDays(1))
+            return $"Tomorrow {timeStr}";
+        if (dueDiff.TotalDays < 7)
+            return $"In {(int)dueDiff.TotalDays} days";
+
+        return $"Due {next:MMM d, yyyy}";
     }
 
     public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
         => throw new NotSupportedException();
 }
 
-/// <summary>
-/// Shows a filled heart if liked, outline heart if not.
-/// </summary>
+public class BoolToLikeTextConverter : IValueConverter
+{
+    public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
+    {
+        if (value is bool isLiked) return isLiked ? "♥ Liked" : "♡ Like";
+        return "♡ Like";
+    }
+
+    public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) => throw new NotSupportedException();
+}
+
+public class BoolToLikeColorConverter : IValueConverter
+{
+    public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
+    {
+        if (value is bool isLiked) return isLiked ? Color.FromArgb("#E0245E") : Color.FromArgb("#AAAAAA");
+        return Color.FromArgb("#AAAAAA");
+    }
+
+    public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) => throw new NotSupportedException();
+}
+
+
+
+
+
+public class LikeColorConverter : IValueConverter
+{
+    public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
+        => value is true ? Color.FromArgb("#E0245E") : Color.FromArgb("#AAAAAA");
+
+    public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
+        => throw new NotSupportedException();
+}
+
+public class InitialsConverter : IValueConverter
+{
+    public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
+    {
+        var name = value as string;
+        return string.IsNullOrWhiteSpace(name) ? "?" : name.Substring(0, 1).ToUpper();
+    }
+
+    public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
+        => throw new NotSupportedException();
+}
+
 public class HeartIconConverter : IValueConverter
 {
     public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
@@ -368,4 +428,15 @@ public class HeartIconConverter : IValueConverter
 
     public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
         => throw new NotSupportedException();
+}
+
+public class BoolToHeartIconConverter : IValueConverter
+{
+    public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
+    {
+        if (value is bool isLiked) return isLiked ? "♥" : "♡";
+        return "♡";
+    }
+
+    public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) => throw new NotSupportedException();
 }

@@ -10,7 +10,7 @@ namespace ShoppetApp.ViewModels;
 
 public partial class PetPassportViewModel : ObservableObject, IQueryAttributable, IRecipient<DataChangedMessage>
 {
-    private readonly DatabaseService _db;
+    private readonly ApiService _api;
 
     [ObservableProperty] private Pet? _pet;
     [ObservableProperty] private ObservableCollection<HealthLog> _healthLogs = [];
@@ -19,9 +19,9 @@ public partial class PetPassportViewModel : ObservableObject, IQueryAttributable
 
     public int PetId { get; private set; }
 
-    public PetPassportViewModel(DatabaseService db)
+    public PetPassportViewModel(ApiService api)
     {
-        _db = db;
+        _api = api;
         WeakReferenceMessenger.Default.Register(this);
     }
 
@@ -42,11 +42,23 @@ public partial class PetPassportViewModel : ObservableObject, IQueryAttributable
         IsBusy = true;
         try
         {
-            Pet = await _db.GetPetAsync(PetId);
-            var logs = await _db.GetHealthLogsAsync(PetId);
-            HealthLogs = new ObservableCollection<HealthLog>(logs);
-            var foodLogs = await _db.GetFoodLogsAsync(PetId);
-            FoodLogs = new ObservableCollection<FoodLog>(foodLogs);
+                        Pet = (await _api.GetPetsAsync()).FirstOrDefault(p => p.Id == PetId);
+            
+            var logs = await _api.GetHealthLogsAsync(PetId);
+            var sortedHLogs = logs
+                .OrderBy(x => x.Completed)
+                .ThenBy(x => x.Completed ? DateTime.MaxValue : (DateTime.TryParse(x.DueDate, out var dt) ? dt : DateTime.MaxValue))
+                .ThenByDescending(x => x.CompletedAt ?? DateTime.MinValue)
+                .ToList();
+            HealthLogs = new ObservableCollection<HealthLog>(sortedHLogs);
+            
+            var foodLogs = await _api.GetFoodLogsAsync(PetId);
+            var sortedFLogs = foodLogs
+                .OrderBy(x => x.IsCompleted)
+                .ThenBy(x => x.IsCompleted ? DateTime.MaxValue : (x.NextFeedingAt ?? DateTime.MaxValue))
+                .ThenByDescending(x => x.CompletedAt ?? DateTime.MinValue)
+                .ToList();
+            FoodLogs = new ObservableCollection<FoodLog>(sortedFLogs);
         }
         finally
         {
@@ -83,37 +95,49 @@ public partial class PetPassportViewModel : ObservableObject, IQueryAttributable
     {
         if (log == null || log.Completed) return;
 
-        if (log.IsVaccine)
+        string nextDueDate = log.DueDate;
+        bool shouldComplete = false;
+
+        if (log.Type == "vaccine")
         {
             if (DateTime.TryParse(log.DueDate, out var currentDue))
             {
                 if (log.ValidityUnit == "Years")
-                    log.DueDate = currentDue.AddYears(log.ValidityInterval).ToString("yyyy/MM/dd, HH:mm:ss");
+                    nextDueDate = currentDue.AddYears(log.ValidityInterval).ToString("yyyy/MM/dd, HH:mm:ss");
                 else if (log.ValidityUnit == "Weeks")
-                    log.DueDate = currentDue.AddDays(log.ValidityInterval * 7).ToString("yyyy/MM/dd, HH:mm:ss");
+                    nextDueDate = currentDue.AddDays(log.ValidityInterval * 7).ToString("yyyy/MM/dd, HH:mm:ss");
                 else // Months default
-                    log.DueDate = currentDue.AddMonths(log.ValidityInterval).ToString("yyyy/MM/dd, HH:mm:ss");
+                    nextDueDate = currentDue.AddMonths(log.ValidityInterval).ToString("yyyy/MM/dd, HH:mm:ss");
             }
         }
-        else if (log.IsMedication)
+        else if (log.Type == "medication")
         {
             if (DateTime.TryParse(log.DueDate, out var currentDue))
             {
-                log.DueDate = currentDue.AddHours(log.MedicationIntervalHours).ToString("yyyy/MM/dd, HH:mm:ss");
+                nextDueDate = currentDue.AddHours(log.MedicationIntervalHours).ToString("yyyy/MM/dd, HH:mm:ss");
             }
             
             if (log.DosageRemaining > 0)
                 log.DosageRemaining--;
                 
             if (log.DosageRemaining <= 0)
-                log.Completed = true;
+                shouldComplete = true;
         }
         else // Checkup
         {
-            log.Completed = true;
+            shouldComplete = true;
         }
 
-        await _db.SaveHealthLogAsync(log);
+        if (shouldComplete)
+        {
+            await _api.CompleteHealthLogAsync(PetId, log.Id, nextDueDate);
+        }
+        else
+        {
+            log.DueDate = nextDueDate;
+            await _api.SaveHealthLogAsync(PetId, log);
+        }
+        
         WeakReferenceMessenger.Default.Send(DataChangedMessage.Instance);
     }
     
@@ -121,10 +145,10 @@ public partial class PetPassportViewModel : ObservableObject, IQueryAttributable
     private async Task MarkCompletedAsync(HealthLog log)
     {
         if (log == null) return;
-        log.Completed = true;
-        await _db.SaveHealthLogAsync(log);
+        await _api.CompleteHealthLogAsync(PetId, log.Id, log.DueDate);
         WeakReferenceMessenger.Default.Send(DataChangedMessage.Instance);
     }
+
     [RelayCommand]
     private async Task AddFoodLogAsync()
     {
@@ -141,9 +165,10 @@ public partial class PetPassportViewModel : ObservableObject, IQueryAttributable
     private async Task MarkFedDoneAsync(FoodLog log)
     {
         if (log is null) return;
-        await _db.MarkFoodDoneAsync(log);
-        // Reload so the card refreshes (LastFed label + next feeding calc)
+        await _api.CompleteFoodLogAsync(PetId, log.Id);
         WeakReferenceMessenger.Default.Send(DataChangedMessage.Instance);
     }
 }
+
+
 

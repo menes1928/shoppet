@@ -19,6 +19,8 @@ public class HealthLog
 
     public bool Completed { get; set; }
 
+    public DateTime? CompletedAt { get; set; }
+
     // ── VACCINE Fields ─────────────────────────────────────────────────────────
 
     /// <summary>ISO 8601 string</summary>
@@ -66,7 +68,19 @@ public class HealthLog
     public string BaseDateDisplay => IsVaccine ? DateAdministered : IsMedication ? TimeStarted : CheckupDate;
 
     [Ignore]
+    public string NextDateFormatted
+    {
+        get
+        {
+            if (!DateTime.TryParse(DueDate, out var dt)) return "";
+            string format = (IsVaccine || IsMedication) ? "MMM d, yyyy, h:mm tt" : "MMM d, h:mm tt";
+            return dt.ToString(format);
+        }
+    }
+
+    [Ignore]
     public string[] DocumentsList => string.IsNullOrEmpty(DocumentPaths)
         ? []
         : DocumentPaths.Split('|', StringSplitOptions.RemoveEmptyEntries);
 }
+

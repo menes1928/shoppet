@@ -4,7 +4,7 @@ namespace ShoppetApp.Models;
 
 public class Contact
 {
-    [PrimaryKey, AutoIncrement]
+    [PrimaryKey]
     public int Id { get; set; }
 
     [Indexed]

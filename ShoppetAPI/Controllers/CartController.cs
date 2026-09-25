@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using MySql.Data.MySqlClient;
 using System.Data;
 
@@ -17,7 +17,7 @@ namespace ShoppetAPI.Controllers
 
         // ── Get User Cart ─────────────────────────────────────────────────────
         [HttpGet]
-        public async Task<IActionResult> GetCart()
+        public async Task<IActionResult> GetCart([FromQuery] int userId)
         {
             try
             {
@@ -25,9 +25,6 @@ namespace ShoppetAPI.Controllers
                 using (var connection = new MySqlConnection(connString))
                 {
                     await connection.OpenAsync();
-
-                    // For now, default to UserId = 1 or grab from session if available
-                    int userId = 1;
 
                     // Ensure cart exists
                     var cartCmd = new MySqlCommand("SELECT Id FROM shoppingcarts WHERE UserId = @UserId", connection);
@@ -104,7 +101,7 @@ namespace ShoppetAPI.Controllers
                 using (var connection = new MySqlConnection(connString))
                 {
                     await connection.OpenAsync();
-                    int userId = 1;
+                    int userId = request.UserId;
 
                     // Get or create cart
                     var cartCmd = new MySqlCommand("SELECT Id FROM shoppingcarts WHERE UserId = @UserId", connection);
@@ -154,7 +151,7 @@ namespace ShoppetAPI.Controllers
                     }
 
                     // Return updated cart
-                    return await GetCart();
+                    return await GetCart(userId);
                 }
             }
             catch (Exception ex)
@@ -165,7 +162,7 @@ namespace ShoppetAPI.Controllers
 
         // ── Checkout ──────────────────────────────────────────────────────────
         [HttpPost("checkout")]
-        public async Task<IActionResult> Checkout()
+        public async Task<IActionResult> Checkout([FromQuery] int userId)
         {
             try
             {
@@ -173,7 +170,6 @@ namespace ShoppetAPI.Controllers
                 using (var connection = new MySqlConnection(connString))
                 {
                     await connection.OpenAsync();
-                    int userId = 1;
 
                     // Get cart
                     var cartCmd = new MySqlCommand("SELECT Id FROM shoppingcarts WHERE UserId = @UserId", connection);
@@ -245,6 +241,7 @@ namespace ShoppetAPI.Controllers
 
     public class AddToCartRequest
     {
+        public int UserId { get; set; }
         public int ProductId { get; set; }
         public int Quantity { get; set; }
     }

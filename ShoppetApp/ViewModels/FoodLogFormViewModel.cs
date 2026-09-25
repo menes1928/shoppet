@@ -9,7 +9,7 @@ namespace ShoppetApp.ViewModels;
 
 public partial class FoodLogFormViewModel : ObservableObject, IQueryAttributable
 {
-    private readonly DatabaseService _db;
+    private readonly ApiService _api;
 
     [ObservableProperty] private int _petId;
     [ObservableProperty] private int _logId;
@@ -66,7 +66,7 @@ public partial class FoodLogFormViewModel : ObservableObject, IQueryAttributable
     public string Title => IsEditMode ? "Edit Food Log" : "Add Food Log";
     public bool CanDelete => IsEditMode;
 
-    public FoodLogFormViewModel(DatabaseService db) => _db = db;
+    public FoodLogFormViewModel(ApiService api) => _api = api;
 
     public void ApplyQueryAttributes(IDictionary<string, object> query)
     {
@@ -88,7 +88,7 @@ public partial class FoodLogFormViewModel : ObservableObject, IQueryAttributable
             return;
         }
 
-        var log = await _db.GetFoodLogAsync(LogId);
+        var log = (await _api.GetFoodLogsAsync(PetId)).FirstOrDefault(l => l.Id == LogId);
         if (log is null)
             return;
 
@@ -145,7 +145,7 @@ public partial class FoodLogFormViewModel : ObservableObject, IQueryAttributable
         var existingLastFed = string.Empty;
         if (LogId > 0)
         {
-            var existing = await _db.GetFoodLogAsync(LogId);
+            var existing = (await _api.GetFoodLogsAsync(PetId)).FirstOrDefault(l => l.Id == LogId);
             existingLastFed = existing?.LastFedTimestamp ?? string.Empty;
         }
 
@@ -163,7 +163,7 @@ public partial class FoodLogFormViewModel : ObservableObject, IQueryAttributable
             Notes = Notes.Trim()
         };
 
-        await _db.SaveFoodLogAsync(log);
+        await _api.SaveFoodLogAsync(PetId, log);
         WeakReferenceMessenger.Default.Send(DataChangedMessage.Instance);
         await Shell.Current.GoToAsync("..");
     }
@@ -174,7 +174,7 @@ public partial class FoodLogFormViewModel : ObservableObject, IQueryAttributable
         if (LogId <= 0)
             return;
 
-        var log = await _db.GetFoodLogAsync(LogId);
+        var log = (await _api.GetFoodLogsAsync(PetId)).FirstOrDefault(l => l.Id == LogId);
         if (log is null)
             return;
 
@@ -187,8 +187,11 @@ public partial class FoodLogFormViewModel : ObservableObject, IQueryAttributable
         if (!confirm)
             return;
 
-        await _db.DeleteFoodLogAsync(log);
+        await _api.DeleteFoodLogAsync(PetId, log.Id);
         WeakReferenceMessenger.Default.Send(DataChangedMessage.Instance);
         await Shell.Current.GoToAsync("..");
     }
 }
+
+
+

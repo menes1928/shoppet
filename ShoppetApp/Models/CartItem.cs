@@ -8,6 +8,9 @@ public partial class CartItem : ObservableObject
     [PrimaryKey, AutoIncrement]
     public int Id { get; set; } // The CartItem ID in the Database
 
+    [Indexed]
+    public int UserId { get; set; }
+
     [ObservableProperty]
     private int _productId;
 

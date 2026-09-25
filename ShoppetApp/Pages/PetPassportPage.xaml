@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:models="clr-namespace:ShoppetApp.Models"
@@ -156,13 +156,13 @@
                                         </Grid>
 
                                         <!-- Row 2: Schedule info -->
+                                        <!-- Row 2: Schedule info -->
                                         <HorizontalStackLayout Spacing="6" IsVisible="{Binding BaseDateDisplay, Converter={StaticResource IsNotNullOrEmptyConverter}}">
                                             <Label Text="🕐" FontSize="11" VerticalOptions="Center" />
-                                            <Label Text="{Binding BaseDateDisplay, Converter={StaticResource IsoDateFormatConverter}, ConverterParameter='MMM d, h:mmtt'}"
+                                            <Label Text="{Binding ., Converter={StaticResource HealthScheduleLabelConverter}}"
                                                    FontFamily="Nunito" FontSize="12"
                                                    TextColor="{StaticResource Secondary}" VerticalOptions="Center" />
                                         </HorizontalStackLayout>
-
                                         <!-- Separator -->
                                         <BoxView HeightRequest="1" Color="{StaticResource Secondary10}" Margin="0,2" />
 
@@ -170,7 +170,7 @@
                                         <Grid ColumnDefinitions="*,Auto" ColumnSpacing="8">
                                             <VerticalStackLayout Grid.Column="0" Spacing="3" VerticalOptions="Center">
                                                 <!-- Next Timestamp -->
-                                                <Label Text="{Binding DueDate, Converter={StaticResource IsoDateFormatConverter}, ConverterParameter='MMM d, h:mmtt', StringFormat='Next: {0}'}" 
+                                                <Label Text="{Binding NextDateFormatted, StringFormat='Next: {0}'}" 
                                                        FontFamily="NunitoSemiBold" FontSize="12" TextColor="{StaticResource Primary}" 
                                                        IsVisible="{Binding Completed, Converter={StaticResource InverseBoolConverter}}" />
                                                 
@@ -184,6 +184,8 @@
                                                 <Label Text="✓ COMPLETED" FontFamily="NunitoBold" FontSize="12" TextColor="{StaticResource StatusHealthy}" IsVisible="{Binding Completed}" />
                                             </VerticalStackLayout>
 
+                                            <!-- Completed Label (Visible when Completed = true) -->
+                                            <Label Grid.Column="1" Text="Completed" FontFamily="NunitoBold" FontSize="12" TextColor="{StaticResource Success}" VerticalOptions="Center" IsVisible="{Binding Completed}" />
                                             <!-- Action buttons -->
                                             <HorizontalStackLayout Grid.Column="1" Spacing="6" IsVisible="{Binding Completed, Converter={StaticResource InverseBoolConverter}}">
                                                 <Button Text="Complete" FontFamily="NunitoBold" FontSize="12" HeightRequest="36" Padding="12,0" CornerRadius="18" BackgroundColor="Transparent" TextColor="{StaticResource StatusOverdue}" VerticalOptions="Center" Command="{Binding Source={RelativeSource AncestorType={x:Type vm:PetPassportViewModel}}, Path=MarkCompletedCommand}" CommandParameter="{Binding .}" />
@@ -262,9 +264,10 @@
                                         </Grid>
 
                                         <!-- Row 2: Schedule info -->
+                                        <!-- Row 2: Schedule info -->
                                         <HorizontalStackLayout Spacing="6">
-                                            <Label Text="🕐" FontSize="11" VerticalOptions="Center" />
-                                            <Label Text="{Binding StartTimestamp, Converter={StaticResource IsoDateFormatConverter}, ConverterParameter='MMM d · h:mm tt'}"
+                                            <Label Text="🕐" FontSize="11" VerticalOptions="Center" />
+                                            <Label Text="{Binding ., Converter={StaticResource LastFedLabelConverter}}"
                                                    FontFamily="Nunito" FontSize="12"
                                                    TextColor="{StaticResource Secondary}"
                                                    VerticalOptions="Center" />
@@ -273,18 +276,9 @@
                                         <!-- Separator -->
                                         <BoxView HeightRequest="1" Color="{StaticResource Secondary10}" Margin="0,2" />
 
-                                        <!-- Row 3: Last Fed + Next Feeding + Done button -->
+                                        <!-- Row 3: Next Feeding + Done button -->
                                         <Grid ColumnDefinitions="*,Auto" ColumnSpacing="8">
-                                            <VerticalStackLayout Grid.Column="0" Spacing="3">
-                                                <!-- Last fed timestamp -->
-                                                <Label Text="{Binding ., Converter={StaticResource LastFedLabelConverter}}"
-                                                       FontFamily="Nunito" FontSize="12"
-                                                       TextColor="{StaticResource Secondary}"
-                                                       IsVisible="{Binding HasLastFed}" />
-                                                <Label Text="Not fed yet"
-                                                       FontFamily="Nunito" FontSize="12"
-                                                       TextColor="{StaticResource NavMuted}"
-                                                       IsVisible="{Binding HasLastFed, Converter={StaticResource InverseBoolConverter}}" />
+                                            <VerticalStackLayout Grid.Column="0" Spacing="3" VerticalOptions="Center">
                                                 <!-- Next feeding time -->
                                                 <Label Text="{Binding ., Converter={StaticResource NextFeedingLabelConverter}}"
                                                        FontFamily="NunitoSemiBold" FontSize="12"
@@ -322,3 +316,9 @@
         </ScrollView>
     </Grid>
 </ContentPage>
+
+
+
+
+
+

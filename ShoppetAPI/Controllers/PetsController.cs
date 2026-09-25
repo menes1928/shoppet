@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using MySql.Data.MySqlClient;
 using System.Data;
 
@@ -16,7 +16,7 @@ namespace ShoppetAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetPets()
+        public async Task<IActionResult> GetPets([FromQuery] int? userId = null)
         {
             try
             {
@@ -27,11 +27,22 @@ namespace ShoppetAPI.Controllers
                 {
                     await connection.OpenAsync();
                     var query = "SELECT Id, UserId, Name, Species, Breed, AgeYears, Weight, PhotoUrl, CreatedAt FROM pets";
+                    
+                    if (userId.HasValue)
+                    {
+                        query += " WHERE UserId = @userId";
+                    }
 
                     using (var cmd = new MySqlCommand(query, connection))
-                    using (var reader = await cmd.ExecuteReaderAsync())
                     {
-                        while (await reader.ReadAsync())
+                        if (userId.HasValue)
+                        {
+                            cmd.Parameters.AddWithValue("@userId", userId.Value);
+                        }
+
+                        using (var reader = await cmd.ExecuteReaderAsync())
+                        {
+                            while (await reader.ReadAsync())
                         {
                             pets.Add(new
                             {
@@ -48,6 +59,7 @@ namespace ShoppetAPI.Controllers
                         }
                     }
                 }
+            }
 
                 return Ok(pets);
             }

@@ -1,4 +1,4 @@
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using ShoppetApp.Messages;
@@ -9,7 +9,7 @@ namespace ShoppetApp.ViewModels;
 
 public partial class HealthLogFormViewModel : ObservableObject, IQueryAttributable
 {
-    private readonly DatabaseService _db;
+    private readonly ApiService _api;
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(IsVaccine))]
@@ -45,7 +45,7 @@ public partial class HealthLogFormViewModel : ObservableObject, IQueryAttributab
     public bool IsMedication => LogType?.Equals("medication", StringComparison.OrdinalIgnoreCase) ?? false;
     public bool IsCheckup => LogType?.Equals("vital", StringComparison.OrdinalIgnoreCase) ?? false;
 
-    public HealthLogFormViewModel(DatabaseService db) => _db = db;
+    public HealthLogFormViewModel(ApiService api) => _api = api;
 
     public void ApplyQueryAttributes(IDictionary<string, object> query)
     {
@@ -59,14 +59,14 @@ public partial class HealthLogFormViewModel : ObservableObject, IQueryAttributab
     {
         if (LogId <= 0) return;
 
-        var log = await _db.GetHealthLogAsync(LogId);
+        var log = (await _api.GetHealthLogsAsync(PetId)).FirstOrDefault(l => l.Id == LogId);
         if (log is null) return;
 
-        LogType = log.Type;
+        LogType = TypeOptions.FirstOrDefault(t => string.Equals(t, log.Type, StringComparison.OrdinalIgnoreCase)) ?? log.Type;
         Name = log.Name;
         Completed = log.Completed;
         ValidityIntervalText = log.ValidityInterval.ToString();
-        ValidityUnit = string.IsNullOrEmpty(log.ValidityUnit) ? "Months" : log.ValidityUnit;
+        ValidityUnit = ValidityUnitOptions.FirstOrDefault(u => string.Equals(u, log.ValidityUnit, StringComparison.OrdinalIgnoreCase)) ?? (string.IsNullOrEmpty(log.ValidityUnit) ? "Months" : log.ValidityUnit);
         MedicationIntervalHoursText = log.MedicationIntervalHours.ToString();
         DosageTotalText = log.DosageTotal.ToString();
 
@@ -155,8 +155,8 @@ public partial class HealthLogFormViewModel : ObservableObject, IQueryAttributab
             DocumentPaths = string.Join(";", DocumentPathsList)
         };
 
-        int result = await _db.SaveHealthLogAsync(log);
-        if (result > 0)
+        var result = await _api.SaveHealthLogAsync(PetId, log);
+        if (result != null)
         {
             WeakReferenceMessenger.Default.Send(DataChangedMessage.Instance);
             await Shell.Current.GoToAsync("..");
@@ -171,14 +171,19 @@ public partial class HealthLogFormViewModel : ObservableObject, IQueryAttributab
     private async Task DeleteAsync()
     {
         if (LogId <= 0) return;
-        var log = await _db.GetHealthLogAsync(LogId);
+        var log = (await _api.GetHealthLogsAsync(PetId)).FirstOrDefault(l => l.Id == LogId);
         if (log is null) return;
 
         bool confirm = await Shell.Current.DisplayAlert("Delete", $"Remove {log.Name}?", "Delete", "Cancel");
         if (!confirm) return;
 
-        await _db.DeleteHealthLogAsync(log);
+        await _api.DeleteHealthLogAsync(PetId, log.Id);
         WeakReferenceMessenger.Default.Send(DataChangedMessage.Instance);
         await Shell.Current.GoToAsync("..");
     }
 }
+
+
+
+
+

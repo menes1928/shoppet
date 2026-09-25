@@ -17,6 +17,7 @@ namespace ShoppetApp.Services
         private readonly string _mysqlConnectionString = "Server=localhost;Database=shoppetdb;Uid=root;Pwd=;";
 
         public User? CurrentUser { get; set; }
+        public ApiService? ApiService { get; set; }
 
         public DatabaseService()
         {
@@ -386,8 +387,23 @@ namespace ShoppetApp.Services
         {
             try
             {
+                if (ApiService != null)
+                {
+                    try {
+                        var apiPets = await ApiService.GetPetsAsync();
+                        if (apiPets != null) {
+                            await Database.CreateTableAsync<Pet>();
+                            await Database.ExecuteAsync("DELETE FROM Pet WHERE Id > 0"); // Clear synced records to prevent lingering duplicates
+                            foreach(var p in apiPets) {
+                                await Database.InsertAsync(p);
+                            }
+                        }
+                    } catch { }
+                }
+
                 await Database.CreateTableAsync<Pet>();
-                var pets = await Database.Table<Pet>().ToListAsync();
+                int currentUserId = Preferences.Get("LoggedInUserId", 0);
+                var pets = await Database.Table<Pet>().Where(p => p.UserId == currentUserId).ToListAsync();
                 return pets ?? new List<Pet>();
             }
             catch { return new List<Pet>(); }
@@ -402,13 +418,42 @@ namespace ShoppetApp.Services
         public async Task<int> SavePetAsync(Pet pet)
         {
             await Database.CreateTableAsync<Pet>();
-            return pet.Id == 0 ? await Database.InsertAsync(pet) : await Database.UpdateAsync(pet);
+            bool isNew = pet.Id <= 0;
+            if (isNew && pet.Id == 0) {
+                try {
+                    int minId = await Database.ExecuteScalarAsync<int>("SELECT MIN(Id) FROM Pet");
+                    pet.Id = minId >= 0 ? -1 : minId - 1;
+                } catch { pet.Id = -1; }
+            }
+            
+            if (ApiService != null)
+            {
+                try {
+                    var apiSaved = await ApiService.SavePetAsync(pet);
+                    if (apiSaved != null) {
+                        var oldId = pet.Id;
+                        pet.Id = apiSaved.Id;
+                        if (oldId < 0) {
+                            await Database.ExecuteAsync("DELETE FROM Pet WHERE Id = ?", oldId);
+                        }
+                        var existing = await Database.Table<Pet>().Where(x => x.Id == pet.Id).FirstOrDefaultAsync();
+                        return existing == null ? await Database.InsertAsync(pet) : await Database.UpdateAsync(pet);
+                    }
+                } catch { }
+            }
+
+            return isNew ? await Database.InsertAsync(pet) : await Database.UpdateAsync(pet);
         }
 
         public async Task<int> DeletePetAsync(Pet pet)
         {
             await Database.CreateTableAsync<Pet>();
-            return await Database.DeleteAsync(pet);
+            int result = await Database.DeleteAsync(pet);
+            if (ApiService != null)
+            {
+                try { await ApiService.DeletePetAsync(pet.Id); } catch { }
+            }
+            return result;
         }
 
         // --- Health & Food Logs ---
@@ -425,8 +470,26 @@ namespace ShoppetApp.Services
 
         public async Task<List<HealthLog>> GetHealthLogsAsync(int petId)
         {
-            await Database.CreateTableAsync<HealthLog>();
-            return await Database.Table<HealthLog>().Where(h => h.PetId == petId).ToListAsync();
+            try
+            {
+                if (ApiService != null)
+                {
+                    try {
+                        var apiLogs = await ApiService.GetHealthLogsAsync(petId);
+                        if (apiLogs != null) {
+                            await Database.CreateTableAsync<HealthLog>();
+                            await Database.ExecuteAsync("DELETE FROM HealthLog WHERE Id > 0 AND PetId = ?", petId);
+                            foreach(var log in apiLogs) {
+                                await Database.InsertAsync(log);
+                            }
+                        }
+                    } catch { }
+                }
+
+                await Database.CreateTableAsync<HealthLog>();
+                return await Database.Table<HealthLog>().Where(h => h.PetId == petId).ToListAsync();
+            }
+            catch { return new List<HealthLog>(); }
         }
 
         public async Task<HealthLog?> GetHealthLogAsync(int id)
@@ -438,13 +501,42 @@ namespace ShoppetApp.Services
         public async Task<int> SaveHealthLogAsync(HealthLog log)
         {
             await Database.CreateTableAsync<HealthLog>();
-            return log.Id == 0 ? await Database.InsertAsync(log) : await Database.UpdateAsync(log);
+            bool isNew = log.Id <= 0;
+            if (isNew && log.Id == 0) {
+                try {
+                    int minId = await Database.ExecuteScalarAsync<int>("SELECT MIN(Id) FROM HealthLog");
+                    log.Id = minId >= 0 ? -1 : minId - 1;
+                } catch { log.Id = -1; }
+            }
+
+            if (ApiService != null)
+            {
+                try {
+                    var apiSaved = await ApiService.SaveHealthLogAsync(log.PetId, log);
+                    if (apiSaved != null) {
+                        var oldId = log.Id;
+                        log.Id = apiSaved.Id;
+                        if (oldId < 0) {
+                            await Database.ExecuteAsync("DELETE FROM HealthLog WHERE Id = ?", oldId);
+                        }
+                        var existing = await Database.Table<HealthLog>().Where(x => x.Id == log.Id).FirstOrDefaultAsync();
+                        return existing == null ? await Database.InsertAsync(log) : await Database.UpdateAsync(log);
+                    }
+                } catch { }
+            }
+
+            return isNew ? await Database.InsertAsync(log) : await Database.UpdateAsync(log);
         }
 
         public async Task<int> DeleteHealthLogAsync(HealthLog log)
         {
             await Database.CreateTableAsync<HealthLog>();
-            return await Database.DeleteAsync(log);
+            int result = await Database.DeleteAsync(log);
+            if (ApiService != null)
+            {
+                try { await ApiService.DeleteHealthLogAsync(log.PetId, log.Id); } catch { }
+            }
+            return result;
         }
 
         public async Task<List<HealthLog>> GetAllActionRequiredLogsAsync()
@@ -452,8 +544,17 @@ namespace ShoppetApp.Services
             try
             {
                 await Database.CreateTableAsync<HealthLog>();
-                var query = "SELECT * FROM HealthLog WHERE Status = 'Action Required' OR Status = 'Pending';";
-                var logs = await Database.QueryAsync<HealthLog>(query);
+                await Database.CreateTableAsync<Pet>();
+                int currentUserId = Preferences.Get("LoggedInUserId", 0);
+                
+                var userPets = await Database.Table<Pet>().Where(p => p.UserId == currentUserId).ToListAsync();
+                var userPetIds = userPets.Select(p => p.Id).ToList();
+
+                var allLogs = await Database.Table<HealthLog>().ToListAsync();
+                var logs = allLogs
+                    .Where(h => (h.Status == "Action Required" || h.Status == "Pending") && userPetIds.Contains(h.PetId))
+                    .ToList();
+                    
                 return logs ?? new List<HealthLog>();
             }
             catch (Exception ex)
@@ -476,8 +577,26 @@ namespace ShoppetApp.Services
 
         public async Task<List<FoodLog>> GetFoodLogsAsync(int petId)
         {
-            await Database.CreateTableAsync<FoodLog>();
-            return await Database.Table<FoodLog>().Where(f => f.PetId == petId).ToListAsync();
+            try
+            {
+                if (ApiService != null)
+                {
+                    try {
+                        var apiLogs = await ApiService.GetFoodLogsAsync(petId);
+                        if (apiLogs != null) {
+                            await Database.CreateTableAsync<FoodLog>();
+                            await Database.ExecuteAsync("DELETE FROM FoodLog WHERE Id > 0 AND PetId = ?", petId);
+                            foreach(var log in apiLogs) {
+                                await Database.InsertAsync(log);
+                            }
+                        }
+                    } catch { }
+                }
+
+                await Database.CreateTableAsync<FoodLog>();
+                return await Database.Table<FoodLog>().Where(f => f.PetId == petId).ToListAsync();
+            }
+            catch { return new List<FoodLog>(); }
         }
 
         public async Task<FoodLog?> GetFoodLogAsync(int id)
@@ -489,13 +608,42 @@ namespace ShoppetApp.Services
         public async Task<int> SaveFoodLogAsync(FoodLog log)
         {
             await Database.CreateTableAsync<FoodLog>();
-            return log.Id == 0 ? await Database.InsertAsync(log) : await Database.UpdateAsync(log);
+            bool isNew = log.Id <= 0;
+            if (isNew && log.Id == 0) {
+                try {
+                    int minId = await Database.ExecuteScalarAsync<int>("SELECT MIN(Id) FROM FoodLog");
+                    log.Id = minId >= 0 ? -1 : minId - 1;
+                } catch { log.Id = -1; }
+            }
+
+            if (ApiService != null)
+            {
+                try {
+                    var apiSaved = await ApiService.SaveFoodLogAsync(log.PetId, log);
+                    if (apiSaved != null) {
+                        var oldId = log.Id;
+                        log.Id = apiSaved.Id;
+                        if (oldId < 0) {
+                            await Database.ExecuteAsync("DELETE FROM FoodLog WHERE Id = ?", oldId);
+                        }
+                        var existing = await Database.Table<FoodLog>().Where(x => x.Id == log.Id).FirstOrDefaultAsync();
+                        return existing == null ? await Database.InsertAsync(log) : await Database.UpdateAsync(log);
+                    }
+                } catch { }
+            }
+
+            return isNew ? await Database.InsertAsync(log) : await Database.UpdateAsync(log);
         }
 
         public async Task<int> DeleteFoodLogAsync(FoodLog log)
         {
             await Database.CreateTableAsync<FoodLog>();
-            return await Database.DeleteAsync(log);
+            int result = await Database.DeleteAsync(log);
+            if (ApiService != null)
+            {
+                try { await ApiService.DeleteFoodLogAsync(log.PetId, log.Id); } catch { }
+            }
+            return result;
         }
 
         public async Task MarkFoodDoneAsync(FoodLog log)
@@ -503,6 +651,11 @@ namespace ShoppetApp.Services
             await Database.CreateTableAsync<FoodLog>();
             log.IsCompleted = true;
             await Database.UpdateAsync(log);
+            
+            if (ApiService != null)
+            {
+                try { await ApiService.MarkFoodDoneAsync(log.PetId, log.Id); } catch { }
+            }
         }
 
         // --- Products & E-Commerce Cart ---
@@ -519,7 +672,8 @@ namespace ShoppetApp.Services
             try
             {
                 await Database.CreateTableAsync<CartItem>();
-                var items = await Database.Table<CartItem>().ToListAsync();
+                int currentUserId = Preferences.Get("LoggedInUserId", 0);
+                var items = await Database.Table<CartItem>().Where(c => c.UserId == currentUserId).ToListAsync();
                 return items ?? new List<CartItem>();
             }
             catch { return new List<CartItem>(); }
@@ -528,19 +682,21 @@ namespace ShoppetApp.Services
         public async Task<int> AddToCartAsync(CartItem item)
         {
             await Database.CreateTableAsync<CartItem>();
+            item.UserId = Preferences.Get("LoggedInUserId", 0);
             return await Database.InsertAsync(item);
         }
 
         public async Task<int> AddToCartAsync(int productId, int quantity)
         {
             await Database.CreateTableAsync<CartItem>();
-            var existing = await Database.Table<CartItem>().Where(c => c.ProductId == productId).FirstOrDefaultAsync();
+            int currentUserId = Preferences.Get("LoggedInUserId", 0);
+            var existing = await Database.Table<CartItem>().Where(c => c.ProductId == productId && c.UserId == currentUserId).FirstOrDefaultAsync();
             if (existing != null)
             {
                 existing.Quantity += quantity;
                 return await Database.UpdateAsync(existing);
             }
-            return await Database.InsertAsync(new CartItem { ProductId = productId, Quantity = quantity });
+            return await Database.InsertAsync(new CartItem { ProductId = productId, Quantity = quantity, UserId = currentUserId });
         }
 
         public async Task<int> RemoveFromCartAsync(CartItem item)
@@ -577,13 +733,23 @@ namespace ShoppetApp.Services
         public async Task<int> ClearCartAsync()
         {
             await Database.CreateTableAsync<CartItem>();
-            return await Database.DeleteAllAsync<CartItem>();
+            int currentUserId = Preferences.Get("LoggedInUserId", 0);
+            var items = await Database.Table<CartItem>().Where(c => c.UserId == currentUserId).ToListAsync();
+            int count = 0;
+            foreach(var item in items) {
+                count += await Database.DeleteAsync(item);
+            }
+            return count;
         }
 
         public async Task<bool> CheckoutAsync()
         {
             await Database.CreateTableAsync<CartItem>();
-            await Database.DeleteAllAsync<CartItem>();
+            int currentUserId = Preferences.Get("LoggedInUserId", 0);
+            var items = await Database.Table<CartItem>().Where(c => c.UserId == currentUserId).ToListAsync();
+            foreach(var item in items) {
+                await Database.DeleteAsync(item);
+            }
             return true;
         }
 
@@ -592,8 +758,23 @@ namespace ShoppetApp.Services
         {
             try
             {
+                if (ApiService != null)
+                {
+                    try {
+                        var apiContacts = await ApiService.GetContactsAsync();
+                        if (apiContacts != null) {
+                            await Database.CreateTableAsync<AppContact>();
+                            await Database.ExecuteAsync("DELETE FROM Contact WHERE Id > 0");
+                            foreach(var c in apiContacts) {
+                                await Database.InsertAsync(c);
+                            }
+                        }
+                    } catch { }
+                }
+
                 await Database.CreateTableAsync<AppContact>();
-                var contacts = await Database.Table<AppContact>().ToListAsync();
+                int currentUserId = Preferences.Get("LoggedInUserId", 0);
+                var contacts = await Database.Table<AppContact>().Where(c => c.UserId == currentUserId).ToListAsync();
                 return contacts ?? new List<AppContact>();
             }
             catch { return new List<AppContact>(); }
@@ -608,13 +789,42 @@ namespace ShoppetApp.Services
         public async Task<int> SaveContactAsync(AppContact contact)
         {
             await Database.CreateTableAsync<AppContact>();
-            return contact.Id == 0 ? await Database.InsertAsync(contact) : await Database.UpdateAsync(contact);
+            bool isNew = contact.Id <= 0;
+            if (isNew && contact.Id == 0) {
+                try {
+                    int minId = await Database.ExecuteScalarAsync<int>("SELECT MIN(Id) FROM Contact");
+                    contact.Id = minId >= 0 ? -1 : minId - 1;
+                } catch { contact.Id = -1; }
+            }
+            
+            if (ApiService != null)
+            {
+                try {
+                    var apiSaved = await ApiService.SaveContactAsync(contact);
+                    if (apiSaved != null) {
+                        var oldId = contact.Id;
+                        contact.Id = apiSaved.Id;
+                        if (oldId < 0) {
+                            await Database.ExecuteAsync("DELETE FROM Contact WHERE Id = ?", oldId);
+                        }
+                        var existing = await Database.Table<AppContact>().Where(x => x.Id == contact.Id).FirstOrDefaultAsync();
+                        return existing == null ? await Database.InsertAsync(contact) : await Database.UpdateAsync(contact);
+                    }
+                } catch { }
+            }
+
+            return isNew ? await Database.InsertAsync(contact) : await Database.UpdateAsync(contact);
         }
 
         public async Task<int> DeleteContactAsync(AppContact contact)
         {
             await Database.CreateTableAsync<AppContact>();
-            return await Database.DeleteAsync(contact);
+            int result = await Database.DeleteAsync(contact);
+            if (ApiService != null)
+            {
+                try { await ApiService.DeleteContactAsync(contact.Id); } catch { }
+            }
+            return result;
         }
     }
 }

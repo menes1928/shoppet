@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using MySql.Data.MySqlClient;
 using System.Data;
 
@@ -16,7 +16,7 @@ namespace ShoppetAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetContacts()
+        public async Task<IActionResult> GetContacts([FromQuery] int? userId = null)
         {
             try
             {
@@ -28,8 +28,19 @@ namespace ShoppetAPI.Controllers
                     await connection.OpenAsync();
                     var query = "SELECT Id, UserId, Name, Role, Address, Phone, IsEmergency FROM emergencycontacts";
 
+                    if (userId.HasValue)
+                    {
+                        query += " WHERE UserId = @userId";
+                    }
+
                     using (var cmd = new MySqlCommand(query, connection))
-                    using (var reader = await cmd.ExecuteReaderAsync())
+                    {
+                        if (userId.HasValue)
+                        {
+                            cmd.Parameters.AddWithValue("@userId", userId.Value);
+                        }
+
+                        using (var reader = await cmd.ExecuteReaderAsync())
                     {
                         while (await reader.ReadAsync())
                         {
@@ -46,6 +57,7 @@ namespace ShoppetAPI.Controllers
                         }
                     }
                 }
+            }
                 return Ok(contacts);
             }
             catch (Exception ex)
@@ -66,11 +78,12 @@ namespace ShoppetAPI.Controllers
                 {
                     await connection.OpenAsync();
                     var query = @"INSERT INTO emergencycontacts (UserId, Name, Role, Address, Phone, IsEmergency) 
-                                  VALUES (1, @Name, @Role, @Address, @Phone, @IsEmergency);
+                                  VALUES (@UserId, @Name, @Role, @Address, @Phone, @IsEmergency);
                                   SELECT LAST_INSERT_ID();";
 
                     using (var cmd = new MySqlCommand(query, connection))
                     {
+                        cmd.Parameters.AddWithValue("@UserId", request.UserId);
                         cmd.Parameters.AddWithValue("@Name", request.Name ?? "");
                         cmd.Parameters.AddWithValue("@Role", request.Role ?? "");
                         cmd.Parameters.AddWithValue("@Address", request.Address ?? "");
@@ -93,6 +106,7 @@ namespace ShoppetAPI.Controllers
 
     public class ContactRequest
     {
+        public int UserId { get; set; }
         public string Name { get; set; } = string.Empty;
         public string Role { get; set; } = string.Empty;
         public string Address { get; set; } = string.Empty;

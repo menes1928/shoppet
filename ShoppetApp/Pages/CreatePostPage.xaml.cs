@@ -2,11 +2,11 @@ using ShoppetApp.ViewModels;
 
 namespace ShoppetApp.Pages;
 
-public partial class CommunityPage : ContentPage
+public partial class CreatePostPage : ContentPage
 {
-    private readonly CommunityViewModel _vm;
+    private readonly CreatePostViewModel _vm;
 
-    public CommunityPage(CommunityViewModel vm)
+    public CreatePostPage(CreatePostViewModel vm)
     {
         InitializeComponent();
         BindingContext = _vm = vm;
@@ -15,6 +15,6 @@ public partial class CommunityPage : ContentPage
     protected override async void OnAppearing()
     {
         base.OnAppearing();
-        await _vm.LoadPostsCommand.ExecuteAsync(null);
+        await _vm.LoadPetsAsync();
     }
 }

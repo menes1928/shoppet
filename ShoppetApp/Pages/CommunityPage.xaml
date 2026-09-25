@@ -1,510 +1,121 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage
-    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:controls="clr-namespace:ShoppetApp.Controls"
-    xmlns:models="clr-namespace:ShoppetApp.Models"
-    x:Class="ShoppetApp.Pages.CommunityPage"
-    Title="Community"
-    BackgroundColor="#F7F9F8">
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:ShoppetApp.ViewModels"
+             xmlns:controls="clr-namespace:ShoppetApp.Controls"
+             x:Class="ShoppetApp.Pages.CommunityPage"
+             Title="Community"
+             Shell.NavBarIsVisible="False"
+             BackgroundColor="{StaticResource AppBackground}">
 
-    <ContentPage.Resources>
+    <Grid RowDefinitions="Auto, *">
+        <!-- Header -->
+        <VerticalStackLayout Grid.Row="0">
+            <controls:HeaderView />
+            </VerticalStackLayout>
 
-        <Color x:Key="Sage">#5C766D</Color>
-        <Color x:Key="SageDark">#1E2D27</Color>
-        <Color x:Key="SageSoft">#EEF4F1</Color>
-        <Color x:Key="SageAccent">#7FA396</Color>
-        <Color x:Key="White">#FFFFFF</Color>
-        <Color x:Key="TextDark">#26342F</Color>
-        <Color x:Key="TextMuted">#8A9691</Color>
-        <Color x:Key="Border">#E4EBE7</Color>
-        <Color x:Key="LikeRed">#E56B6F</Color>
-        <Color x:Key="LikeGrey">#B0B8B4</Color>
-
-    </ContentPage.Resources>
-
-    <Grid>
-
-        <ScrollView>
-            <VerticalStackLayout Padding="18,20,18,120" Spacing="20">
-
-                <!-- PAGE HEADER -->
-                <VerticalStackLayout Spacing="4">
-                    <Label Text="Pet Community 🐾"
-                           FontSize="30"
-                           FontAttributes="Bold"
-                           TextColor="{StaticResource SageDark}" />
-                    <Label Text="Share moments and connect with fellow pet parents"
-                           FontSize="14"
-                           TextColor="{StaticResource TextMuted}" />
-                    <Label x:Name="UserGreetingLabel"
-                           Text="Browsing as Guest"
-                           FontSize="12"
-                           FontAttributes="Bold"
-                           TextColor="{StaticResource SageAccent}"
-                           Margin="0,6,0,0" />
-                </VerticalStackLayout>
-
-                <!-- CREATE POST CARD -->
-                <Border BackgroundColor="{StaticResource White}"
-                        Stroke="{StaticResource Border}"
-                        StrokeThickness="1"
-                        Padding="18">
-                    <Border.StrokeShape>
-                        <RoundRectangle CornerRadius="20" />
-                    </Border.StrokeShape>
-                    <Border.Shadow>
-                        <Shadow Brush="{StaticResource SageDark}" Offset="0,2" Radius="12" Opacity="0.05" />
-                    </Border.Shadow>
-
-                    <VerticalStackLayout Spacing="14">
-
-                        <HorizontalStackLayout Spacing="8">
-                            <Label Text="✏️" FontSize="18" VerticalOptions="Center" />
-                            <Label Text="Share a moment"
-                                   FontSize="17"
-                                   FontAttributes="Bold"
-                                   TextColor="{StaticResource SageDark}"
-                                   VerticalOptions="Center" />
-                        </HorizontalStackLayout>
-
-                        <!-- Pet Name -->
-                        <Border BackgroundColor="#FAFCFB"
-                                Stroke="{StaticResource Border}"
-                                StrokeThickness="1"
-                                Padding="14,2">
-                            <Border.StrokeShape>
-                                <RoundRectangle CornerRadius="12" />
-                            </Border.StrokeShape>
-                            <Entry x:Name="PetNameEntry"
-                                   Placeholder="Your pet's name"
-                                   FontSize="14"
-                                   TextColor="{StaticResource TextDark}"
-                                   PlaceholderColor="{StaticResource TextMuted}"
-                                   BackgroundColor="Transparent" />
-                        </Border>
-
-                        <!-- Post Content -->
-                        <Border BackgroundColor="#FAFCFB"
-                                Stroke="{StaticResource Border}"
-                                StrokeThickness="1"
-                                Padding="14">
-                            <Border.StrokeShape>
-                                <RoundRectangle CornerRadius="12" />
-                            </Border.StrokeShape>
-                            <Editor x:Name="PostContentEditor"
-                                    Placeholder="What's your pet up to today?"
-                                    FontSize="14"
-                                    TextColor="{StaticResource TextDark}"
-                                    PlaceholderColor="{StaticResource TextMuted}"
-                                    BackgroundColor="Transparent"
-                                    AutoSize="TextChanges"
-                                    MinimumHeightRequest="100"
-                                    TextChanged="OnPostContentTextChanged" />
-                        </Border>
-
-                        <!-- Mention Suggestions -->
-                        <Border x:Name="MentionSuggestionsContainer"
-                                IsVisible="False"
-                                BackgroundColor="{StaticResource White}"
-                                Stroke="{StaticResource Border}"
-                                StrokeThickness="1"
-                                Padding="4">
-                            <Border.StrokeShape>
-                                <RoundRectangle CornerRadius="12" />
-                            </Border.StrokeShape>
-                            <CollectionView x:Name="MentionSuggestionsView"
-                                            SelectionMode="Single"
-                                            SelectionChanged="OnMentionSelected"
-                                            MaximumHeightRequest="200">
-                                <CollectionView.ItemTemplate>
-                                    <DataTemplate x:DataType="models:User">
-                                        <Grid Padding="10" ColumnDefinitions="Auto,*">
-                                            <Border WidthRequest="36"
-                                                    HeightRequest="36"
-                                                    BackgroundColor="{StaticResource SageSoft}"
-                                                    StrokeThickness="0">
-                                                <Border.StrokeShape>
-                                                    <RoundRectangle CornerRadius="18" />
-                                                </Border.StrokeShape>
-                                                <Label Text="{Binding FullName}"
-                                                       FontSize="13"
-                                                       FontAttributes="Bold"
-                                                       TextColor="{StaticResource Sage}"
-                                                       HorizontalOptions="Center"
-                                                       VerticalOptions="Center" />
-                                            </Border>
-                                            <VerticalStackLayout Grid.Column="1"
-                                                                 Margin="10,0,0,0"
-                                                                 VerticalOptions="Center"
-                                                                 Spacing="1">
-                                                <Label Text="{Binding FullName}"
-                                                       FontSize="13"
-                                                       FontAttributes="Bold"
-                                                       TextColor="{StaticResource TextDark}" />
-                                                <Label Text="{Binding Role}"
-                                                       FontSize="11"
-                                                       TextColor="{StaticResource TextMuted}" />
-                                            </VerticalStackLayout>
-                                        </Grid>
-                                    </DataTemplate>
-                                </CollectionView.ItemTemplate>
-                            </CollectionView>
-                        </Border>
-
-                        <!-- Attach photo row -->
-                        <Grid ColumnDefinitions="*,Auto">
-                            <Label x:Name="AttachedFilesCountLabel"
-                                   Text="No photos attached"
-                                   FontSize="12"
-                                   TextColor="{StaticResource TextMuted}"
-                                   VerticalOptions="Center" />
-                            <Button Grid.Column="1"
-                                    Text="📎  Attach Photo"
-                                    FontSize="13"
-                                    FontAttributes="Bold"
-                                    TextColor="{StaticResource SageDark}"
-                                    BackgroundColor="{StaticResource SageSoft}"
-                                    BorderColor="{StaticResource SageAccent}"
-                                    BorderWidth="1"
-                                    CornerRadius="20"
-                                    Padding="14,8"
-                                    Clicked="OnAttachPhotosClicked" />
-                        </Grid>
-
-                        <!-- Post Button -->
-                        <Button Text="Post 🐾"
-                                FontSize="15"
-                                FontAttributes="Bold"
-                                TextColor="{StaticResource White}"
-                                BackgroundColor="{StaticResource Sage}"
-                                CornerRadius="14"
-                                HeightRequest="50"
-                                Clicked="OnPostClicked" />
-
-                    </VerticalStackLayout>
-                </Border>
-
-                <!-- FEED TITLE -->
-                <Label Text="Latest from the community"
-                       FontSize="18"
-                       FontAttributes="Bold"
-                       TextColor="{StaticResource SageDark}"
-                       Margin="4,8,0,0" />
-
-                <!-- POSTS FEED -->
-                <CollectionView x:Name="PostsCollection"
-                                SelectionMode="None">
-
-                    <CollectionView.EmptyView>
-                        <Border BackgroundColor="{StaticResource White}"
-                                Stroke="{StaticResource Border}"
-                                StrokeThickness="1"
-                                Padding="32">
-                            <Border.StrokeShape>
-                                <RoundRectangle CornerRadius="20" />
-                            </Border.StrokeShape>
-                            <VerticalStackLayout Spacing="10" HorizontalOptions="Center">
-                                <Label Text="🐶🐱"
-                                       FontSize="44"
-                                       HorizontalTextAlignment="Center" />
-                                <Label Text="No posts yet"
-                                       FontSize="17"
-                                       FontAttributes="Bold"
-                                       TextColor="{StaticResource SageDark}"
-                                       HorizontalTextAlignment="Center" />
-                                <Label Text="Be the first to share a moment with the community."
-                                       FontSize="13"
-                                       TextColor="{StaticResource TextMuted}"
-                                       HorizontalTextAlignment="Center" />
+        <Grid Grid.Row="1">
+            <RefreshView Command="{Binding LoadPostsCommand}" IsRefreshing="{Binding IsRefreshing}">
+                <ScrollView>
+                    <VerticalStackLayout Spacing="15" Padding="15,10,15,100">
+                        <Border BackgroundColor="{StaticResource AppBackground}" StrokeThickness="0" Padding="5,5,5,5">
+                            <VerticalStackLayout Spacing="5">
+                                <Label Text="Shoppet Community" FontFamily="NunitoBold" FontSize="26" TextColor="{StaticResource BodyText}" />
+                                <Label Text="Share stories, experiences, and helpful pet-care tips with fellow pet parents." TextColor="#666666" FontSize="14" />
                             </VerticalStackLayout>
                         </Border>
-                    </CollectionView.EmptyView>
+                        
+                        <!-- What's on your mind? Section -->
+                        <Border BackgroundColor="{StaticResource CardBg}" Stroke="{StaticResource Secondary30}" StrokeThickness="1" StrokeShape="RoundRectangle 20" Padding="15">
+                            <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="10">
+                                <!-- Profile Picture Placeholder -->
+                                <Border Grid.Column="0" WidthRequest="40" HeightRequest="40" BackgroundColor="{StaticResource Secondary}" StrokeShape="RoundRectangle 20" StrokeThickness="0">
+                                    <Label Text="{Binding UserInitials}" TextColor="White" HorizontalOptions="Center" VerticalOptions="Center" FontSize="16" FontFamily="NunitoBold" />
+                                </Border>
 
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate x:DataType="models:CommunityPost">
+                                <!-- Fake Input -->
+                                <Border Grid.Column="1" BackgroundColor="{StaticResource AppBackground}" StrokeShape="RoundRectangle 20" StrokeThickness="1" Stroke="{StaticResource Secondary30}" Padding="15,0">
+                                    <Border.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding GoToCreatePostCommand}" />
+                                    </Border.GestureRecognizers>
+                                    <Label Text="What's on your mind?" TextColor="#888888" VerticalOptions="Center" FontSize="15" />
+                                </Border>
 
-                            <Border BackgroundColor="{StaticResource White}"
-                                    Stroke="{StaticResource Border}"
-                                    StrokeThickness="1"
-                                    Padding="18"
-                                    Margin="0,0,0,14">
-                                <Border.StrokeShape>
-                                    <RoundRectangle CornerRadius="22" />
-                                </Border.StrokeShape>
-                                <Border.Shadow>
-                                    <Shadow Brush="{StaticResource SageDark}" Offset="0,3" Radius="14" Opacity="0.05" />
-                                </Border.Shadow>
+                                <!-- Photo Icon -->
+                                <Border Grid.Column="2" BackgroundColor="{StaticResource AppBackground}" WidthRequest="40" HeightRequest="40" StrokeShape="RoundRectangle 20" StrokeThickness="1" Stroke="{StaticResource Secondary30}">
+                                    <Label Text="📷" HorizontalOptions="Center" VerticalOptions="Center" FontSize="18">
+                                        <Label.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding GoToCreatePostCommand}" />
+                                        </Label.GestureRecognizers>
+                                    </Label>
+                                </Border>
+                            </Grid>
+                        </Border>
 
-                                <VerticalStackLayout Spacing="14">
-
-                                    <!-- HEADER: Avatar + Author + Menu -->
-                                    <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="12">
-
-                                        <!-- Avatar circle -->
-                                        <Border Grid.Column="0"
-                                                WidthRequest="44"
-                                                HeightRequest="44"
-                                                BackgroundColor="{StaticResource SageSoft}"
-                                                StrokeThickness="0"
-                                                VerticalOptions="Start">
-                                            <Border.StrokeShape>
-                                                <RoundRectangle CornerRadius="22" />
-                                            </Border.StrokeShape>
-                                            <Label Text="{Binding AuthorName, Converter={StaticResource InitialsConverter}}"
-                                                   FontSize="15"
-                                                   FontAttributes="Bold"
-                                                   TextColor="{StaticResource Sage}"
-                                                   HorizontalOptions="Center"
-                                                   VerticalOptions="Center" />
-                                        </Border>
-
-                                        <!-- Author + pet + time -->
-                                        <VerticalStackLayout Grid.Column="1" Spacing="2" VerticalOptions="Center">
-                                            <Label Text="{Binding AuthorName}"
-                                                   FontSize="15"
-                                                   FontAttributes="Bold"
-                                                   TextColor="{StaticResource SageDark}" />
-                                            <HorizontalStackLayout Spacing="6">
-                                                <Label Text="🐾"
-                                                       FontSize="11"
-                                                       VerticalOptions="Center" />
-                                                <Label Text="{Binding PetName}"
-                                                       FontSize="13"
-                                                       FontAttributes="Bold"
-                                                       TextColor="{StaticResource Sage}"
-                                                       VerticalOptions="Center" />
-                                                <Label Text="·"
-                                                       FontSize="13"
-                                                       TextColor="{StaticResource TextMuted}"
-                                                       VerticalOptions="Center" />
-                                                <Label Text="{Binding FormattedTime}"
-                                                       FontSize="12"
-                                                       TextColor="{StaticResource TextMuted}"
-                                                       VerticalOptions="Center" />
+                        <!-- Feed List -->
+                        <CollectionView ItemsSource="{Binding Posts}">
+                            <CollectionView.ItemsLayout>
+                                <LinearItemsLayout Orientation="Vertical" ItemSpacing="2" />
+                            </CollectionView.ItemsLayout>
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <Border BackgroundColor="{StaticResource CardBg}" Stroke="{StaticResource Secondary30}" StrokeThickness="1" StrokeShape="RoundRectangle 20" Margin="0,0,0,0" Padding="15">
+                                        <VerticalStackLayout Spacing="12">
+                                            <!-- Post Header -->
+                                            <HorizontalStackLayout Spacing="10">
+                                                <Border WidthRequest="40" HeightRequest="40" BackgroundColor="{StaticResource Secondary}" StrokeShape="RoundRectangle 20" StrokeThickness="0">
+                                                    <Label Text="{Binding Initials}" TextColor="White" HorizontalOptions="Center" VerticalOptions="Center" FontSize="16" FontFamily="NunitoBold" />
+                                                </Border>
+                                                <VerticalStackLayout VerticalOptions="Center">
+                                                    <HorizontalStackLayout Spacing="5">
+                                                        <Label Text="{Binding AuthorName}" TextColor="{StaticResource BodyText}" FontFamily="NunitoBold" FontSize="16" />
+                                                        <Label Text="{Binding PetName, StringFormat=' is with {0}'}" TextColor="#666666" FontSize="14" IsVisible="{Binding PetName, Converter={StaticResource IsNotNullOrEmptyConverter}}" />
+                                                    </HorizontalStackLayout>
+                                                    <Label Text="{Binding TimeAgo}" TextColor="#888888" FontSize="12" />
+                                                </VerticalStackLayout>
                                             </HorizontalStackLayout>
+
+                                            <!-- Content -->
+                                            <Label Text="{Binding Content}" TextColor="{StaticResource BodyText}" FontSize="15" />
+
+                                            <!-- Attached Media -->
+                                            <Image Source="{Binding ImageUrls}" IsVisible="{Binding HasImages}" Aspect="AspectFill" HeightRequest="250" />
+
+                                            <!-- Stats -->
+                                            <HorizontalStackLayout Spacing="15" Margin="0,5,0,0">
+                                                <Label Text="{Binding LikesCount, StringFormat='{0} Likes'}" TextColor="#666666" FontSize="13" />
+                                                <Label Text="{Binding CommentsCount, StringFormat='{0} Comments'}" TextColor="#666666" FontSize="13" HorizontalOptions="EndAndExpand" />
+                                            </HorizontalStackLayout>
+
+                                            <BoxView HeightRequest="1" Color="{StaticResource Secondary30}" Margin="0,5" />
+
+                                            <!-- Actions -->
+                                            <Grid ColumnDefinitions="*,*">
+                                                <Button Grid.Column="0" Text="{Binding IsLikedByMe, Converter={StaticResource BoolToLikeTextConverter}}" 
+                                                        Command="{Binding Source={RelativeSource AncestorType={x:Type vm:CommunityViewModel}}, Path=ToggleLikeCommand}"
+                                                        CommandParameter="{Binding .}"
+                                                        TextColor="{Binding IsLikedByMe, Converter={StaticResource BoolToLikeColorConverter}}"
+                                                        BackgroundColor="Transparent" FontFamily="NunitoBold" />
+                                                <Button Grid.Column="1" Text="🗨 Comment" TextColor="{StaticResource Primary}" BackgroundColor="Transparent" FontFamily="NunitoBold"
+                                                        Command="{Binding Source={RelativeSource AncestorType={x:Type vm:CommunityViewModel}}, Path=GoToPostDetailsCommand}"
+                                                        CommandParameter="{Binding .}" />
+                                            </Grid>
                                         </VerticalStackLayout>
-
-                                        <!-- Edit/Delete icon buttons — only for owner -->
-                                        <HorizontalStackLayout Grid.Column="2"
-                                                               Spacing="4"
-                                                               IsVisible="{Binding CanEdit}"
-                                                               VerticalOptions="Start">
-                                            <Button Text="✏️"
-                                                    FontSize="14"
-                                                    WidthRequest="34"
-                                                    HeightRequest="34"
-                                                    Padding="0"
-                                                    BackgroundColor="{StaticResource SageSoft}"
-                                                    CornerRadius="17"
-                                                    CommandParameter="{Binding .}"
-                                                    Clicked="OnEditPostClicked" />
-                                            <Button Text="🗑️"
-                                                    FontSize="14"
-                                                    WidthRequest="34"
-                                                    HeightRequest="34"
-                                                    Padding="0"
-                                                    BackgroundColor="#FCEEEE"
-                                                    CornerRadius="17"
-                                                    CommandParameter="{Binding .}"
-                                                    Clicked="OnDeletePostClicked" />
-                                        </HorizontalStackLayout>
-
-                                    </Grid>
-
-                                    <!-- CONTENT -->
-                                    <Label Text="{Binding Content}"
-                                           FontSize="14"
-                                           LineHeight="1.5"
-                                           TextColor="{StaticResource TextDark}" />
-
-                                    <!-- IMAGE -->
-                                    <Border BackgroundColor="#F5F7F6"
-                                            StrokeThickness="0"
-                                            Padding="0"
-                                            HorizontalOptions="Fill"
-                                            IsVisible="{Binding HasImages}">
-                                        <Border.StrokeShape>
-                                            <RoundRectangle CornerRadius="16" />
-                                        </Border.StrokeShape>
-                                        <Image Source="{Binding ImageUrls}"
-                                               Aspect="AspectFill"
-                                               HeightRequest="260"
-                                               HorizontalOptions="Fill"
-                                               VerticalOptions="Fill" />
                                     </Border>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
 
-                                    <!-- ACTION BAR -->
-                                    <Grid ColumnDefinitions="Auto,Auto,*" ColumnSpacing="10" Margin="0,4,0,0">
+                    </VerticalStackLayout>
+                </ScrollView>
+            </RefreshView>
 
-                                        <!-- Like pill -->
-                                        <Border Grid.Column="0"
-                                                StrokeThickness="0"
-                                                Padding="12,6"
-                                                BackgroundColor="{StaticResource SageSoft}">
-                                            <Border.StrokeShape>
-                                                <RoundRectangle CornerRadius="18" />
-                                            </Border.StrokeShape>
-                                            <Border.GestureRecognizers>
-                                                <TapGestureRecognizer Tapped="OnLikeTapped"
-                                                                      CommandParameter="{Binding .}" />
-                                            </Border.GestureRecognizers>
-                                            <HorizontalStackLayout Spacing="6">
-                                                <Label Text="{Binding IsLikedByMe, Converter={StaticResource HeartIconConverter}}"
-                                                       FontSize="14"
-                                                       VerticalOptions="Center" />
-                                                <Label Text="{Binding LikeCount}"
-                                                       FontSize="13"
-                                                       FontAttributes="Bold"
-                                                       TextColor="{StaticResource SageDark}"
-                                                       VerticalOptions="Center" />
-                                            </HorizontalStackLayout>
-                                        </Border>
-
-                                        <!-- Comment pill -->
-                                        <Border Grid.Column="1"
-                                                StrokeThickness="0"
-                                                Padding="12,6"
-                                                BackgroundColor="{StaticResource SageSoft}">
-                                            <Border.StrokeShape>
-                                                <RoundRectangle CornerRadius="18" />
-                                            </Border.StrokeShape>
-                                            <Border.GestureRecognizers>
-                                                <TapGestureRecognizer Tapped="OnToggleCommentsTapped"
-                                                                      CommandParameter="{Binding .}" />
-                                            </Border.GestureRecognizers>
-                                            <HorizontalStackLayout Spacing="6">
-                                                <Label Text="💬"
-                                                       FontSize="14"
-                                                       VerticalOptions="Center" />
-                                                <Label Text="{Binding CommentCount}"
-                                                       FontSize="13"
-                                                       FontAttributes="Bold"
-                                                       TextColor="{StaticResource SageDark}"
-                                                       VerticalOptions="Center" />
-                                            </HorizontalStackLayout>
-                                        </Border>
-
-                                    </Grid>
-
-                                    <!-- ═══════ COMMENTS PANEL (per post) ═══════ -->
-                                    <VerticalStackLayout IsVisible="{Binding IsCommentsExpanded}"
-                                                         Spacing="10"
-                                                         Margin="0,6,0,0">
-
-                                        <BoxView HeightRequest="1"
-                                                 Color="{StaticResource Border}" />
-
-                                        <!-- Existing comments -->
-                                        <CollectionView ItemsSource="{Binding Comments}"
-                                                        SelectionMode="None"
-                                                        MaximumHeightRequest="320">
-                                            <CollectionView.ItemTemplate>
-                                                <DataTemplate x:DataType="models:CommunityComment">
-                                                    <Grid ColumnDefinitions="Auto,*"
-                                                          ColumnSpacing="10"
-                                                          Padding="0,6">
-
-                                                        <!-- Avatar -->
-                                                        <Border Grid.Column="0"
-                                                                WidthRequest="32"
-                                                                HeightRequest="32"
-                                                                BackgroundColor="{StaticResource SageSoft}"
-                                                                StrokeThickness="0"
-                                                                VerticalOptions="Start">
-                                                            <Border.StrokeShape>
-                                                                <RoundRectangle CornerRadius="16" />
-                                                            </Border.StrokeShape>
-                                                            <Label Text="{Binding AuthorName, Converter={StaticResource InitialsConverter}}"
-                                                                   FontSize="12"
-                                                                   FontAttributes="Bold"
-                                                                   TextColor="{StaticResource Sage}"
-                                                                   HorizontalOptions="Center"
-                                                                   VerticalOptions="Center" />
-                                                        </Border>
-
-                                                        <!-- Comment bubble -->
-                                                        <Border Grid.Column="1"
-                                                                BackgroundColor="#F5F7F6"
-                                                                StrokeThickness="0"
-                                                                Padding="12,8">
-                                                            <Border.StrokeShape>
-                                                                <RoundRectangle CornerRadius="12" />
-                                                            </Border.StrokeShape>
-                                                            <VerticalStackLayout Spacing="2">
-                                                                <HorizontalStackLayout Spacing="6">
-                                                                    <Label Text="{Binding AuthorName}"
-                                                                           FontSize="13"
-                                                                           FontAttributes="Bold"
-                                                                           TextColor="{StaticResource SageDark}" />
-                                                                    <Label Text="·"
-                                                                           FontSize="12"
-                                                                           TextColor="{StaticResource TextMuted}" />
-                                                                    <Label Text="{Binding TimeAgo}"
-                                                                           FontSize="11"
-                                                                           TextColor="{StaticResource TextMuted}" />
-                                                                </HorizontalStackLayout>
-                                                                <Label Text="{Binding Content}"
-                                                                       FontSize="13"
-                                                                       TextColor="{StaticResource TextDark}" />
-                                                            </VerticalStackLayout>
-                                                        </Border>
-                                                    </Grid>
-                                                </DataTemplate>
-                                            </CollectionView.ItemTemplate>
-                                        </CollectionView>
-
-                                        <!-- New comment input row -->
-                                        <Grid ColumnDefinitions="*,Auto"
-                                              ColumnSpacing="8"
-                                              Margin="0,4,0,0">
-
-                                            <Border Grid.Column="0"
-                                                    BackgroundColor="#FAFCFB"
-                                                    Stroke="{StaticResource Border}"
-                                                    StrokeThickness="1"
-                                                    Padding="12,2">
-                                                <Border.StrokeShape>
-                                                    <RoundRectangle CornerRadius="18" />
-                                                </Border.StrokeShape>
-                                                <Entry Placeholder="Write a comment…"
-                                                       FontSize="13"
-                                                       TextColor="{StaticResource TextDark}"
-                                                       PlaceholderColor="{StaticResource TextMuted}"
-                                                       BackgroundColor="Transparent"
-                                                       Completed="OnCommentSubmitted" />
-                                            </Border>
-
-                                            <Button Grid.Column="1"
-                                                    Text="Send"
-                                                    FontSize="13"
-                                                    FontAttributes="Bold"
-                                                    TextColor="{StaticResource White}"
-                                                    BackgroundColor="{StaticResource Sage}"
-                                                    CornerRadius="18"
-                                                    Padding="16,8"
-                                                    CommandParameter="{Binding .}"
-                                                    Clicked="OnSendCommentClicked" />
-                                        </Grid>
-
-                                    </VerticalStackLayout>
-
-                                </VerticalStackLayout>
-                            </Border>
-
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-
-                </CollectionView>
-
-            </VerticalStackLayout>
-        </ScrollView>
-
-        <!-- Floating tab bar -->
-        <controls:FloatingTabBar SelectedTab="community"
-                                 VerticalOptions="End"
-                                 HorizontalOptions="Fill" />
-
+            <!-- Navigation Bar placed here -->
+            <controls:FloatingTabBar SelectedTab="community" VerticalOptions="End" />
+        </Grid>
     </Grid>
-
 </ContentPage>
+
+
+
+

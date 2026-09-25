@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ShoppetApp.Pages.ImagePreviewPage"
+             Shell.NavBarIsVisible="False"
+             BackgroundColor="Black">
+
+    <Grid>
+        <!-- The Image -->
+        <Image x:Name="PreviewImage" Aspect="AspectFit" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" />
+
+        <!-- Close Button -->
+        <Border WidthRequest="40" HeightRequest="40" BackgroundColor="#88000000" StrokeShape="RoundRectangle 20" StrokeThickness="0"
+                HorizontalOptions="End" VerticalOptions="Start" Margin="20,40,20,20">
+            <Label Text="&#x2715;" TextColor="White" FontSize="20" FontFamily="NunitoBold" HorizontalOptions="Center" VerticalOptions="Center" />
+            <Border.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnCloseTapped" />
+            </Border.GestureRecognizers>
+        </Border>
+    </Grid>
+</ContentPage>

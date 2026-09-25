@@ -31,8 +31,7 @@ public static class MauiProgram
         builder.Services.AddSingleton<ApiService>();
 
         // FIXED: Explicitly provide the local SQLite file path to DatabaseService
-        builder.Services.AddSingleton<DatabaseService>(s =>
-            new DatabaseService(Path.Combine(FileSystem.AppDataDirectory, "shoppet.db3")));
+        builder.Services.AddSingleton<DatabaseService>(s => { var db = new DatabaseService(Path.Combine(FileSystem.AppDataDirectory, "shoppet.db3")); db.ApiService = s.GetRequiredService<ApiService>(); return db; });
 
         builder.Services.AddSingleton<CartService>();
 
@@ -61,7 +60,15 @@ public static class MauiProgram
         builder.Services.AddTransient<CartPage>();
         builder.Services.AddTransient<CartViewModel>();
         builder.Services.AddTransient<AppShell>();
+        builder.Services.AddTransient<CommunityPage>();
+        builder.Services.AddTransient<CommunityViewModel>();
+        builder.Services.AddTransient<CreatePostPage>();
+        builder.Services.AddTransient<CreatePostViewModel>();
+        builder.Services.AddTransient<PostDetailsPage>();
+        builder.Services.AddTransient<PostDetailsViewModel>();
 
         return builder.Build();
     }
 }
+
+

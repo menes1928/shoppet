@@ -68,10 +68,11 @@ public partial class ContactFormViewModel : ObservableObject, IQueryAttributable
         var contact = new ContactModel
         {
             Id = ContactId,
+            UserId = Preferences.Get("LoggedInUserId", 0),
             Name = Name.Trim(),
             Role = Role,
-            Address = Address.Trim(),
-            Phone = Phone.Trim(),
+            Address = Address?.Trim() ?? string.Empty,
+            Phone = Phone?.Trim() ?? string.Empty,
             IsEmergency = IsEmergency
         };
 
