@@ -1,4 +1,4 @@
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using ShoppetApp.Helpers;
@@ -106,6 +106,11 @@ namespace ShoppetApp.ViewModels
             await Shell.Current.DisplayAlert("Directory", "Opening Local Pet Shops & Clinics around Lipa...", "OK");
 
         [RelayCommand]
+        private async Task OpenPostSettingsAsync() =>
+            await Shell.Current.GoToAsync("PostSettingsPage");
+
+        [RelayCommand]
         private void Logout() => NavigationHelper.GoToAuth();
     }
 }
+

@@ -24,6 +24,9 @@ namespace ShoppetApp.Models
         [ObservableProperty]
         private bool _isLikedByMe;
 
+        [ObservableProperty]
+        private bool _isOptionsVisible;
+
         public List<string> ImageList => string.IsNullOrEmpty(ImageUrls)
             ? new List<string>()
             : ImageUrls.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries).ToList();
@@ -48,3 +51,4 @@ namespace ShoppetApp.Models
         public string Initials => string.IsNullOrWhiteSpace(AuthorName) ? "U" : AuthorName.Substring(0, 1).ToUpper();
     }
 }
+

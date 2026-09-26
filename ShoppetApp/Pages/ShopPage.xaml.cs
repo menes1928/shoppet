@@ -1,107 +1,357 @@
+﻿using ShoppetApp.Models;
 using ShoppetApp.Services;
+using System.Collections.ObjectModel;
 
 namespace ShoppetApp.Pages;
 
 public partial class ShopPage : ContentPage
 {
+    private readonly ApiService _api;
     private readonly DatabaseService _db;
-    private List<StoreDirectoryModel> _allStores = new();
+    private ObservableCollection<MarketplaceListing> MyListings { get; } = new();
+    private List<MarketplaceListing> _allExploreListings = new();
+    private MarketplaceListing? _editingListing = null;
+    private bool _isSellTab = false;
+    private string _currentCategory = "";
+    private string _currentSearch = "";
+    private List<string> _pickedPhotoPaths = new();
 
-    public ShopPage(DatabaseService db)
+    public ShopPage(ApiService api, DatabaseService db)
     {
         InitializeComponent();
+        _api = api;
         _db = db;
+        MyListingsContainer.SetValue(BindableLayout.ItemsSourceProperty, MyListings);
     }
 
-    protected override void OnAppearing()
+    protected override async void OnAppearing()
     {
         base.OnAppearing();
-        LoadDirectory();
+        if (_isSellTab)
+            await LoadMyListingsAsync();
+        else
+            await LoadExploreListingsAsync();
     }
 
-    private void LoadDirectory()
-    {
-        // Fallback robust directory list tailored for Lipa & Tanauan local partner pet shops & hybrid clinics
-        _allStores = new List<StoreDirectoryModel>
-        {
-            new StoreDirectoryModel
-            {
-                StoreName = "Maxivet Care Grooming and Veterinary Clinic",
-                Location = "Bugtong na Pulo, Lipa / Tanauan Border",
-                Hours = "Mon - Sun: 8:00 AM - 5:00 PM",
-                Brands = "Royal Canin, NexGard Spectra, Pedigree, Aozi",
-                MessengerLink = "https://www.facebook.com/BarkNPurrVet",
-                StoreBadge = "🩺🛒 HYBRID CLINIC & SHOP"
-            },
-            new StoreDirectoryModel
-            {
-                StoreName = "Lipa Paw Spawt Pet Supplies",
-                Location = "Ayala Highway, Lipa City",
-                Hours = "Mon - Sat: 9:00 AM - 7:00 PM",
-                Brands = "Royal Canin, Vitality, Top Breed, Beaphar",
-                MessengerLink = "https://www.facebook.com",
-                StoreBadge = "🛒 PET SUPPLY STORE"
-            },
-            new StoreDirectoryModel
-            {
-                StoreName = "Tanauan Animal Care & Hub",
-                Location = "P. Torres St, Tanauan City",
-                Hours = "Mon - Sat: 8:00 AM - 6:00 PM",
-                Brands = "Special Dog, Monge, NexGard, Frontline",
-                MessengerLink = "https://www.facebook.com",
-                StoreBadge = "🩺🛒 HYBRID CLINIC & SHOP"
-            }
-        };
+    // --- Tab switching ---
 
-        ShopsListView.ItemsSource = _allStores;
+    private async void OnExploreTabClicked(object sender, EventArgs e)
+    {
+        _isSellTab = false;
+        BtnExplore.BackgroundColor = (Color)Application.Current!.Resources["Primary"];
+        BtnExplore.TextColor = Colors.White;
+        BtnSell.BackgroundColor = Colors.Transparent;
+        BtnSell.TextColor = (Color)Application.Current!.Resources["Primary"];
+        ExplorePanel.IsVisible = true;
+        SellPanel.IsVisible = false;
+        await LoadExploreListingsAsync();
     }
 
-    private void OnSearchTextChanged(object sender, TextChangedEventArgs e)
+    private async void OnSellTabClicked(object sender, EventArgs e)
     {
-        var query = e.NewTextValue?.ToLower() ?? string.Empty;
-        if (string.IsNullOrWhiteSpace(query))
+        _isSellTab = true;
+        BtnSell.BackgroundColor = (Color)Application.Current!.Resources["Primary"];
+        BtnSell.TextColor = Colors.White;
+        BtnExplore.BackgroundColor = Colors.Transparent;
+        BtnExplore.TextColor = (Color)Application.Current!.Resources["Primary"];
+        SellPanel.IsVisible = true;
+        ExplorePanel.IsVisible = false;
+        await LoadMyListingsAsync();
+    }
+
+    private void OnSearchTapped(object sender, TappedEventArgs e)
+    {
+        SearchPanel.IsVisible = !SearchPanel.IsVisible;
+        if (!SearchPanel.IsVisible)
         {
-            ShopsListView.ItemsSource = _allStores;
+            _currentSearch = "";
+            SearchEntry.Text = "";
+            _ = LoadExploreListingsAsync();
+        }
+    }
+
+    private async void OnSearchTextChanged(object sender, TextChangedEventArgs e)
+    {
+        _currentSearch = e.NewTextValue?.Trim() ?? "";
+        if (!_isSellTab)
+            await LoadExploreListingsAsync();
+    }
+
+    // --- Load Data ---
+
+    private async Task LoadExploreListingsAsync()
+    {
+        var listings = await _api.GetMarketplaceListingsAsync(
+            string.IsNullOrEmpty(_currentCategory) ? null : _currentCategory,
+            string.IsNullOrEmpty(_currentSearch) ? null : _currentSearch);
+        _allExploreListings = listings;
+        ExploreGrid.ItemsSource = listings;
+        ExploreEmptyLabel.IsVisible = !listings.Any();
+    }
+
+    private async Task LoadMyListingsAsync()
+    {
+        if (_db.CurrentUser == null) return;
+        var listings = await _api.GetMyListingsAsync(_db.CurrentUser.Id);
+        MyListings.Clear();
+        foreach (var l in listings) MyListings.Add(l);
+        SellEmptyLabel.IsVisible = !listings.Any();
+    }
+
+    // --- Category Filter ---
+
+    private async void OnCategoryAllClicked(object sender, EventArgs e)
+    {
+        _currentCategory = "";
+        await LoadExploreListingsAsync();
+    }
+
+    private async void OnCategoryClicked(object sender, EventArgs e)
+    {
+        if (sender is Button btn && btn.CommandParameter is string cat)
+        {
+            _currentCategory = cat;
+            await LoadExploreListingsAsync();
+        }
+    }
+
+    // --- Explore Listing Detail Modal ---
+
+    private void OnListingTapped(object sender, SelectionChangedEventArgs e)
+    {
+        if (e.CurrentSelection.FirstOrDefault() is MarketplaceListing listing)
+        {
+            ShowDetailModal(listing);
+            ExploreGrid.SelectedItem = null;
+        }
+    }
+
+    private void ShowDetailModal(MarketplaceListing listing)
+    {
+        DetailTitle.Text = listing.Title;
+        DetailPrice.Text = listing.PriceDisplay;
+        DetailCategory.Text = listing.Category;
+        DetailCondition.Text = listing.Condition;
+        DetailDescription.Text = listing.Description;
+        DetailSellerName.Text = listing.SellerName;
+        DetailLocation.Text = string.IsNullOrEmpty(listing.Location) ? "Location not specified" : listing.Location;
+        DetailTime.Text = listing.TimeAgo;
+        DetailSellerInitial.Text = listing.Initials;
+
+        if (listing.HasImages)
+        {
+            DetailImage.Source = listing.FirstImage;
+            DetailImage.IsVisible = true;
+            
         }
         else
         {
-            ShopsListView.ItemsSource = _allStores.Where(s =>
-                s.StoreName.ToLower().Contains(query) ||
-                s.Location.ToLower().Contains(query) ||
-                s.Brands.ToLower().Contains(query)).ToList();
+            DetailImage.IsVisible = false;
+            
         }
+
+        DetailModal.IsVisible = true;
     }
 
-    private void OnFilterAllClicked(object sender, EventArgs e) => ShopsListView.ItemsSource = _allStores;
+    private void OnDismissModal(object sender, EventArgs e) => DetailModal.IsVisible = false;
+    private void OnModalBodyTapped(object sender, TappedEventArgs e) { }
 
-    private void OnFilterShopsClicked(object sender, EventArgs e) =>
-        ShopsListView.ItemsSource = _allStores.Where(s => s.StoreBadge.Contains("PET SUPPLY STORE")).ToList();
+    // --- Sell Tab: Photo Picker ---
 
-    private void OnFilterHybridsClicked(object sender, EventArgs e) =>
-        ShopsListView.ItemsSource = _allStores.Where(s => s.StoreBadge.Contains("HYBRID")).ToList();
-
-    private async void OnMessageStoreClicked(object sender, EventArgs e)
+    private async void OnPickPhotoClicked(object sender, EventArgs e)
     {
-        if (sender is Button btn && btn.CommandParameter is string url && !string.IsNullOrEmpty(url))
+        try
         {
-            try
+            var result = await FilePicker.Default.PickMultipleAsync(new PickOptions
             {
-                await Launcher.OpenAsync(new Uri(url));
+                PickerTitle = "Select Photos",
+                FileTypes = FilePickerFileType.Images
+            });
+
+            if (result == null) return;
+
+            foreach (var file in result)
+            {
+                if (_pickedPhotoPaths.Count >= 5)
+                {
+                    await DisplayAlert("Limit Reached", "You can only attach up to 5 photos.", "OK");
+                    break;
+                }
+                _pickedPhotoPaths.Add(file.FullPath);
             }
-            catch
+            RefreshPickedPhotos();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Photo pick error: {ex.Message}");
+        }
+    }
+
+    private void OnRemovePickedPhoto(object sender, TappedEventArgs e)
+    {
+        if (e.Parameter is string path)
+        {
+            _pickedPhotoPaths.Remove(path);
+            RefreshPickedPhotos();
+        }
+    }
+
+    private void RefreshPickedPhotos()
+    {
+        PickedPhotosView.ItemsSource = null;
+        PickedPhotosView.ItemsSource = _pickedPhotoPaths.ToList();
+        PickedPhotosView.IsVisible = _pickedPhotoPaths.Any();
+    }
+
+    // --- Sell Tab: Create/Edit/Delete ---
+
+    private void OnPostItemClicked(object sender, EventArgs e)
+    {
+        _editingListing = null;
+        PostModalTitle.Text = "Post a Pet Item";
+        ClearPostForm();
+        PostModal.IsVisible = true;
+    }
+
+    private void OnEditListingClicked(object sender, EventArgs e)
+    {
+        if (sender is Button btn && btn.CommandParameter is MarketplaceListing listing)
+        {
+            _editingListing = listing;
+            PostModalTitle.Text = "Edit Listing";
+            EntryTitle.Text = listing.Title;
+            EntryPrice.Text = listing.Price.ToString("0.##");
+            EntryLocation.Text = listing.Location;
+            EditorDescription.Text = listing.Description;
+            PickerCategory.SelectedItem = listing.Category;
+            PickerCondition.SelectedItem = listing.Condition;
+            // Pre-load existing images into picker
+            _pickedPhotoPaths.Clear();
+            if (!string.IsNullOrEmpty(listing.ImageUrls))
+                _pickedPhotoPaths.AddRange(listing.ImageUrls.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries));
+            RefreshPickedPhotos();
+            PostModal.IsVisible = true;
+        }
+    }
+
+    private async void OnDeleteListingClicked(object sender, EventArgs e)
+    {
+        if (sender is Button btn && btn.CommandParameter is MarketplaceListing listing)
+        {
+            bool confirm = await DisplayAlert("Delete Listing", $"Are you sure you want to delete \"{listing.Title}\"?", "Yes, Delete", "Cancel");
+            if (!confirm) return;
+            if (_db.CurrentUser == null) return;
+
+            bool ok = await _api.DeleteListingAsync(listing.Id, _db.CurrentUser.Id);
+            if (ok)
             {
-                await DisplayAlert("Error", "Could not open store link.", "OK");
+                MyListings.Remove(listing);
+                SellEmptyLabel.IsVisible = !MyListings.Any();
+                await DisplayAlert("Deleted", "Listing removed.", "OK");
+            }
+            else
+            {
+                await DisplayAlert("Error", "Could not delete listing. Try again.", "OK");
             }
         }
     }
+
+    private void OnCancelPostClicked(object sender, EventArgs e)
+    {
+        PostModal.IsVisible = false;
+        ClearPostForm();
+    }
+
+    private async void OnSaveListingClicked(object sender, EventArgs e)
+    {
+        if (_db.CurrentUser == null) return;
+
+        var title = EntryTitle.Text?.Trim() ?? "";
+        var desc = EditorDescription.Text?.Trim() ?? "";
+        var priceStr = EntryPrice.Text?.Trim() ?? "0";
+        var location = EntryLocation.Text?.Trim() ?? "";
+        var category = PickerCategory.SelectedItem?.ToString() ?? "General";
+        var condition = PickerCondition.SelectedItem?.ToString() ?? "Used";
+        var imageUrls = string.Join(",", _pickedPhotoPaths);
+
+        if (string.IsNullOrEmpty(title) || string.IsNullOrEmpty(desc))
+        {
+            await DisplayAlert("Missing Info", "Please fill in Title and Description.", "OK");
+            return;
+        }
+
+        if (!decimal.TryParse(priceStr, out decimal price) || price < 0)
+        {
+            await DisplayAlert("Invalid Price", "Please enter a valid price.", "OK");
+            return;
+        }
+
+        bool success;
+        if (_editingListing != null)
+        {
+            success = await _api.EditListingAsync(_editingListing.Id, new
+            {
+                UserId = _db.CurrentUser.Id,
+                Title = title,
+                Description = desc,
+                Price = price,
+                Category = category,
+                Condition = condition,
+                Location = location
+            });
+            if (success)
+            {
+                _editingListing.Title = title;
+                _editingListing.Description = desc;
+                _editingListing.Price = price;
+                _editingListing.Category = category;
+                _editingListing.Condition = condition;
+                _editingListing.Location = location;
+            }
+        }
+        else
+        {
+            success = await _api.CreateListingAsync(new
+            {
+                UserId = _db.CurrentUser.Id,
+                SellerName = _db.CurrentUser.FullName ?? "",
+                Title = title,
+                Description = desc,
+                Price = price,
+                Category = category,
+                Condition = condition,
+                Location = location,
+                ImageUrls = string.IsNullOrEmpty(imageUrls) ? (string?)null : imageUrls
+            });
+        }
+
+        if (success)
+        {
+            var wasEditing = _editingListing != null;
+            _editingListing = null;
+            PostModal.IsVisible = false;
+            ClearPostForm();
+            await LoadMyListingsAsync();
+            await LoadExploreListingsAsync();
+            await DisplayAlert("Success", wasEditing ? "Listing updated!" : "Item posted to Marketplace!", "OK");
+        }
+        else
+        {
+            await DisplayAlert("Error", "Something went wrong. Please try again.", "OK");
+        }
+    }
+
+    private void ClearPostForm()
+    {
+        EntryTitle.Text = "";
+        EntryPrice.Text = "";
+        EntryLocation.Text = "";
+        EditorDescription.Text = "";
+        PickerCategory.SelectedItem = "General";
+        PickerCondition.SelectedItem = "Used";
+        _pickedPhotoPaths.Clear();
+        PickedPhotosView.ItemsSource = null;
+        PickedPhotosView.IsVisible = false;
+    }
 }
 
-public class StoreDirectoryModel
-{
-    public string StoreName { get; set; } = string.Empty;
-    public string Location { get; set; } = string.Empty;
-    public string Hours { get; set; } = string.Empty;
-    public string Brands { get; set; } = string.Empty;
-    public string MessengerLink { get; set; } = string.Empty;
-    public string StoreBadge { get; set; } = string.Empty;
-}

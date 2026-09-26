@@ -446,28 +446,80 @@ public class ApiService
     }
 
     public async Task<bool> AddCommentAsync(int postId, int userId, string content, int? parentCommentId = null)
+        {
+            try
+            {
+                var res = await _http.PostAsJsonAsync($"community/{postId}/comments", new 
+                { 
+                    UserId = userId,
+                    Content = content,
+                    ParentCommentId = parentCommentId
+                });
+                return res.IsSuccessStatusCode;
+            }
+            catch { return false; }
+        }
+
+        public async Task<bool> DeletePostAsync(int postId)
+        {
+            try { return (await _http.DeleteAsync($"community/{postId}")).IsSuccessStatusCode; }
+            catch { return false; }
+        }
+
+        public async Task<bool> EditPostAsync(int postId, string newContent)
+        {
+            try { return (await _http.PutAsJsonAsync($"community/{postId}", new { Content = newContent })).IsSuccessStatusCode; }
+            catch { return false; }
+        }
+
+        // --- Marketplace API ---
+
+    public async Task<List<MarketplaceListing>> GetMarketplaceListingsAsync(string? category = null, string? search = null)
     {
         try
         {
-            var res = await _http.PostAsJsonAsync($"community/{postId}/comments", new 
-            { 
-                UserId = userId,
-                Content = content,
-                ParentCommentId = parentCommentId
-            });
-            return res.IsSuccessStatusCode;
+            var q = new List<string>();
+            if (!string.IsNullOrEmpty(category)) q.Add($"category={Uri.EscapeDataString(category)}");
+            if (!string.IsNullOrEmpty(search)) q.Add($"search={Uri.EscapeDataString(search)}");
+            var qs = q.Count > 0 ? "?" + string.Join("&", q) : "";
+            return await _http.GetFromJsonAsync<List<MarketplaceListing>>($"marketplace{qs}") ?? new List<MarketplaceListing>();
         }
-        catch (Exception ex)
+        catch (Exception ex) { Console.WriteLine($"Marketplace fetch error: {ex.Message}"); return new List<MarketplaceListing>(); }
+    }
+
+    public async Task<List<MarketplaceListing>> GetMyListingsAsync(int userId)
+    {
+        try { return await _http.GetFromJsonAsync<List<MarketplaceListing>>($"marketplace/my/{userId}") ?? new List<MarketplaceListing>(); }
+        catch (Exception ex) { Console.WriteLine($"My listings fetch error: {ex.Message}"); return new List<MarketplaceListing>(); }
+    }
+
+    public async Task<bool> CreateListingAsync(object request)
+    {
+        try { return (await _http.PostAsJsonAsync("marketplace", request)).IsSuccessStatusCode; }
+        catch { return false; }
+    }
+
+    public async Task<bool> EditListingAsync(int id, object request)
+    {
+        try { return (await _http.PutAsJsonAsync($"marketplace/{id}", request)).IsSuccessStatusCode; }
+        catch { return false; }
+    }
+
+    public async Task<bool> DeleteListingAsync(int id, int userId)
+    {
+        try { return (await _http.DeleteAsync($"marketplace/{id}?userId={userId}")).IsSuccessStatusCode; }
+        catch { return false; }
+    }
+        public async Task<bool> DeleteCommentAsync(int commentId)
         {
-            Console.WriteLine($"Error adding comment: {ex.Message}");
-            return false;
+            try { return (await _http.DeleteAsync($"community/comments/{commentId}")).IsSuccessStatusCode; }
+            catch { return false; }
         }
     }
-}
 
-// ── DTOs ──────────────────────────────────────────────────────────────────────
+// DTOs
 
-    public class AuthResponse
+public class AuthResponse
 {
     public int UserId { get; set; }
     public string FullName { get; set; } = string.Empty;
@@ -485,20 +537,6 @@ public class ApiResult<T>
     public static ApiResult<T> Ok(T data) => new() { Success = true, Data = data };
     public static ApiResult<T> Fail(string error) => new() { Success = false, Error = error };
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

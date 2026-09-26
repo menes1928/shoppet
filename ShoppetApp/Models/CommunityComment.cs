@@ -20,6 +20,9 @@ namespace ShoppetApp.Models
         [ObservableProperty]
         private bool _isLikedByMe;
 
+        [ObservableProperty]
+        private bool _canDelete;
+
         // Computed helpers
         public bool IsReply => ParentCommentId.HasValue;
         public bool HasParentQuote => IsReply && !string.IsNullOrEmpty(ParentAuthorName);
@@ -67,6 +70,8 @@ namespace ShoppetApp.Models
         public string Initials => string.IsNullOrWhiteSpace(AuthorName) ? "U" : AuthorName.Substring(0, 1).ToUpper();
     }
 }
+
+
 
 
 

@@ -62,7 +62,11 @@ public static class MauiProgram
         builder.Services.AddTransient<CartViewModel>();
         builder.Services.AddTransient<AppShell>();
         builder.Services.AddTransient<CommunityPage>();
+        builder.Services.AddTransient<PostSettingsPage>();
+        builder.Services.AddTransient<EditPostPage>();
         builder.Services.AddTransient<CommunityViewModel>();
+        builder.Services.AddTransient<PostSettingsViewModel>();
+        builder.Services.AddTransient<EditPostViewModel>();
         builder.Services.AddTransient<CreatePostPage>();
         builder.Services.AddTransient<CreatePostViewModel>();
         builder.Services.AddTransient<PostDetailsPage>();
@@ -71,6 +75,8 @@ public static class MauiProgram
         return builder.Build();
     }
 }
+
+
 
 
 

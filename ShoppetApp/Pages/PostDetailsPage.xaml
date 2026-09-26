@@ -103,10 +103,15 @@
                                             <HorizontalStackLayout Grid.Column="0" Spacing="16" VerticalOptions="Center">
                                                 <Label Text="{Binding TimeAgo}" TextColor="#888888" FontSize="12" VerticalOptions="Center" />
                                                 <Label Text="Reply" TextColor="#888888" FontSize="12" FontFamily="NunitoBold" VerticalOptions="Center">
-                                                    <Label.GestureRecognizers>
-                                                        <TapGestureRecognizer Tapped="OnReplyTapped" />
-                                                    </Label.GestureRecognizers>
-                                                </Label>
+                                                      <Label.GestureRecognizers>
+                                                          <TapGestureRecognizer Tapped="OnReplyTapped" />
+                                                      </Label.GestureRecognizers>
+                                                  </Label>
+                                                  <Label Text="Delete" TextColor="{StaticResource StatusOverdue}" FontSize="12" FontFamily="NunitoBold" VerticalOptions="Center" IsVisible="{Binding CanDelete}">
+                                                      <Label.GestureRecognizers>
+                                                          <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:PostDetailsViewModel}}, Path=DeleteCommentCommand}" CommandParameter="{Binding .}" />
+                                                      </Label.GestureRecognizers>
+                                                  </Label>
                                             </HorizontalStackLayout>
                                             
                                             <!-- Right side: Like Heart and Count -->
@@ -188,6 +193,7 @@
 
 
 </ContentPage>
+
 
 
 

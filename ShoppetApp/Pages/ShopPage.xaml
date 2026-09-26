@@ -1,90 +1,280 @@
-<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:controls="clr-namespace:ShoppetApp.Controls"
+             xmlns:models="clr-namespace:ShoppetApp.Models"
              x:Class="ShoppetApp.Pages.ShopPage"
-             Title="Pet Shops &amp; Supply Hub 🛍️"
-             BackgroundColor="#FAF8F5"
-             Shell.NavBarIsVisible="False">
+             Shell.NavBarIsVisible="False"
+             BackgroundColor="{StaticResource AppBackground}">
 
-    <Grid>
-        <Grid RowDefinitions="*">
-            <ScrollView>
-                <VerticalStackLayout Padding="20" Spacing="15" Margin="0,0,0,80">
+    <Grid RowDefinitions="*">
 
-                    <!-- Header Banner -->
-                    <Frame BackgroundColor="#5C766D" CornerRadius="16" Padding="20" HasShadow="False">
-                        <VerticalStackLayout Spacing="5">
-                            <Label Text="🛍️ Local Pet Supply Directory" TextColor="#F7DD7D" FontSize="12" FontAttributes="Bold"/>
-                            <Label Text="Local Pet Shops &amp; Hybrid Hubs" TextColor="White" FontSize="20" FontAttributes="Bold"/>
-                            <Label Text="Discover pet shops, hybrid veterinary clinics, and authorized stockists across Lipa and Tanauan." TextColor="#E2ECE7" FontSize="13"/>
-                        </VerticalStackLayout>
-                    </Frame>
+        <!-- Main Content -->
+        <Grid RowDefinitions="Auto,Auto,*">
 
-                    <!-- Search Box -->
-                    <Frame BackgroundColor="White" CornerRadius="16" Padding="12" HasShadow="False" BorderColor="#E5E9E6">
-                        <Entry Placeholder="Search shop name, brand, or location..." 
-                               x:Name="SearchEntry" 
-                               TextChanged="OnSearchTextChanged"
-                               BackgroundColor="#FAF8F5" 
-                               TextColor="#1E2824"
-                               PlaceholderColor="#7C8782"
-                               HeightRequest="40"/>
-                    </Frame>
+            <!-- Header -->
+            <Border Grid.Row="0" BackgroundColor="{StaticResource CardBg}" StrokeThickness="0" Padding="16,12,16,0">
+                <VerticalStackLayout Spacing="12">
+                    <HorizontalStackLayout>
+                        <Label Text="Marketplace" FontFamily="NunitoExtraBold" FontSize="26" TextColor="{StaticResource BodyText}" VerticalOptions="Center" HorizontalOptions="FillAndExpand"/>
+                        <Label Text="&#x2315;" FontSize="22" TextColor="{StaticResource BodyText}" VerticalOptions="Center" Margin="0,0,10,0">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnSearchTapped"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </HorizontalStackLayout>
 
-                    <!-- Category Filter Pills -->
-                    <ScrollView Orientation="Horizontal" HorizontalScrollBarVisibility="Never">
-                        <HorizontalStackLayout Spacing="8">
-                            <Button Text="All Hubs" BackgroundColor="#5C766D" TextColor="White" CornerRadius="20" HeightRequest="36" FontSize="12" Clicked="OnFilterAllClicked"/>
-                            <Button Text="🛒 Pet Shops" BackgroundColor="White" TextColor="#1E2824" BorderColor="#E5E9E6" BorderWidth="1" CornerRadius="20" HeightRequest="36" FontSize="12" Clicked="OnFilterShopsClicked"/>
-                            <Button Text="🩺🛒 Hybrid Centers" BackgroundColor="White" TextColor="#1E2824" BorderColor="#E5E9E6" BorderWidth="1" CornerRadius="20" HeightRequest="36" FontSize="12" Clicked="OnFilterHybridsClicked"/>
+                    <!-- Filter Tabs -->
+                    <HorizontalStackLayout Spacing="0">
+                        <Button x:Name="BtnSell" Text="Sell" BackgroundColor="Transparent" TextColor="{StaticResource Primary}" FontFamily="NunitoBold" FontSize="15" Clicked="OnSellTabClicked" Padding="0,6,20,6"/>
+                        <Button x:Name="BtnExplore" Text="Explore" BackgroundColor="{StaticResource Primary}" TextColor="White" FontFamily="NunitoBold" FontSize="15" CornerRadius="20" Clicked="OnExploreTabClicked" Padding="16,6"/>
+                    </HorizontalStackLayout>
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- Search bar (hidden by default) -->
+            <Border x:Name="SearchPanel" Grid.Row="1" BackgroundColor="{StaticResource CardBg}" StrokeThickness="0" Padding="16,8" IsVisible="False">
+                <Border BackgroundColor="{StaticResource AppBackground}" StrokeThickness="1" Stroke="{StaticResource Secondary30}" StrokeShape="RoundRectangle 12" Padding="12,8">
+                    <Entry x:Name="SearchEntry" Placeholder="Search listings..." TextColor="{StaticResource BodyText}" PlaceholderColor="#888" BackgroundColor="Transparent" TextChanged="OnSearchTextChanged"/>
+                </Border>
+            </Border>
+
+            <!-- Content Panel -->
+            <Grid Grid.Row="2">
+
+                <!-- EXPLORE TAB -->
+                <Grid x:Name="ExplorePanel" RowDefinitions="Auto,*">
+                    <!-- Category pills -->
+                    <ScrollView Grid.Row="0" Orientation="Horizontal" HorizontalScrollBarVisibility="Never" Padding="16,8">
+                        <HorizontalStackLayout Spacing="8" x:Name="CategoryPills">
+                            <Button Text="All" x:Name="BtnCatAll" BackgroundColor="{StaticResource Primary}" TextColor="White" CornerRadius="20" HeightRequest="34" FontSize="13" FontFamily="NunitoBold" Clicked="OnCategoryAllClicked" Padding="14,0"/>
+                            <Button Text="Food &amp; Treats" BackgroundColor="{StaticResource CardBg}" TextColor="{StaticResource BodyText}" CornerRadius="20" HeightRequest="34" FontSize="13" Clicked="OnCategoryClicked" CommandParameter="Food &amp; Treats" Padding="14,0"/>
+                            <Button Text="Accessories" BackgroundColor="{StaticResource CardBg}" TextColor="{StaticResource BodyText}" CornerRadius="20" HeightRequest="34" FontSize="13" Clicked="OnCategoryClicked" CommandParameter="Accessories" Padding="14,0"/>
+                            <Button Text="Medicine" BackgroundColor="{StaticResource CardBg}" TextColor="{StaticResource BodyText}" CornerRadius="20" HeightRequest="34" FontSize="13" Clicked="OnCategoryClicked" CommandParameter="Medicine" Padding="14,0"/>
+                            <Button Text="Cage &amp; Beds" BackgroundColor="{StaticResource CardBg}" TextColor="{StaticResource BodyText}" CornerRadius="20" HeightRequest="34" FontSize="13" Clicked="OnCategoryClicked" CommandParameter="Cage &amp; Beds" Padding="14,0"/>
+                            <Button Text="Toys" BackgroundColor="{StaticResource CardBg}" TextColor="{StaticResource BodyText}" CornerRadius="20" HeightRequest="34" FontSize="13" Clicked="OnCategoryClicked" CommandParameter="Toys" Padding="14,0"/>
                         </HorizontalStackLayout>
                     </ScrollView>
 
-                    <Label Text="Accredited Partner Stores" FontAttributes="Bold" TextColor="#1E2824" FontSize="16" Margin="0,10,0,0"/>
+                    <!-- Explore Grid -->
+                    <ScrollView Grid.Row="1">
+                        <VerticalStackLayout Padding="8,0,8,100">
+                            <Label Text="New for you" FontFamily="NunitoBold" FontSize="16" TextColor="{StaticResource BodyText}" Margin="8,8,8,8"/>
+                            <Label x:Name="ExploreEmptyLabel" Text="No listings yet. Be the first to post!" TextColor="#888" HorizontalOptions="Center" Margin="0,40" IsVisible="False"/>
+                            <CollectionView x:Name="ExploreGrid"
+                                            ItemsLayout="VerticalGrid, 2"
+                                            SelectionMode="Single"
+                                            SelectionChanged="OnListingTapped">
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate x:DataType="models:MarketplaceListing">
+                                        <Grid Padding="6">
+                                            <Border BackgroundColor="{StaticResource CardBg}" StrokeThickness="0" StrokeShape="RoundRectangle 12">
+                                                <VerticalStackLayout>
+                                                    <!-- Image -->
+                                                    <Grid HeightRequest="160" BackgroundColor="#E8E8E8">
+                                                        <Image Source="{Binding FirstImage}" Aspect="AspectFill" HeightRequest="160" IsVisible="{Binding HasImages}"/>
+                                                        <Border BackgroundColor="#80000000" StrokeThickness="0" VerticalOptions="End" Padding="6,4">
+                                                            <Label Text="{Binding PriceDisplay}" TextColor="White" FontFamily="NunitoBold" FontSize="14"/>
+                                                        </Border>
+                                                    </Grid>
+                                                    <!-- Info -->
+                                                    <VerticalStackLayout Padding="8,6" Spacing="2">
+                                                        <Label Text="{Binding Title}" TextColor="{StaticResource BodyText}" FontFamily="NunitoBold" FontSize="13" LineBreakMode="TailTruncation" MaxLines="2"/>
+                                                        <Label Text="{Binding SellerName}" TextColor="#888" FontSize="11"/>
+                                                        <Label Text="{Binding TimeAgo}" TextColor="#aaa" FontSize="10"/>
+                                                    </VerticalStackLayout>
+                                                </VerticalStackLayout>
+                                            </Border>
+                                        </Grid>
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+                            </CollectionView>
+                        </VerticalStackLayout>
+                    </ScrollView>
+                </Grid>
 
-                    <!-- Shops Collection View -->
-                    <CollectionView x:Name="ShopsListView">
-                        <CollectionView.ItemTemplate>
-                            <DataTemplate>
-                                <Frame BackgroundColor="White" CornerRadius="16" Padding="15" Margin="0,0,0,10" HasShadow="False" BorderColor="#E5E9E6">
-                                    <VerticalStackLayout Spacing="8">
+                <!-- SELL TAB -->
+                <Grid x:Name="SellPanel" IsVisible="False" RowDefinitions="Auto,*">
+                    <!-- Post button -->
+                    <Border Grid.Row="0" BackgroundColor="{StaticResource CardBg}" StrokeThickness="0" Padding="16,10">
+                        <Button Text="+ Post a Pet Item" BackgroundColor="{StaticResource Primary}" TextColor="White" FontFamily="NunitoBold" FontSize="15" CornerRadius="12" HeightRequest="48" Clicked="OnPostItemClicked"/>
+                    </Border>
 
-                                        <HorizontalStackLayout Spacing="8" VerticalOptions="Center">
-                                            <Label Text="{Binding StoreBadge}" TextColor="#8C6D00" FontSize="11" FontAttributes="Bold"/>
-                                            <Label Text="{Binding StoreName}" FontAttributes="Bold" TextColor="#1E2824" FontSize="16"/>
-                                        </HorizontalStackLayout>
-
-                                        <Label Text="{Binding Location, StringFormat='📍 {0}'}" TextColor="#7C8782" FontSize="13"/>
-                                        <Label Text="{Binding Hours, StringFormat='🕒 {0}'}" TextColor="#58655F" FontSize="12"/>
-
-                                        <Frame BackgroundColor="#FAF8F5" CornerRadius="8" Padding="10" HasShadow="False">
-                                            <VerticalStackLayout Spacing="3">
-                                                <Label Text="Authorized Brands Carried:" FontAttributes="Bold" TextColor="#1E2824" FontSize="11"/>
-                                                <Label Text="{Binding Brands}" TextColor="#58655F" FontSize="12"/>
+                    <!-- My Listings -->
+                    <ScrollView Grid.Row="1">
+                        <VerticalStackLayout Padding="16,8,16,100" Spacing="12">
+                            <Label Text="Your Listings" FontFamily="NunitoBold" FontSize="16" TextColor="{StaticResource BodyText}"/>
+                            <Label x:Name="SellEmptyLabel" Text="You have no listings yet. Tap '+ Post a Pet Item' to start selling!" TextColor="#888" HorizontalOptions="Center" IsVisible="False" HorizontalTextAlignment="Center" Margin="0,30"/>
+                            <VerticalStackLayout x:Name="MyListingsContainer" Spacing="12" BindableLayout.ItemsSource="{Binding MyListings}">
+                                <BindableLayout.ItemTemplate>
+                                    <DataTemplate x:DataType="models:MarketplaceListing">
+                                        <Border BackgroundColor="{StaticResource CardBg}" Stroke="{StaticResource Secondary30}" StrokeThickness="1" StrokeShape="RoundRectangle 16" Padding="0,0,0,12">
+                                            <VerticalStackLayout Spacing="0">
+                                                <!-- Image -->
+                                                <Grid HeightRequest="200" BackgroundColor="#E8E8E8">
+                                                    <Image Source="{Binding FirstImage}" Aspect="AspectFill" HeightRequest="200" IsVisible="{Binding HasImages}"/>
+                                                    </Grid>
+                                                <!-- Content -->
+                                                <VerticalStackLayout Padding="12,10" Spacing="4">
+                                                    <Grid ColumnDefinitions="*,Auto">
+                                                        <Label Grid.Column="0" Text="{Binding Title}" TextColor="{StaticResource BodyText}" FontFamily="NunitoBold" FontSize="16"/>
+                                                        <Label Grid.Column="1" Text="{Binding PriceDisplay}" TextColor="{StaticResource Primary}" FontFamily="NunitoBold" FontSize="15"/>
+                                                    </Grid>
+                                                    <Label Text="{Binding Category}" TextColor="#888" FontSize="12"/>
+                                                    <Label Text="{Binding Description}" TextColor="{StaticResource BodyText}" FontSize="13" LineBreakMode="TailTruncation" MaxLines="2"/>
+                                                </VerticalStackLayout>
+                                                <!-- Actions -->
+                                                <Grid ColumnDefinitions="*,*" Padding="12,0">
+                                                    <Button Grid.Column="0" Text="Edit" BackgroundColor="{StaticResource CardBg}" TextColor="{StaticResource Primary}" BorderColor="{StaticResource Primary}" BorderWidth="1" CornerRadius="8" FontFamily="NunitoBold" Clicked="OnEditListingClicked" CommandParameter="{Binding .}"/>
+                                                    <Button Grid.Column="1" Text="Delete" BackgroundColor="{StaticResource CardBg}" TextColor="{StaticResource StatusOverdue}" BorderColor="{StaticResource StatusOverdue}" BorderWidth="1" CornerRadius="8" FontFamily="NunitoBold" Margin="8,0,0,0" Clicked="OnDeleteListingClicked" CommandParameter="{Binding .}"/>
+                                                </Grid>
                                             </VerticalStackLayout>
-                                        </Frame>
-
-                                        <Button Text="💬 Message Store Page" 
-                                                BackgroundColor="#F7DD7D" 
-                                                TextColor="#16241F" 
-                                                FontAttributes="Bold" 
-                                                CornerRadius="12" 
-                                                Clicked="OnMessageStoreClicked"
-                                                CommandParameter="{Binding MessengerLink}"
-                                                Margin="0,5,0,0"/>
-                                    </VerticalStackLayout>
-                                </Frame>
-                            </DataTemplate>
-                        </CollectionView.ItemTemplate>
-                    </CollectionView>
-
-                </VerticalStackLayout>
-            </ScrollView>
+                                        </Border>
+                                    </DataTemplate>
+                                </BindableLayout.ItemTemplate>
+                            </VerticalStackLayout>
+                        </VerticalStackLayout>
+                    </ScrollView>
+                </Grid>
+            </Grid>
         </Grid>
 
-        <!-- Floating Tab Bar Fixed at Bottom -->
-        <controls:FloatingTabBar SelectedTab="shop"
-                                 VerticalOptions="End" />
+        <!-- Floating Tab Bar -->
+        <controls:FloatingTabBar SelectedTab="shop" VerticalOptions="End"/>
+
+        <!-- Listing Detail Modal -->
+        <Grid x:Name="DetailModal" IsVisible="False" BackgroundColor="#99000000">
+            <Grid.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnDismissModal"/>
+            </Grid.GestureRecognizers>
+            <Border BackgroundColor="{StaticResource CardBg}" StrokeThickness="0" StrokeShape="RoundRectangle 20"
+                    Margin="16,60" VerticalOptions="Center" HorizontalOptions="Fill">
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnModalBodyTapped"/>
+                </Border.GestureRecognizers>
+                <ScrollView MaximumHeightRequest="600">
+                    <VerticalStackLayout Spacing="0">
+                        <!-- Images carousel placeholder -->
+                        <Grid x:Name="DetailImageContainer" HeightRequest="240" BackgroundColor="#E8E8E8">
+                            <Image x:Name="DetailImage" Aspect="AspectFill" HeightRequest="240"/>
+                            </Grid>
+                        <!-- Details -->
+                        <VerticalStackLayout Padding="16" Spacing="8">
+                            <Grid ColumnDefinitions="*,Auto">
+                                <Label x:Name="DetailTitle" Grid.Column="0" TextColor="{StaticResource BodyText}" FontFamily="NunitoBold" FontSize="20"/>
+                                <Label x:Name="DetailPrice" Grid.Column="1" TextColor="{StaticResource Primary}" FontFamily="NunitoBold" FontSize="20"/>
+                            </Grid>
+                            <HorizontalStackLayout Spacing="8">
+                                <Label x:Name="DetailCategory" TextColor="#888" FontSize="13"/>
+                                <Label Text="|" TextColor="#ddd"/>
+                                <Label x:Name="DetailCondition" TextColor="#888" FontSize="13"/>
+                            </HorizontalStackLayout>
+                            <BoxView HeightRequest="1" Color="{StaticResource Secondary30}" Margin="0,4"/>
+                            <Label Text="Description" FontFamily="NunitoBold" FontSize="14" TextColor="{StaticResource BodyText}"/>
+                            <Label x:Name="DetailDescription" TextColor="{StaticResource BodyText}" FontSize="14"/>
+                            <BoxView HeightRequest="1" Color="{StaticResource Secondary30}" Margin="0,4"/>
+                            <HorizontalStackLayout Spacing="10">
+                                <Border WidthRequest="36" HeightRequest="36" BackgroundColor="{StaticResource Secondary}" StrokeShape="RoundRectangle 18" StrokeThickness="0">
+                                    <Label x:Name="DetailSellerInitial" TextColor="White" HorizontalOptions="Center" VerticalOptions="Center" FontFamily="NunitoBold" FontSize="16"/>
+                                </Border>
+                                <VerticalStackLayout VerticalOptions="Center">
+                                    <Label x:Name="DetailSellerName" TextColor="{StaticResource BodyText}" FontFamily="NunitoBold" FontSize="14"/>
+                                    <Label x:Name="DetailLocation" TextColor="#888" FontSize="12"/>
+                                </VerticalStackLayout>
+                            </HorizontalStackLayout>
+                            <Label x:Name="DetailTime" TextColor="#aaa" FontSize="11"/>
+                            <Button Text="Close" BackgroundColor="{StaticResource Primary}" TextColor="White" CornerRadius="10" FontFamily="NunitoBold" Margin="0,8,0,0" Clicked="OnDismissModal"/>
+                        </VerticalStackLayout>
+                    </VerticalStackLayout>
+                </ScrollView>
+            </Border>
+        </Grid>
+
+        <!-- Create/Edit Listing Modal -->
+        <Grid x:Name="PostModal" IsVisible="False" BackgroundColor="#99000000">
+            <Border BackgroundColor="{StaticResource CardBg}" StrokeThickness="0" StrokeShape="RoundRectangle 20"
+                    Margin="16,80" VerticalOptions="Center" HorizontalOptions="Fill">
+                <ScrollView MaximumHeightRequest="580">
+                    <VerticalStackLayout Padding="20" Spacing="14">
+                        <Label x:Name="PostModalTitle" Text="Post a Pet Item" FontFamily="NunitoBold" FontSize="20" TextColor="{StaticResource BodyText}"/>
+
+                        <Label Text="Title *" TextColor="{StaticResource BodyText}" FontSize="13"/>
+                        <Border BackgroundColor="{StaticResource AppBackground}" Stroke="{StaticResource Secondary30}" StrokeThickness="1" StrokeShape="RoundRectangle 10" Padding="12,8">
+                            <Entry x:Name="EntryTitle" Placeholder="e.g. Royal Canin Dog Food 2kg" TextColor="{StaticResource BodyText}" BackgroundColor="Transparent"/>
+                        </Border>
+
+                        <Label Text="Price (PHP) *" TextColor="{StaticResource BodyText}" FontSize="13"/>
+                        <Border BackgroundColor="{StaticResource AppBackground}" Stroke="{StaticResource Secondary30}" StrokeThickness="1" StrokeShape="RoundRectangle 10" Padding="12,8">
+                            <Entry x:Name="EntryPrice" Placeholder="0.00" Keyboard="Numeric" TextColor="{StaticResource BodyText}" BackgroundColor="Transparent"/>
+                        </Border>
+
+                        <Label Text="Category" TextColor="{StaticResource BodyText}" FontSize="13"/>
+                        <Border BackgroundColor="{StaticResource AppBackground}" Stroke="{StaticResource Secondary30}" StrokeThickness="1" StrokeShape="RoundRectangle 10" Padding="4,0">
+                            <Picker x:Name="PickerCategory" TextColor="{StaticResource BodyText}" BackgroundColor="Transparent">
+                                <Picker.Items>
+                                    <x:String>General</x:String>
+                                    <x:String>Food &amp; Treats</x:String>
+                                    <x:String>Accessories</x:String>
+                                    <x:String>Medicine</x:String>
+                                    <x:String>Cage &amp; Beds</x:String>
+                                    <x:String>Toys</x:String>
+                                    <x:String>Grooming</x:String>
+                                    <x:String>Other</x:String>
+                                </Picker.Items>
+                            </Picker>
+                        </Border>
+
+                        <Label Text="Condition" TextColor="{StaticResource BodyText}" FontSize="13"/>
+                        <Border BackgroundColor="{StaticResource AppBackground}" Stroke="{StaticResource Secondary30}" StrokeThickness="1" StrokeShape="RoundRectangle 10" Padding="4,0">
+                            <Picker x:Name="PickerCondition" TextColor="{StaticResource BodyText}" BackgroundColor="Transparent">
+                                <Picker.Items>
+                                    <x:String>Brand New</x:String>
+                                    <x:String>Like New</x:String>
+                                    <x:String>Good</x:String>
+                                    <x:String>Used</x:String>
+                                </Picker.Items>
+                            </Picker>
+                        </Border>
+
+                        <Label Text="Location" TextColor="{StaticResource BodyText}" FontSize="13"/>
+                        <Border BackgroundColor="{StaticResource AppBackground}" Stroke="{StaticResource Secondary30}" StrokeThickness="1" StrokeShape="RoundRectangle 10" Padding="12,8">
+                            <Entry x:Name="EntryLocation" Placeholder="e.g. Lipa City, Batangas" TextColor="{StaticResource BodyText}" BackgroundColor="Transparent"/>
+                        </Border>
+
+                        <Label Text="Description *" TextColor="{StaticResource BodyText}" FontSize="13"/>
+                        <Border BackgroundColor="{StaticResource AppBackground}" Stroke="{StaticResource Secondary30}" StrokeThickness="1" StrokeShape="RoundRectangle 10" Padding="12,8">
+                            <Editor x:Name="EditorDescription" Placeholder="Describe your item..." TextColor="{StaticResource BodyText}" BackgroundColor="Transparent" HeightRequest="80" AutoSize="TextChanges"/>
+                        </Border>
+
+                        <Label Text="Photos (optional, max 5)" TextColor="{StaticResource BodyText}" FontSize="13"/>
+                        <Button x:Name="BtnPickPhoto" Text="&#x1F4F7;  Pick Photos" BackgroundColor="{StaticResource AppBackground}" TextColor="{StaticResource Primary}" BorderColor="{StaticResource Primary}" BorderWidth="1" CornerRadius="10" FontFamily="NunitoBold" FontSize="14" HeightRequest="44" Clicked="OnPickPhotoClicked"/>
+                        <CollectionView x:Name="PickedPhotosView" ItemsLayout="HorizontalList" HeightRequest="90" IsVisible="False">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid WidthRequest="80" HeightRequest="80" Margin="4,4">
+                                        <Image Source="{Binding .}" Aspect="AspectFill" HeightRequest="80" WidthRequest="80"/>
+                                        <Border BackgroundColor="#CC000000" StrokeThickness="0" WidthRequest="22" HeightRequest="22" StrokeShape="RoundRectangle 11" HorizontalOptions="End" VerticalOptions="Start" Margin="0,2,2,0">
+                                            <Label Text="x" TextColor="White" FontSize="12" HorizontalOptions="Center" VerticalOptions="Center" FontFamily="NunitoBold">
+                                                <Label.GestureRecognizers>
+                                                    <TapGestureRecognizer Tapped="OnRemovePickedPhoto" CommandParameter="{Binding .}"/>
+                                                </Label.GestureRecognizers>
+                                            </Label>
+                                        </Border>
+                                    </Grid>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+
+                        <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
+                            <Button Grid.Column="0" Text="Cancel" BackgroundColor="{StaticResource CardBg}" TextColor="{StaticResource BodyText}" BorderColor="{StaticResource Secondary30}" BorderWidth="1" CornerRadius="10" FontFamily="NunitoBold" Clicked="OnCancelPostClicked"/>
+                            <Button Grid.Column="1" Text="Post" BackgroundColor="{StaticResource Primary}" TextColor="White" CornerRadius="10" FontFamily="NunitoBold" Clicked="OnSaveListingClicked"/>
+                        </Grid>
+                    </VerticalStackLayout>
+                </ScrollView>
+            </Border>
+        </Grid>
+
     </Grid>
 </ContentPage>
+
+

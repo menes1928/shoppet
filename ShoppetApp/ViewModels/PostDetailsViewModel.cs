@@ -70,6 +70,9 @@ namespace ShoppetApp.ViewModels
                 var data = await _api.GetCommentsAsync(Post.Id);
                 
                 var dict = data.ToDictionary(c => c.Id);
+                int currentUserId = _db.CurrentUser?.Id ?? 0;
+                bool isPostOwner = Post.UserId == currentUserId;
+                foreach(var c in data) c.CanDelete = isPostOwner || c.UserId == currentUserId;
                 var roots = new List<CommunityComment>();
                 
                 foreach (var c in data)
@@ -192,6 +195,25 @@ namespace ShoppetApp.ViewModels
         }
 
         [RelayCommand]
+        private async Task DeleteCommentAsync(CommunityComment comment)
+        {
+            if (comment == null) return;
+            bool confirm = await Shell.Current.DisplayAlert("Delete Comment", "Are you sure you want to delete this comment?", "Yes", "No");
+            if (!confirm) return;
+
+            var success = await _api.DeleteCommentAsync(comment.Id);
+            if (success)
+            {
+                Post.CommentsCount--;
+                await LoadCommentsAsync();
+            }
+            else
+            {
+                await Shell.Current.DisplayAlert("Error", "Failed to delete comment.", "OK");
+            }
+        }
+
+        [RelayCommand]
         private void HideReplies(CommunityComment anchor)
         {
             var root = anchor.TopLevelParent ?? anchor;
@@ -282,6 +304,7 @@ namespace ShoppetApp.ViewModels
         }
     }
 }
+
 
 
 

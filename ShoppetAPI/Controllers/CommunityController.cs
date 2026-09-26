@@ -199,11 +199,67 @@ namespace ShoppetAPI.Controllers
             }
             catch (Exception ex) { return StatusCode(500, $"Error toggling comment like: {ex.Message}"); }
         }
+
+        [HttpDelete("{postId}")]
+        public async Task<IActionResult> DeletePost(int postId)
+        {
+            try
+            {
+                string conn = _configuration.GetConnectionString("DefaultConnection")!; using var connection = new MySqlConnection(conn);
+                await connection.OpenAsync();
+                
+                using var cmd = new MySqlCommand("DELETE FROM communityposts WHERE Id = @Id", connection);
+                cmd.Parameters.AddWithValue("@Id", postId);
+                var rows = await cmd.ExecuteNonQueryAsync();
+                if (rows == 0) return NotFound();
+                return Ok(new { success = true });
+            }
+            catch (Exception ex) { return StatusCode(500, $"Error deleting post: {ex.Message}"); }
+        }
+
+        [HttpPut("{postId}")]
+        public async Task<IActionResult> EditPost(int postId, [FromBody] EditPostRequest request)
+        {
+            try
+            {
+                string conn = _configuration.GetConnectionString("DefaultConnection")!; using var connection = new MySqlConnection(conn);
+                await connection.OpenAsync();
+                
+                using var cmd = new MySqlCommand("UPDATE communityposts SET Content = @Content, IsEdited = 1 WHERE Id = @Id", connection);
+                cmd.Parameters.AddWithValue("@Id", postId);
+                cmd.Parameters.AddWithValue("@Content", request.Content);
+                var rows = await cmd.ExecuteNonQueryAsync();
+                if (rows == 0) return NotFound();
+                return Ok(new { success = true });
+            }
+            catch (Exception ex) { return StatusCode(500, $"Error editing post: {ex.Message}"); }
+        }
+
+        [HttpDelete("comments/{commentId}")]
+        public async Task<IActionResult> DeleteComment(int commentId)
+        {
+            try
+            {
+                string conn = _configuration.GetConnectionString("DefaultConnection")!; using var connection = new MySqlConnection(conn);
+                await connection.OpenAsync();
+                
+                // Usually deleting a parent comment should cascade replies, this depends on DB schema
+                using var cmd = new MySqlCommand("DELETE FROM communitycomments WHERE Id = @Id OR ParentCommentId = @Id", connection);
+                cmd.Parameters.AddWithValue("@Id", commentId);
+                var rows = await cmd.ExecuteNonQueryAsync();
+                if (rows == 0) return NotFound();
+                return Ok(new { success = true });
+            }
+            catch (Exception ex) { return StatusCode(500, $"Error deleting comment: {ex.Message}"); }
+        }
     }
 
+    public class EditPostRequest { public string Content { get; set; } = string.Empty; }
     public class CreatePostRequest { public int UserId { get; set; } public int? PetId { get; set; } public string AuthorName { get; set; } = string.Empty; public string PetName { get; set; } = string.Empty; public string Content { get; set; } = string.Empty; public string? ImageUrls { get; set; } }
     public class AddCommentRequest { public int UserId { get; set; } public int? ParentCommentId { get; set; } public string Content { get; set; } = string.Empty; }
     public class LikeRequest { public int UserId { get; set; } }
 }
+
+
 
 

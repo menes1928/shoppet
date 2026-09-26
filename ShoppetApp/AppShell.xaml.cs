@@ -16,8 +16,12 @@ public partial class AppShell : Shell
         Routing.RegisterRoute("foodlogform", typeof(FoodLogFormPage));
         Routing.RegisterRoute("community", typeof(CommunityPage));
         Routing.RegisterRoute("CreatePostPage", typeof(CreatePostPage));
-        Routing.RegisterRoute("PostDetailsPage", typeof(PostDetailsPage)); // Replace with your actual Community page namespace and class name
+        Routing.RegisterRoute("PostDetailsPage", typeof(PostDetailsPage));
+            Routing.RegisterRoute("PostSettingsPage", typeof(PostSettingsPage));
+        Routing.RegisterRoute("EditPostPage", typeof(EditPostPage)); // Replace with your actual Community page namespace and class name
     }
 }
+
+
 
 

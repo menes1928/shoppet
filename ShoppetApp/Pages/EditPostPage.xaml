@@ -1,0 +1,150 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:ShoppetApp.ViewModels"
+             x:Class="ShoppetApp.Pages.EditPostPage"
+             x:DataType="vm:EditPostViewModel"
+             Shell.NavBarIsVisible="False"
+             BackgroundColor="{StaticResource AppBackground}">
+    <Grid RowDefinitions="Auto, *, Auto">
+        
+        <!-- Header -->
+        <Border Grid.Row="0" BackgroundColor="{StaticResource AppBackground}" StrokeThickness="0" Padding="15,10">
+            <HorizontalStackLayout Spacing="10">
+                <Label Text="&#x25C0; Back" TextColor="{StaticResource Primary}" FontFamily="NunitoBold" FontSize="16" VerticalOptions="Center">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding GoBackCommand}" />
+                    </Label.GestureRecognizers>
+                </Label>
+                <Label Text="Edit Post" TextColor="{StaticResource SecondaryFg}" FontFamily="NunitoExtraBold" FontSize="18" VerticalOptions="Center" Margin="10,0,0,0"/>
+            </HorizontalStackLayout>
+        </Border>
+
+        <!-- Main Content -->
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout Padding="15" Spacing="15">
+                <HorizontalStackLayout Spacing="10" VerticalOptions="Start">
+                    <Border WidthRequest="40" HeightRequest="40" BackgroundColor="{StaticResource Secondary}" StrokeShape="RoundRectangle 20" StrokeThickness="0">
+                        <Label Text="{Binding PostToEdit.Initials}" TextColor="White" HorizontalOptions="Center" VerticalOptions="Center" FontSize="16" FontFamily="NunitoBold" />
+                    </Border>
+                    <VerticalStackLayout VerticalOptions="Center" Spacing="2">
+                        <Label Text="{Binding PostToEdit.AuthorName}" TextColor="{StaticResource BodyText}" FontFamily="NunitoBold" FontSize="16" />
+                        
+                        <HorizontalStackLayout Spacing="5">
+                            <Label Text="is with" TextColor="#666666" FontSize="12" IsVisible="{Binding SelectedPets.Count, Converter={StaticResource IntToBoolConverter}}" />
+                            <HorizontalStackLayout Spacing="5">
+                                <BindableLayout.ItemsSource>
+                                <Binding Path="SelectedPets" />
+                            </BindableLayout.ItemsSource>
+                            <BindableLayout.ItemTemplate>
+                                <DataTemplate>
+                                    <Border Padding="10,5" StrokeShape="RoundRectangle 10" Stroke="{StaticResource Secondary30}" BackgroundColor="{StaticResource Secondary30}" >
+                                        <Label Text="{Binding Name}" TextColor="{StaticResource BodyText}" FontSize="12" />
+                                    </Border>
+                                </DataTemplate>
+                            </BindableLayout.ItemTemplate>
+                            </HorizontalStackLayout>
+                            
+                            <!-- Dotted Add Pet Button -->
+                            <Border StrokeShape="RoundRectangle 10" Stroke="{StaticResource Secondary}" StrokeDashArray="5,5" StrokeThickness="1" BackgroundColor="Transparent" Padding="10,5" >
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding OpenPetModalCommand}" />
+                                </Border.GestureRecognizers>
+                                <Label Text="Add Pet" TextColor="#888888" FontSize="12" />
+                            </Border>
+                        </HorizontalStackLayout>
+                    </VerticalStackLayout>
+                </HorizontalStackLayout>
+
+                <Editor Placeholder="What's on your mind?" 
+                        PlaceholderColor="#888888" 
+                        TextColor="{StaticResource BodyText}" 
+                        Text="{Binding Content}" 
+                        BackgroundColor="Transparent"
+                        AutoSize="TextChanges" 
+                        MinimumHeightRequest="150" />
+                        
+                <CollectionView ItemsSource="{Binding AttachedMedia}" HeightRequest="120" Margin="0,10,0,0">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Horizontal" ItemSpacing="10" />
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid WidthRequest="100" HeightRequest="100" Margin="0,5">
+                                <RoundRectangle CornerRadius="10" Fill="#222222" />
+                                
+                                <!-- Image Preview -->
+                                <Image Source="{Binding FilePath}" Aspect="AspectFill" IsVisible="{Binding IsImage}">
+                                    <Image.Clip>
+                                        <RoundRectangleGeometry CornerRadius="10" Rect="0,0,100,100" />
+                                    </Image.Clip>
+                                </Image>
+                                
+                                <!-- Remove Button -->
+                                <Border BackgroundColor="#DD000000" WidthRequest="24" HeightRequest="24" 
+                                        StrokeShape="RoundRectangle 12" StrokeThickness="0"
+                                        HorizontalOptions="End" VerticalOptions="Start" Margin="5">
+                                    <Label Text="&#x2715;" TextColor="White" HorizontalOptions="Center" VerticalOptions="Center" FontSize="12" FontFamily="NunitoBold">
+                                        <Label.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:EditPostViewModel}}, Path=RemoveMediaCommand}" CommandParameter="{Binding .}" />
+                                        </Label.GestureRecognizers>
+                                    </Label>
+                                </Border>
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <!-- Bottom Action Bar -->
+        <Grid Grid.Row="2" ColumnDefinitions="Auto, *, Auto" Padding="15,10,15,20" BackgroundColor="{StaticResource CardBg}">
+            <!-- Cannot add photo in edit mode -->
+            
+            <Button Grid.Column="2" Text="Save" 
+                    BackgroundColor="{StaticResource Primary}" 
+                    TextColor="White" 
+                    FontFamily="NunitoBold" 
+                    CornerRadius="10" 
+                    Padding="20,5"
+                    HeightRequest="40"
+                    Command="{Binding SaveCommand}" />
+        </Grid>
+
+        <!-- Modal Overlay -->
+        <Grid Grid.RowSpan="3" BackgroundColor="#80000000" IsVisible="{Binding IsPetModalVisible}" ZIndex="10">
+            <Border BackgroundColor="{StaticResource CardBg}" VerticalOptions="Center" HorizontalOptions="Center" WidthRequest="300" StrokeShape="RoundRectangle 20" Padding="20">
+                <VerticalStackLayout Spacing="15">
+                    <Label Text="Select Pets" FontFamily="NunitoBold" FontSize="18" TextColor="{StaticResource BodyText}" HorizontalOptions="Center" />
+                    
+                    <CollectionView ItemsSource="{Binding MyPets}" SelectedItems="{Binding SelectedPets}" SelectionMode="Multiple" HeightRequest="200">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Padding="10">
+                                    <VisualStateManager.VisualStateGroups>
+                                        <VisualStateGroup Name="CommonStates">
+                                            <VisualState Name="Normal">
+                                                <VisualState.Setters>
+                                                    <Setter Property="BackgroundColor" Value="Transparent" />
+                                                </VisualState.Setters>
+                                            </VisualState>
+                                            <VisualState Name="Selected">
+                                                <VisualState.Setters>
+                                                    <Setter Property="BackgroundColor" Value="{StaticResource Secondary30}" />
+                                                </VisualState.Setters>
+                                            </VisualState>
+                                        </VisualStateGroup>
+                                    </VisualStateManager.VisualStateGroups>
+                                    <Label Text="{Binding Name}" TextColor="{StaticResource BodyText}" VerticalOptions="Center" />
+                                </Grid>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+
+                    <Button Text="Done" Command="{Binding ClosePetModalCommand}" BackgroundColor="{StaticResource Primary}" TextColor="White" CornerRadius="10" />
+                </VerticalStackLayout>
+            </Border>
+        </Grid>
+
+    </Grid>
+</ContentPage>
